@@ -15,8 +15,8 @@
                             <label for="title_selector" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
                             <div class="col-md-6">
-                                <input type="text" name="title" id="title" hidden value="Miss">
-                                <select id="title_selector" type="text" class="form-control @error('first_name') is-invalid @enderror" required autocomplete="title" autofocus>
+                                <input type="text" name="title" id="title" value="Miss" hidden>
+                                <select id="won" type="text" class="form-control @error('first_name') is-invalid @enderror" required autocomplete="title" autofocus>
                                     <option selected value="Miss">Miss</option>
                                     <option value="Mrs">Mrs</option>
                                     <option value="Ms">Ms</option>
@@ -126,9 +126,11 @@
 @endsection
 @section('addedJS')
 <script>
-    $('#title_selector').change(function(){
-        title = $(this).val();
-        $('#title').val(title);
+    $(document).ready(function() {  
+        $('#won').change(function(){
+            role = $(this).val();
+            $('#title').val(role);       
+        });
     });
 </script>
 @endsection
