@@ -6,7 +6,8 @@ This project is my individual project for my final year assignment at university
 
 ## Packages Used
 
-[Sweet Alerts](https://github.com/realrashid/sweet-alert)
+[<img src="https://github.com/realrashid/sweet-alert/raw/master/docs/imgs/logo/logo.png" width="150">](https://github.com/realrashid/sweet-alert)
+
 
 ## Credits
 
