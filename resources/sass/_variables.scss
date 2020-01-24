@@ -1,19 +1,18 @@
-// Body
-$body-bg: #f8fafc;
-
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$font-family: 'Montserrat', sans-serif;
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+
+$bg-colour: #EDF2F4;
+$text-colour: #2B2D42;
+$primary: #73A9C5;
+$primary-hover: #4EFFEF;
+$sidebar-primary: #2B303A;
+$sidebar-active: #3EB2D6;
+
+
+// Body
+.wrapper{
+    background-color: #EDF2F4;
+    color: #292F36;
+}

@@ -24,10 +24,27 @@
         @include('layouts.partials.sidebar')
         <div id="content">
             @include('layouts.partials.navbar')
-            <main class="py-4">
-                @include('sweetalert::alert')
-                @yield('content')
-            </main>
+            
+            @include('sweetalert::alert')
+
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <div class="d-flex">
+                        <div>
+                            @yield('greeting')
+                        </div>
+                        <div class="ml-auto">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">@yield('breadcrumb-title')</a></li>
+                                    <li class="breadcrumb-item"><a href="#">@yield('breadcrumb') </a></li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @yield('content')
         </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
