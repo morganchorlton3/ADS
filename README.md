@@ -8,6 +8,7 @@ This project is my individual project for my final year assignment at university
 
 [<img src="https://github.com/realrashid/sweet-alert/raw/master/docs/imgs/logo/logo.png" width="150">](https://github.com/realrashid/sweet-alert)
 
+[<img src="http://image.intervention.io/img/intervention.svg" width="150">](https://github.com/Intervention/image)
 
 ## Credits
 

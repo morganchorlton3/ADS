@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $users = User::with('address')->get();
 
-        return view('admin.index')->with('users', User::paginate(5));
+        return view('admin.users.index')->with('users', User::paginate(5));
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
         //Roles
         $roles = Role::all();
         
-        return view('admin.edit')->with([
+        return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles
         ]);

@@ -8,25 +8,19 @@
 
 @section('content')
 <div class="table100 ver2 m-b-110">
-    <div class="table100-head">
-        <table>
-            <thead>
-                <tr class="row100 head">
-                    <th class="cell100 column1">#</th>
-                    <th class="cell100 column2">First Name</th>
-                    <th class="cell100 column3">last Name</th>
-                    <th class="cell100 column4">Email</th>
-                    <th class="cell100 column5">Address</th>
-                    <th class="cell100 column6">Action</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    
-    <div class="table100-body js-pscroll">
-        <table>
-            <tbody>
-                @foreach($users as $user)
+    <table class="table">
+        <thead>
+            <tr class="row100 head">
+                <th class="cell100 column1">#</th>
+                <th class="cell100 column2">First Name</th>
+                <th class="cell100 column3">last Name</th>
+                <th class="cell100 column4">Email</th>
+                <th class="cell100 column5">Address</th>
+                <th class="cell100 column6">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($users as $user)
                 <tr class="row100 body">
                     <td class="cell100 column1">{{ $user->id }}</td>
                     <td class="cell100 column2">{{ $user->first_name }}</td>
@@ -49,10 +43,9 @@
                         </a>
                     </td>
                 </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
     <div class="row">
         <div class="col-lg-12 mt-4 mb-4">
             <div class="d-flex justify-content-center">

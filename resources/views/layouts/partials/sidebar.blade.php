@@ -15,27 +15,21 @@
                 Orders
             </a>
         </li>
-            <!-- Drop Down 
         <li>
-            <a href="#">
-                <i class="fas fa-briefcase"></i>
-                About
-            </a>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-copy"></i>
-                Pages
+                Products
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="{{ route('admin.products.create') }}">Create</a>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
+                    <a href="#">Modify</a>
                 </li>
                 <li>
-                    <a href="#">Page 3</a>
+                    <a href="#">Search</a>
                 </li>
             </ul>
-        </li>-->
+        </li>
     </ul>
 </nav>

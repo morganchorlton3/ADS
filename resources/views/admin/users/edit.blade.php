@@ -1,5 +1,11 @@
 @extends('layouts.dashboard')
 
+@section('title', 'Edit User')
+
+@section('breadcrumb-title', 'Dashboard')
+
+@section('breadcrumb', 'Edit user')
+
 @section('content')
 <div class="row h-300">
     <div class="col-lg-8">
