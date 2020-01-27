@@ -21,9 +21,9 @@
 </head>
 <body>
     <div class="wrapper">
-        @include('layouts.partials.sidebar')
+        @include('layouts.partials.dashboard.sidebar')
         <div id="content">
-            @include('layouts.partials.navbar')
+            @include('layouts.partials.dashboard.navbar')
             
             @include('sweetalert::alert')
 

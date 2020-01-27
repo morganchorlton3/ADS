@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach($products as $product)
                             <tr>
-                                <th scope="row"><img src="{{ asset('ProductImages/' . $product->slug . '/' . $product->slug . '.jpeg') }}" ></th>
+                                <th scope="row"><img src="{{ asset('ProductImages/' . $product->barcode . '/1.jpeg') }}" ></th>
                                 <th>{{ $product->id }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>

@@ -20,14 +20,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="wrapper">
-        @include('layouts.partials.sidebar')
-        <div id="content">
-            @include('layouts.partials.navbar')
-            <main class="py-4">
-                @include('sweetalert::alert')
-                @yield('content')
-            </main>
+    @include('layouts.partials.navbar')
+    @include('sweetalert::alert')
+    <div class="container" style="margin-top: 7vh">
+
+        <div class="row">
+            @yield('sidebar')
+            @yield('content')
         </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
