@@ -6,10 +6,10 @@
 
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
 // Font Awesome
-@import '~font-awesome/css/font-awesome.min.css';
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 //navbar
 @import 'partials/navbar';

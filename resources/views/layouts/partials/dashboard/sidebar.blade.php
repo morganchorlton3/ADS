@@ -31,5 +31,10 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="{{ route('admin.category.index') }}">
+                Categories
+            </a>
+        </li>
     </ul>
 </nav>

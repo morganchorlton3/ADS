@@ -15,4 +15,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('users', 'UserController', ['except' => ['show', 'create', 'store']]);
     Route::resource('products', 'ProductController', ['except' => ['show', 'store']]);
     Route::post('product.upload', 'ProductController@newProduct')->name('product.new');
+    //Categories
+    Route::get('categories', 'CategoryController@index')->name('category.index');
+    Route::get('categories/create', 'CategoryController@new')->name('category.create');
+    Route::post('categories/create', 'CategoryController@create')->name('category.create');
+    Route::post('categories/update', 'CategoryController@update')->name('category.update');
+    Route::delete('/categories', 'CategoryController@destroy')->name('category.destroy');
 });

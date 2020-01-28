@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.0.0",
+        "bootstrap": "^4.4.1",
         "cross-env": "^5.1",
         "jquery": "^3.4.1",
         "laravel-mix": "^5.0.1",
@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.12.0",
         "font-awesome": "^4.7.0"
     }
 }
