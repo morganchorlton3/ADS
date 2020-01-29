@@ -10714,8 +10714,8 @@ return jQuery;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/morganchorlton/Web/ShopCo/node_modules/jquery/dist/jquery.js */"./node_modules/jquery/dist/jquery.js");
-module.exports = __webpack_require__(/*! /home/morganchorlton/Web/ShopCo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/morgan/Web/ShopCo/node_modules/jquery/dist/jquery.js */"./node_modules/jquery/dist/jquery.js");
+module.exports = __webpack_require__(/*! /home/morgan/Web/ShopCo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

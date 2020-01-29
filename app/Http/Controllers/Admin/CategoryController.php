@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -12,16 +13,12 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        
-        $primaryCategories = Category::where('type', 1)->get();
-        $primary_cat = Category::where('type', 1)->get();
-        $sub_categories = Category::where('type', 2)->get();
-        $sub_sub_categories = Category::where('type', 3)->get();
+        $categories = Category::all();
+        $subCategory = SubCategory::all();
         $alerts = DB::table('alerts')->get();
         return view('admin.categories.index')->with([
-            'primaryCategories' => $primaryCategories,
-            'sub_cat' => $sub_categories,
-            'sub_sub_cat' => $sub_sub_categories,
+            'categories' => $categories,
+            'subCategory' => $subCategory,
             'alerts' => $alerts,
         ]);
     }
@@ -37,16 +34,16 @@ class CategoryController extends Controller
             'name' => ['required'],
             'type' => ['required'],
         ]);
-        $category = new Category();
         if($request->type == 1){
-            $category->cat = $request->name;
+            $category = new Category();
+            $category->name = $request->name;
+            $category->save();
         }else if($request->type == 2){
-            $category->sub_cat = $request->name;
-        }elseif($request->type == 3){
-            $category->sub_sub_cat = $request->name;
+            $subCategory = new SubCategory();
+            $subCategory->name = $request->name;
+            $subCategory->primary_id = $request->primary;
+            $subCategory->save();
         }
-        $category->type = $request->type;
-        $category->save();
         return redirect()->route('admin.category.index')->with('success_toast', "Category Created");
     }
 

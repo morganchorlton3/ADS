@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('home')->with('products', $products);
+        $categories = Category::all();
+        return view('home')->with([
+            'products' => $products,
+            'categories' => $categories,
+        ]);
     }
 }

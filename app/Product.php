@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Category;
 
 class Product extends Model
 {
@@ -12,5 +13,9 @@ class Product extends Model
 
     public function Productlocation(){
         return $this->hasOne('App\ProductLocation');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
