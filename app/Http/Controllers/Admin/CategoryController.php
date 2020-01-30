@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories= Category::where('parent_id',NULL)->get();
-        $subCategory = Category::where('parent_id',!NULL)->get();;
+        $subCategory = Category::where('parent_id', '!=' , NULL)->get();
         $alerts = DB::table('alerts')->get();
         return view('admin.categories.index')->with([
             'categories' => $categories,

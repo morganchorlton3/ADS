@@ -39,19 +39,33 @@
                     <div class="collapse navbar-collapse" id="navbar-classic">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="menu-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Shop
+                                <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Groceries
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="menu-1">
+                                <ul class="dropdown-menu" aria-labelledby="menu-2">
                                     @foreach($parentCategories as $category)
-                                    <li><a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ $category->name}}
-                                    </a>
-                                    </li>   
-                                    @if(count($category->subcategory))
-                                        @include('subCategoryList',['subcategories' => $category->subcategory])
-                                    @endif
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">{{ $category->name}}</a>
+                                        <ul class="dropdown-menu ">
+                                            @if(count($category->subcategory))
+                                                @include('subCategoryList',['subcategories' => $category->subcategory])
+                                            @endif 
+                                        </ul>
+                                    </li>
                                     @endforeach
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Demo 2</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">
+                                                    Demo sub two</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">
+                                                    Demo sub three</a>
+                                            </li>
+                                           
+                                        </ul>
+                                    </li>
+                                    
                                 </ul>
                             </li>
                             <li class="nav-item">

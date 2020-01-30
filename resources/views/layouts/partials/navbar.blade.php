@@ -8,21 +8,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          @foreach($parentCategories as $category)
-          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="http://google.com">{{ $category->name }}</a>
-            <ul class="dropdown-menu">
-              @if(count($category->subcategory))
-                @include('subCategoryList',['subcategories' => $category->subcategory])
-              @endif 
-            </ul>
-          @endforeach
-        </ul>
-      </li>
+      
     </ul>
   </div>
 </nav>

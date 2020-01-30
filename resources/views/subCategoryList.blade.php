@@ -1,7 +1,6 @@
 @foreach($subcategories as $subcategory)
-<ul class="dropdown-menu" aria-labelledby="menu-2">
-    <li><a class="dropdown-item" href="#">
-            {{ $subcategory->name }}</a>
-    </li>  
-</ul>
+    <li><a class="dropdown-item" href="#">{{ $subcategory->name }}</a></li>
+	    @if(count($subcategory->subcategory))
+            @include('subCategoryList',['subcategories' => $subcategory->subcategory])
+        @endif
 @endforeach
