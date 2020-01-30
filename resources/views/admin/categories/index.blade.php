@@ -111,7 +111,7 @@
                             <th>{{ $category->name }}</th>
                             <th>
                                 <select onchange="val()" id="primary_selector" class="form-control @error('primary') is-invalid @enderror">  
-                                    <option>{{ checkPrimaryCat($category->primary_id)}}</option>
+                                    <option>{{ checkPrimaryCat($category->parent_id)}}</option>
                                     @foreach($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option> 
                                     @endforeach

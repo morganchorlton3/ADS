@@ -13,8 +13,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-        $subCategory = SubCategory::all();
+        $categories= Category::where('parent_id',NULL)->get();
+        $subCategory = Category::where('parent_id',!NULL)->get();;
         $alerts = DB::table('alerts')->get();
         return view('admin.categories.index')->with([
             'categories' => $categories,
@@ -39,9 +39,9 @@ class CategoryController extends Controller
             $category->name = $request->name;
             $category->save();
         }else if($request->type == 2){
-            $subCategory = new SubCategory();
+            $subCategory = new Category();
             $subCategory->name = $request->name;
-            $subCategory->primary_id = $request->primary;
+            $subCategory->parent_id = $request->primary;
             $subCategory->save();
         }
         return redirect()->route('admin.category.index')->with('success_toast', "Category Created");

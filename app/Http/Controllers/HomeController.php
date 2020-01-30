@@ -26,10 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::all();
-        $categories = Category::all();
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        //return view('home', compact('parentCategories'));
         return view('home')->with([
             'products' => $products,
-            'categories' => $categories,
+            'parentCategories' => $parentCategories
         ]);
     }
 }

@@ -13,14 +13,13 @@
           Dropdown
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          @foreach($categories as $category)
+          @foreach($parentCategories as $category)
           <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="http://google.com">{{ $category->name }}</a>
             <ul class="dropdown-menu">
-              @foreach($category->subCategories as $subCategory)
-              <li><a class="dropdown-item" href="#">{{ $subCategory->name }}</a></li>
-              @endforeach
+              @if(count($category->subcategory))
+                @include('subCategoryList',['subcategories' => $category->subcategory])
+              @endif 
             </ul>
-          </li>
           @endforeach
         </ul>
       </li>

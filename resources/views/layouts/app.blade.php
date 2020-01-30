@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.newNav')
     @include('sweetalert::alert')
     <div class="container" style="margin-top: 7vh">
 
@@ -37,6 +37,21 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+            if (!$(this).next().hasClass('show')) {
+                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+            }
+            var $subMenu = $(this).next(".dropdown-menu");
+            $subMenu.toggleClass('show');
+
+            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+                $('.dropdown-submenu .show').removeClass("show");
+            });
+
+            return false;
+        });
+      </script>
     @yield('addedJS')
 </body>
 </html>
