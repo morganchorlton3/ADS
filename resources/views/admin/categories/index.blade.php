@@ -80,7 +80,7 @@
                         <tr>
                             <th>{{ $category->id }}</th>
                             <th>{{ $category->name }}</th>
-                            <th>
+                          <th>
                                 <form action="{{ route('admin.category.destroy') }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
@@ -110,25 +110,22 @@
                             <th>{{ $category->id }}</th>
                             <th>{{ $category->name }}</th>
                             <th>
-                                <select onchange="val()" id="primary_selector" class="form-control @error('primary') is-invalid @enderror">  
+                                <select onchange="val()" id="category_selector" class="form-control @error('primary') is-invalid @enderror">  
                                     <option>{{ checkPrimaryCat($category->parent_id)}}</option>
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option> 
-                                    @endforeach
                                 </select>
                             </th>
                             <th>
                                 <div class="row">
-                                <form action="{{ route('admin.category.update') }}" method="POST">
+                                {{-- <form action="{{ route('admin.category.update') }}" method="POST">
                                     {{ csrf_field() }}
-                                    <input type="text" name="id" hidden value="{{ $category->id }}">
-                                    <input type="text" name="primary" hidden id="primary_id">
+                                    <input type="text" name="id" value="{{ $category->id }}">
+                                    <input type="text" name="primary_id" id="primary_id">
                                     <button type="submit" class="btn btn-link align-middle"><a href="" class="text-dark text-center"><div class="col-1 text-center"><i class="delete fa fa-refresh"></i></div></a></button>
-                                </form>
+                                </form> --}}
                                 <form action="{{ route('admin.category.destroy') }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <input type="text" hidden name="id" value="{{ $category->id }}">
+                                    <input type="text"  hidden name="id" value="{{ $category->id }}">
                                     <button type="submit" class="btn btn-link align-middle"><a href="" class="text-dark text-center"><div class="col-1 text-center"><i class="delete fa fa-trash"></i></div></a></button>
                                 </form>
                                 </div>
@@ -148,9 +145,9 @@
     qty = $(this).val();
     $('#type').val(qty);
   })
-  $('#primary_selector').change(function(){
+  $('#category_selector').change(function(){
     primary = $(this).val();
-    $('#primary').val(primary);
+    $('#primary_id').val(primary);
   })
 </script>
 @endsection

@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('layouts.partials.newNav')
+    @include('layouts.partials.navbar')
     @include('sweetalert::alert')
     <div class="container" style="margin-top: 7vh">
 

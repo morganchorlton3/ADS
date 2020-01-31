@@ -12,6 +12,8 @@ Route::middleware('verified')->group(function () {
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
+    Route::get('home', 'DashboardController@index')->name('index');
+
     Route::resource('users', 'UserController', ['except' => ['show', 'create', 'store']]);
     Route::resource('products', 'ProductController', ['except' => ['show', 'store']]);
     Route::post('product.upload', 'ProductController@newProduct')->name('product.new');

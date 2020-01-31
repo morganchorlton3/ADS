@@ -97,12 +97,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
+        dd($request);
         $category = Category::find($request->id);
-        if($category->type == 2){
-            $category->primary = $request->primary;
-        }else if($category->type == 3){
-            $category->head = $request->primary;
-        }
+        $category->parent_id = $request->primary_id;
         $category->save();
         return back()->with('success', 'Category Updated');
     }
