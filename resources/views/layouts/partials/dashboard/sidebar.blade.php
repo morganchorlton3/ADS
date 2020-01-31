@@ -81,7 +81,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="{{ route('admin.category.index') }}">
         <i class="fas fa-folder"></i>
         <span>Categories</span></a>
     </li>
