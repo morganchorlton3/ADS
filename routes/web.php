@@ -23,4 +23,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::post('categories/create', 'CategoryController@create')->name('category.create');
     Route::post('categories/update', 'CategoryController@update')->name('category.update');
     Route::delete('/categories', 'CategoryController@destroy')->name('category.destroy');
+    //jobs
+    Route::get('jobs', 'JobsController@index')->name('jobs.index');
+    Route::post('jobs', 'JobsController@create')->name('jobs.create');
+    //staff
+    Route::get('staff', 'StaffController@index')->name('staff.index');
+    Route::get('staff.create', 'StaffController@new')->name('staff.new');
+    Route::post('staff', 'StaffController@create')->name('staff.create');
 });

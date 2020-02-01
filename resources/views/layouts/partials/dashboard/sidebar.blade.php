@@ -50,8 +50,10 @@
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Staff:</h6>
-          <a class="collapse-item" href="utilities-color.html">Create Staff</a>
-          <a class="collapse-item" href="utilities-border.html">Manage Staff</a>
+          <a class="collapse-item" href="{{ route('admin.staff.new')}}">Create Staff</a>
+          <a class="collapse-item" href="{{ route('admin.staff.index')}}">Manage Staff</a>
+          <h6 class="collapse-header">Jobs:</h6>
+          <a class="collapse-item" href="{{ route('admin.jobs.index')}}">Create Job</a>
         </div>
       </div>
     </li>
@@ -73,8 +75,8 @@
       <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Products:</h6>
-          <a class="collapse-item" href="utilities-color.html">View</a>
-          <a class="collapse-item" href="utilities-border.html">Create</a>
+          <a class="collapse-item" href="{{ route('admin.products.index')}}">View</a>
+          <a class="collapse-item" href="{{ route('admin.products.create')}}">Create</a>
         </div>
       </div>
     </li>

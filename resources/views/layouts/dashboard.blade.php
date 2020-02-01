@@ -112,7 +112,7 @@
    <script src="{{ asset('sb-admin-2/js/sb-admin-2.min.js') }}"></script>
 
    @include('sweetalert::alert')
-   @yield('scripts')
+   @yield('addedJS')
 
 </body>
 

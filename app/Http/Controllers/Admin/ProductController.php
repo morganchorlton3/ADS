@@ -48,7 +48,7 @@ class ProductController extends Controller
         if(!File::isDirectory($path)){
             File::makeDirectory($path, 0777, true, true);
         }
-        $img = Image::make($request->file('image'))->resize(144, 144)->encode('jpeg', 75);;
+        $img = Image::make($request->file('image'))->resize(144, 144)->encode('jpeg');
         $img->save('ProductImages/' . $request->barcode . '/' . $imageName, 60);
 
         $Product = new Product;

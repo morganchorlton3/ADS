@@ -1,6 +1,7 @@
 <?php
 use App\Category;
 use App\User;
+use App\Product;
 
 function checkPrimaryCat($primary){
     if($primary == NULL){
@@ -12,4 +13,8 @@ function checkPrimaryCat($primary){
 
 function getUserCount(){
     return User::all()->count();
+}
+
+function getProductCount(){
+    return Product::all()->count();
 }
