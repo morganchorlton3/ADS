@@ -93,6 +93,35 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
+      Orders
+    </div>
+
+    <li class="nav-item">
+      <a class="nav-link" href="charts.html">
+        <i class="fas fa-eye"></i>
+        <span>View</span></a>
+    </li>
+
+    <!-- Nav Item - Orders -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
+        <i class="fas fa-fw fa-user-tie"></i>
+        <span>Pickers</span>
+      </a>
+      <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Orders:</h6>
+          <a class="collapse-item" href="utilities-color.html">Assign Pickers</a>
+          <a class="collapse-item" href="utilities-border.html">Manage Staff</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
       Picking
     </div>
 

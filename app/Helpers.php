@@ -2,6 +2,7 @@
 use App\Category;
 use App\User;
 use App\Product;
+use App\Jobs;
 
 function checkPrimaryCat($primary){
     if($primary == NULL){
@@ -17,4 +18,8 @@ function getUserCount(){
 
 function getProductCount(){
     return Product::all()->count();
+}
+
+function getJobRole($id){
+    return Jobs::find($id)->title;
 }

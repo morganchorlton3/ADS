@@ -14,6 +14,7 @@
                 <th class="cell100 column1"># Employee Number</th>
                 <th class="cell100 column2">First Name</th>
                 <th class="cell100 column3">last Name</th>
+                <th class="cell100 column3">Job Title</th>
                 <th class="cell100 column6">Action</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                     <td class="cell100 column1">{{ $employee->id }}</td>
                     <td class="cell100 column2">{{ $employee->first_name }}</td>
                     <td class="cell100 column3">{{ $employee->last_name }}</td>
+                    <td class="cell100 column3">{{ getJobRole($employee->job_id) }}</td>
                     <td class="cell100 column6">
                         <a href="{{ route('admin.users.edit', $employee->id) }}" class="pr-2 pl-2">
                             <button type="button" class="btn btn-sm btn-primary">Manage Employee</button>
