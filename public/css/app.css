@@ -492,3 +492,27 @@ a.text-primary:hover {
   background-color: #3544ee;
 }
 
+.nav-btn {
+  height: 3vh;
+  width: 100%;
+  padding: 2px;
+}
+
+.list-group {
+  padding: 0;
+}
+
+.cart-bar {
+  height: 100vh;
+  background-color: #fff;
+}
+
+.cart-head {
+  text-align: center;
+  margin-bottom: 2vh;
+}
+
+.cart-item {
+  width: 100%;
+}
+

@@ -22,13 +22,7 @@
 <body>
     @include('layouts.partials.navbar')
     @include('sweetalert::alert')
-    <div class="container" style="margin-top: 7vh">
-
-        <div class="row">
-            @yield('sidebar')
-            @yield('content')
-        </div>
-    </div>
+    @yield('content')
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

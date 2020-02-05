@@ -7,6 +7,7 @@
         </h4>
         <h5>{{$product->price}}</h5>
         <p class="card-text">{{ $product->shortDesc}}</p>
+        <button type="button" class="btn btn-primary">Primary</button>
       </div>
       <div class="card-footer">
         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

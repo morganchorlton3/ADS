@@ -1,12 +1,22 @@
 <?php
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//cart
+Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
+Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
+Route::get('cart/decrease/{id}', 'CartController@decreaseQuantity')->name('cart.decrease');
+Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
+
+Route::get('/cart-view', function () {
+    dd(session()->all());
+});
+
+Route::get('/cart-clear', function () {
+    session()->forget('cart');
+});
+
+Route::get('/', 'HomeController@index')->name('home');
 Route::middleware('verified')->group(function () {
     Route::get('/profile', 'ProfileController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

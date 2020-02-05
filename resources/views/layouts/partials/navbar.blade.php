@@ -30,36 +30,37 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <nav class="navbar navbar-expand-lg navbar-classic">
-                    <a class="navbar-brand" href="https://jituchauhan.com/quanto/"> Shop Co</a>
+                    <!--<a class="navbar-brand" href="https://jituchauhan.com/quanto/"> Shop Co</a>-->
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-classic" aria-controls="navbar-classic" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon-bar top-bar mt-0"></span>
                         <span class="icon-bar middle-bar"></span>
                         <span class="icon-bar bottom-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbar-classic">
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Groceries
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="menu-2">
-                                    @foreach($parentCategories as $category)
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#">{{ $category->name}}</a>
-                                        <ul class="dropdown-menu ">
-                                            @if(count($category->subcategory))
-                                                @include('subCategoryList',['subcategories' => $category->subcategory])
-                                            @endif 
-                                        </ul>
-                                    </li>
-                                    @endforeach                                    
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact-us.html">Contact</a>
-                            </li>
-                        </ul>
-                        <a href="#" class="btn btn-brand btn-rounded btn-sm">Get Started Now</a>
+                        <div class="col-lg-9">
+                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mr-3">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Groceries
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="menu-2">
+                                        @foreach($parentCategories as $category)
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item dropdown-toggle" href="#">{{ $category->name}}</a>
+                                            <ul class="dropdown-menu ">
+                                                @if(count($category->subcategory))
+                                                    @include('subCategoryList',['subcategories' => $category->subcategory])
+                                                @endif 
+                                            </ul>
+                                        </li>
+                                        @endforeach                                    
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" style="width:100%;" placeholder="Search..">
+                        </div>
                     </div>
                 </nav>
             </div>
