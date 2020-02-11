@@ -20,6 +20,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::middleware('verified')->group(function () {
     Route::get('/profile', 'ProfileController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    //checkout
+    Route::name('checkout.')->group(function(){
+        Route::get('/book-slot', 'SlotController@index')->name('book.slot');
+    });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::get('home', 'DashboardController@index')->name('index');
@@ -40,4 +44,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('staff', 'StaffController@index')->name('staff.index');
     Route::get('staff.create', 'StaffController@new')->name('staff.new');
     Route::post('staff', 'StaffController@create')->name('staff.create');
+    //deliveries
+    Route::get('delivery/schedule', 'DeliveryScheduleController@index')->name('delivery.index');
+    Route::post('delivery/schedule', 'DeliveryScheduleController@create')->name('delivery.create');
+    Route::delete('delivery/schedule', 'DeliveryScheduleController@delete')->name('delivery.destroy');
+    //slots
+    Route::get('delivery/slots', 'SlotController@index')->name('slot.index');
+    Route::post('delivery/slots', 'SlotController@create')->name('slot.create');
+    Route::delete('delivery/slots', 'SlotController@delete')->name('slot.destroy');
+    //vehicles
+    Route::get('delivery/vehicles', 'DeliveryVehicleController@index')->name('vehicle.index');
+    Route::post('delivery/vehicles', 'DeliveryVehicleController@create')->name('vehicle.create');
 });

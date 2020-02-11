@@ -59,7 +59,9 @@
                             </ul>
                         </div>
                         <div class="col-lg-3">
-                            <input type="text" style="width:100%;" placeholder="Search..">
+                            <div class="input-group">
+                                <input type="text" class="form-control pb-2" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
+                            </div>
                         </div>
                     </div>
                 </nav>
