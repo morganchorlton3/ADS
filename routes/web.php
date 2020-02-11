@@ -23,6 +23,7 @@ Route::middleware('verified')->group(function () {
     //checkout
     Route::name('checkout.')->group(function(){
         Route::get('/book-slot', 'SlotController@index')->name('book.slot');
+        Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){

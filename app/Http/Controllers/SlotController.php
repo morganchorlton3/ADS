@@ -7,6 +7,10 @@ use App\Product;
 use App\Category;
 use App\DeliverySchedule;
 use App\Slot;
+use App\SlotBooking;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class SlotController extends Controller
 {
@@ -27,69 +31,16 @@ class SlotController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function bookSlot($id, $date){
+        $checkBooking = SlotBooking::where('user_id', Auth::id())->first();
+        if($checkBooking != null){
+            $checkBooking->delete();
+        }
+        $booking = new SlotBooking;
+        $booking->user_id = Auth::id();
+        $booking->slot_id = $id;
+        $booking->date = $date;
+        $booking->save();
+        return back()->with('success', 'You Have booked the time slot');
     }
 }

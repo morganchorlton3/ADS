@@ -6,7 +6,8 @@ use App\Product;
 use App\Jobs;
 use App\Staff;
 use App\Orders;
-
+use App\SlotBooking;
+use App\DeliveryVehicle;
 //Users
 function getUserCount(){
     return User::all()->count();
@@ -48,6 +49,9 @@ function checkPrimaryCat($primary){
         return Category::find($primary)->name;
     }
 }
+function formatPrice($price){
+    return "£" . number_format($price, 2);
+}
 //Jobs
 function getJobRole($id){
     return Jobs::find($id)->title;
@@ -63,29 +67,42 @@ function cartTotal(){
     return $total;
 }
 //slots
-function checkSlot($day){
-    if($day == 7){
-        return false;
+function checkSlot($slot_id, $date){
+    $vanCount = DeliveryVehicle::all()->count();
+    //dd($vanCount);
+    $slot = SlotBooking::where('slot_id' , $slot_id)->where('date', $date)->first();
+    $booked_slots = SlotBooking::where('date' , $date)->get();
+    $bookingCount = 0;
+    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date)->where('user_id', Auth::id())->pluck('user_id');
+    foreach($booked_slots as $slot){
+        if($slot_id == $slot->slot_id){
+            $bookingCount ++;
+        }
+    }
+    if($userSlot->count() == 1){
+        return 2;
+    }else if($bookingCount >= 2){
+        return 3;
     }else{
-        return true;
+        return 1;
     }
 }
 function SlotDate($id){
     $date = Carbon::now();
     $monday = $date->startOfWeek();
     if($id == 1){
-        return $monday->format('d');
+        return $monday;
     }else if($id == 2){
-        return $monday->addDays(1)->format('d');
+        return $monday->addDays(1);
     }else if($id == 3){
-        return $monday->addDays(2)->format('d');
+        return $monday->addDays(2);
     }else if($id == 4){
-        return $monday->addDays(3)->format('d');
+        return $monday->addDays(3);
     }else if($id == 5){
-        return $monday->addDays(4)->format('d');
+        return $monday->addDays(4);
     }else if($id == 6){
-        return $monday->addDays(5)->format('d');
+        return $monday->addDays(5);
     }else if($id == 7){
-        return $monday->addDays(6)->format('d');
+        return $monday->addDays(6);
     }
 }
