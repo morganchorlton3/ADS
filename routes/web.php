@@ -56,4 +56,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //vehicles
     Route::get('delivery/vehicles', 'DeliveryVehicleController@index')->name('vehicle.index');
     Route::post('delivery/vehicles', 'DeliveryVehicleController@create')->name('vehicle.create');
+    //Stores
+    Route::get('stores/locations', 'StoreController@index')->name('store.index');
+    Route::post('stores/locations', 'StoreController@create')->name('store.create');
 });

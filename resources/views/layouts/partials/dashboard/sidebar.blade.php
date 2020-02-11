@@ -66,6 +66,12 @@
       Shop
     </div>
 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('admin.store.index') }}">
+        <i class="fas fa-store"></i>
+        <span>Store</span></a>
+    </li>
+
     <!-- Nav Item - Products -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="#collapseProducts">

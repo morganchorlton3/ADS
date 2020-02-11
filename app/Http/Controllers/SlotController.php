@@ -36,10 +36,12 @@ class SlotController extends Controller
         if($checkBooking != null){
             $checkBooking->delete();
         }
+        $user = Auth::user();
         $booking = new SlotBooking;
         $booking->user_id = Auth::id();
         $booking->slot_id = $id;
         $booking->date = $date;
+        $booking->post_code = $user->address->post_code;
         $booking->save();
         return back()->with('success', 'You Have booked the time slot');
     }

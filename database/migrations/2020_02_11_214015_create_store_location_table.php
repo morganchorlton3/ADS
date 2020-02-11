@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSlotBooking extends Migration
+class CreateStoreLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSlotBooking extends Migration
      */
     public function up()
     {
-        Schema::create('slot_booking', function (Blueprint $table) {
+        Schema::create('store_location', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('slot_id');
-            $table->date('date');
+            $table->string('name');
             $table->string('post_code');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ class CreateSlotBooking extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slot_booking');
+        Schema::dropIfExists('store_location');
     }
 }

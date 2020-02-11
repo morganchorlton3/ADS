@@ -69,7 +69,6 @@ function cartTotal(){
 //slots
 function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
-    //dd($vanCount);
     $slot = SlotBooking::where('slot_id' , $slot_id)->where('date', $date)->first();
     $booked_slots = SlotBooking::where('date' , $date)->get();
     $bookingCount = 0;
@@ -81,7 +80,9 @@ function checkSlot($slot_id, $date){
     }
     if($userSlot->count() == 1){
         return 2;
-    }else if($bookingCount >= 2){
+    }elseif($date->isPast() | $date->isToday()){
+        return 3;
+    }else if($bookingCount >= $vanCount){
         return 3;
     }else{
         return 1;

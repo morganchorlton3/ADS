@@ -523,3 +523,45 @@ a.text-primary:hover {
   padding-bottom: 5px;
 }
 
+.btn-slot {
+  background-color: #fff;
+  border: #2B2D42 2px solid;
+  padding: 6px;
+  width: 85px;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 13px;
+}
+
+.btn-slot:hover {
+  border-color: #28a745;
+}
+
+.unavailable {
+  background-color: #fff;
+  color: #fff;
+  border: #2B2D42 2px dashed;
+}
+
+.unavailable .unavailable:hover {
+  border: #2B2D42 2px dashed;
+}
+
+.btn .booked {
+  color: #fff;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.booked {
+  background-color: #28a745;
+  border: #fff 2px solid;
+}
+
+.booked a {
+  color: #fff !important;
+}
+
