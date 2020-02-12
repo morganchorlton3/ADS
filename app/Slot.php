@@ -9,4 +9,9 @@ class Slot extends Model
     protected $fillable = [
         'day', 'start', 'end', 'price'
     ];
+
+    public function Orders()
+    {
+        return $this->hasOne('App\Orders');
+    }
 }

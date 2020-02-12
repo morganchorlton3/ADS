@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Order;
 use App\OrderProducts;
+use Carbon\Carbon;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -18,6 +19,8 @@ class OrdersTableSeeder extends Seeder
             Order::create([
                 'user_id' => 1, 
                 'slot_id' => 1, 
+                'placed_date' => Carbon::now()->subDays(1),
+                'delivery_date' => Carbon::now(),
                 'address_id' => 1,
                 'note' => "This is a test note",
                 'total_weight' => 22.5,

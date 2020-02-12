@@ -56,5 +56,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('stores/locations', 'StoreController@index')->name('store.index');
     Route::post('stores/locations', 'StoreController@create')->name('store.create');
     //Orders
-    Route::get('/orders', 'OrderController@index')->name('orders.index');
+    //Route::get('/orders', 'OrderController@index')->name('orders.index');
+    //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
+    Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
 });

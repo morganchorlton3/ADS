@@ -20,6 +20,15 @@ function getStaffCount(){
 function getOrdersCount(){
     return Order::all()->count();
 }
+function presentStatus($status){
+    if($status == 1){
+        return "Order Placed";
+    }else if($status == 2){
+        return "Out For Delivery";
+    }else if($status == 3){
+        return "Payment Issue";
+    }
+}
 //Deliveries
 function getDay($id){
     if($id == 1){
