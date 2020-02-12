@@ -21,7 +21,7 @@ class AddressTableSeeder extends Seeder
             'city' => 'Ashton-Under-Lyne',
         ]);
 
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create('en_GB');
 
         $counter = 2;
         for($i = 0; $i < 100; $i++) {

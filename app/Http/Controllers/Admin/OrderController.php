@@ -17,7 +17,6 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('address')->get();
-        Address::where('orders_user_id', $var)->get();
         return view('admin.orders.index')->with('orders', $orders);
     }
 

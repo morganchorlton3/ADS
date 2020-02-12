@@ -12,6 +12,6 @@ class Order extends Model
     ];
 
     public function Address(){
-        return $this->hasOne('App\Address');
+        return $this->hasOne('App\Address', 'user_id');
     }
 }

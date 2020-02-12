@@ -29,7 +29,17 @@
                         <tr>
                             <th>{{ $order->id }}</th>
                             <th>{{ formatPrice($order->total) }}</th>
-                            <th>{{ $order->address->post_code }}</th>
+                            <td>
+                                {{ $order->address->address_line_1 }},</br>
+                                @if(!$order->address->address_line_2 == "")
+                                    {{ $order->address->address_line_2 }},</br>
+                                @endif
+                                @if(!$order->address->address_line_3 == "")
+                                    {{ $order->address->address_line_3 }},</br>
+                                @endif
+                                {{ $order->address->post_code }}
+                            
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
