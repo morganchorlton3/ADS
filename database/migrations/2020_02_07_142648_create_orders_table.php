@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('slot_id');
+            $table->integer('address_id');
             $table->string('note');
             $table->double('total_weight');
             $table->integer('item_count');

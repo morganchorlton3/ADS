@@ -9,6 +9,7 @@ use App\Orders;
 use Auth;
 use App\SlotBooking;
 use DB;
+use App\Address;
 
 class OrderController extends Controller
 {
@@ -29,6 +30,7 @@ class OrderController extends Controller
         $order = new Orders();
         $order->user_id = Auth::user()->id;
         $order->slot_id = SlotBooking::where('user_id', Auth::id())->pluck('slot_id')[0];
+        $order->address_id = Address::where('user_id', Auth::id())->pluck('id')[0];
         $order->note = "This is a note test";
         $order->total_weight = 22.5;
         $order->item_count = $item_count;
