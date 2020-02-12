@@ -33,5 +33,21 @@ class UsersTableSeeder extends Seeder
         ]);
         //atach roles
         $admin1->roles()->attach($adminUser);
+
+
+        $faker = Faker\Factory::create();
+
+        for($i = 0; $i < 100; $i++) {
+            App\User::create([
+                'title' => $faker->title,
+                'first_name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'phone_number' => $faker->phoneNumber,
+                'email' => $faker->email,
+                'email_verified_at' => Carbon::now(),
+                'password' => Hash::make('adminpass')
+            ]);
+        }
+       
     }
 }

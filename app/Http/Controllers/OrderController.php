@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\OrdersProducts;
+use App\OrderProducts;
 use Illuminate\Http\Request;
 use Session;
-use App\Orders;
+use App\Order;
 use Auth;
 use App\SlotBooking;
 use DB;
@@ -20,6 +20,13 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $orders = Orders::with('address')->get();
+        return view('admin.orders.index')->with('orders', $orders);
+
+    }
+
+    public function NewOrder()
+    {
         $cart = Session::get('cart');
         $item_count = 0;
         $total = 0;
@@ -27,7 +34,7 @@ class OrderController extends Controller
             $item_count = $item_count  + 1 * $item['quantity'];
             $total = $total + ($item['price'] * $item['quantity']);
         }
-        $order = new Orders();
+        $order = new Order();
         $order->user_id = Auth::user()->id;
         $order->slot_id = SlotBooking::where('user_id', Auth::id())->pluck('slot_id')[0];
         $order->address_id = Address::where('user_id', Auth::id())->pluck('id')[0];
@@ -43,7 +50,7 @@ class OrderController extends Controller
         foreach ($cart as $item) {
             $total_price = $item['price'] * $item['quantity'];
             $qty = $item['quantity'];
-            $OrderPro = new OrdersProducts;
+            $OrderPro = new OrderProducts;
             $OrderPro->order_id = $order_id;
             $OrderPro->product_id = $item['product_id'];
             $OrderPro->product_name = $item['name'];
@@ -54,19 +61,6 @@ class OrderController extends Controller
         }
 
         Session::forget('cart');
-
-    }
-
-    public function NewOrder()
-    {
-        $cart = Session::get('cart');
-        $item_count = 0;
-        $total = 0;
-        foreach ($cart as $item) {
-            $item_count = 1 * $item['quantity'];
-            $total = $total + $item['price'];
-        }
-        dd($total . ' / ' . $item_count);
     }
 
     /**

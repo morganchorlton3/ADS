@@ -44,8 +44,5 @@ class SlotController extends Controller
         return back()->with('success', 'Delivery slot created');
     }
 
-    public function bookSlot($id, $day){
-        $booking = new SlotBooking;
-        $booking = $request->
-    }
+    
 }

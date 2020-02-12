@@ -103,7 +103,7 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="{{ route('admin.orders.index')}}">
         <i class="fas fa-eye"></i>
         <span>View</span></a>
     </li>

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Orders;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Address;
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::with('address')->get();
+        Address::where('orders_user_id', $var)->get();
+        return view('admin.orders.index')->with('orders', $orders);
     }
 
     /**

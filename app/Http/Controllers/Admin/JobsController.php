@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Jobs;
+use App\Job;
 use Illuminate\Http\Request;
 
 class JobsController extends Controller
@@ -30,7 +30,7 @@ class JobsController extends Controller
             'pay_rate' => 'required',
         ]);
 
-        $job = new Jobs;
+        $job = new Job;
         $job->title  = $request->title;
         $job->pay_rate = $request->pay_rate;
         $job->save();

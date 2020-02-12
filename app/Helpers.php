@@ -3,9 +3,9 @@ use Carbon\Carbon;
 use App\Category;
 use App\User;
 use App\Product;
-use App\Jobs;
+use App\Job;
 use App\Staff;
-use App\Orders;
+use App\Order;
 use App\SlotBooking;
 use App\DeliveryVehicle;
 //Users
@@ -18,7 +18,7 @@ function getStaffCount(){
 }
 //Orders
 function getOrdersCount(){
-    return Orders::all()->count();
+    return Order::all()->count();
 }
 //Deliveries
 function getDay($id){
@@ -54,7 +54,7 @@ function formatPrice($price){
 }
 //Jobs
 function getJobRole($id){
-    return Jobs::find($id)->title;
+    return Job::find($id)->title;
 }
 //Cart
 function cartTotal(){

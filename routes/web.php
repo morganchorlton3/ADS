@@ -19,7 +19,7 @@ Route::middleware('verified')->group(function () {
     Route::name('checkout.')->group(function(){
         Route::get('/book-slot', 'SlotController@index')->name('book.slot');
         Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
-        Route::get('/order/process', 'OrderController@index')->name('order');
+        Route::get('/order/process', 'OrderController@newOrder')->name('order');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
@@ -55,4 +55,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Stores
     Route::get('stores/locations', 'StoreController@index')->name('store.index');
     Route::post('stores/locations', 'StoreController@create')->name('store.create');
+    //Orders
+    Route::get('/orders', 'OrderController@index')->name('orders.index');
 });

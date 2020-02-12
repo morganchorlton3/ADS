@@ -8,14 +8,19 @@ class Address extends Model
 {
     protected $table = 'address';
 
-    protected $primaryKey = 'userID';
+    protected $primaryKey = 'user_id';
     
     protected $fillable = [
-        'userID', 'post_code', 'address_line_1', 'address_line_2', 'address_line_3', 'city'
+        'post_code', 'address_line_1', 'address_line_2', 'address_line_3', 'city'
     ];
 
     public function User()
     {
-        return $this->belongsTo('App\User');
+        return $this->hasOne('App\User');
+    }
+
+    public function Orders()
+    {
+        return $this->hasOne('App\Orders');
     }
 }
