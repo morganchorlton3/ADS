@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Mapper;
+use GoogleMaps\GoogleMaps;
 
 class DashboardController extends Controller
 {
@@ -14,6 +16,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        //getDirections("ol66hw", "sk153rj");
+
+        Mapper::map(53.491858, -2.091977);
+
         return view('admin.index');
     }
 

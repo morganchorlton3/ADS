@@ -87,4 +87,25 @@
       </div>
     </div>
 </div>
+<div class="row">
+
+  <!-- Area Chart -->
+  <div class="col-lg-4">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Store Location</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div style="width: 500px; height: 500px;">
+            {!! Mapper::render() !!}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 @endsection

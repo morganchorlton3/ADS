@@ -1,5 +1,4 @@
 <?php
-
 Auth::routes(['verify' => true]);
 
 //cart
@@ -9,11 +8,7 @@ Route::get('cart/decrease/{id}', 'CartController@decreaseQuantity')->name('cart.
 Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
 
 Route::get('/cart-view', function () {
-    dd(session()->all());
-});
-
-Route::get('/cart-clear', function () {
-    session()->forget('cart');
+    dd(session()->get('cart'));
 });
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -24,6 +19,7 @@ Route::middleware('verified')->group(function () {
     Route::name('checkout.')->group(function(){
         Route::get('/book-slot', 'SlotController@index')->name('book.slot');
         Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
+        Route::get('/order/process', 'OrderController@index')->name('order');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){

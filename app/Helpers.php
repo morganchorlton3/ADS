@@ -107,3 +107,27 @@ function SlotDate($id){
         return $monday->addDays(6);
     }
 }
+
+function getDirections($start_post_code, $end_post_code){
+    $client = new \GuzzleHttp\Client();
+
+    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&postalcode=' . $start_post_code);
+    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&postalcode=' . $end_post_code);
+        
+    $start_response = json_decode($start_request->getBody(),true);
+    $end_response = json_decode($end_request->getBody(),true);
+
+    $start_long = $start_response['features'][0]['geometry']['coordinates'][0];
+    $start_lat = $start_response['features'][0]['geometry']['coordinates'][1];
+
+    $end_long = $end_response['features'][0]['geometry']['coordinates'][0];
+    $end_lat = $end_response['features'][0]['geometry']['coordinates'][1];
+
+    $route_request = $client->get('https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&start='.$start_long.','.$start_lat.'&end='.$end_long.','.$end_lat);
+
+    $route = json_decode($route_request->getBody(),true);
+
+    $distance_km = $route['features'][0]['properties']['summary']['distance'] / 1000;
+
+    dd($distance_km);
+}
