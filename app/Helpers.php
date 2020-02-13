@@ -61,6 +61,13 @@ function checkPrimaryCat($primary){
 function formatPrice($price){
     return "£" . number_format($price, 2);
 }
+//category
+function getParentCategory($name){
+    $cat = Category::where('name', $name)->get();
+    $primary = Category::find($cat[0]->parent_id)->get();
+    return $primary;
+
+}
 //Jobs
 function getJobRole($id){
     return Job::find($id)->title;
@@ -87,6 +94,17 @@ function checkSlot($slot_id, $date){
             $bookingCount ++;
         }
     }
+    $currentUserPost_codeArea = substr(auth()->user()->address->post_code, 0, 1);
+    //dd($currentUserPost_code);
+    $bookedSlot = SlotBooking::where('date' , $date->format('Y:m:d'))->where('slot_id', $slot_id)->get();
+
+    if($bookedSlot->count() == 1){
+        $bookedSlotPost_codeArea = substr($bookedSlot[0]['post_code'], 0, 1);
+        if($currentUserPost_codeArea != $bookedSlotPost_codeArea){
+            return 3;
+        }
+    }
+
     if($userSlot->count() == 1){
         return 2;
     }elseif($date->isPast() | $date->isToday()){

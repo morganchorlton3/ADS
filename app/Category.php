@@ -9,9 +9,13 @@ class Category extends Model
 {
     protected $table = 'categories';
 
-    protected $fillable = ['name', 'parent_id' ];
+    protected $fillable = ['name', 'slug', 'parent_id' ];
 
     public function subcategory(){
         return $this->hasMany('App\Category', 'parent_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

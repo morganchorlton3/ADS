@@ -46,7 +46,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="menu-2">
                                         @foreach($parentCategories as $category)
                                         <li class="dropdown-submenu">
-                                            <a class="dropdown-item dropdown-toggle" href="#">{{ $category->name}}</a>
+                                            <a class="dropdown-item dropdown-toggle" href="{{ route('category', $category->slug) }}">{{ $category->name}}</a>
                                             <ul class="dropdown-menu ">
                                                 @if(count($category->subcategory))
                                                     @include('subCategoryList',['subcategories' => $category->subcategory])

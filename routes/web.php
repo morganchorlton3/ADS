@@ -15,6 +15,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::middleware('verified')->group(function () {
     Route::get('/profile', 'ProfileController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    //shop
+    Route::get('/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
     //checkout
     Route::name('checkout.')->group(function(){
         Route::get('/book-slot', 'SlotController@index')->name('book.slot');

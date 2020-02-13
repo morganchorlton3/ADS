@@ -1,51 +1,410 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class ProductsTableSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Auto generated seed file
      *
      * @return void
      */
     public function run()
     {
-        Product::create([
-           'name' => 'Robinsons Double Strength Summer Fruits',
-           'price' => 2.99,
-           'shortDesc' => 'Cordial',
-           'DetailedDesc' => 'Robinsons 1L Cordial',
-           'barcode' => '5010102115521'
-        ]);
-        Product::create([
-            'name' => 'Tuna Chunks',
-            'price' => 3.99,
-            'shortDesc' => 'Tuna Chunks',
-            'DetailedDesc' => 'Tuna Chunks in spring water',
-            'barcode' => '5057967621057'
-         ]);
-         Product::create([
-            'name' => 'Tinned Tomatoes',
-            'price' => 2.99,
-            'shortDesc' => 'Tinned Tomatoes',
-            'DetailedDesc' => 'Valfrutta Tinned Tomatoes',
-            'barcode' => '8001440000010'
-         ]);
-         Product::create([
-            'name' => 'Soured Cream',
-            'price' => 0.99,
-            'shortDesc' => 'Soured Cream',
-            'DetailedDesc' => 'Old El Paso Soured Cream',
-            'barcode' => '0046000482538'
-         ]);
-         Product::create([
-            'name' => 'Taco Kit',
-            'price' => 3.00,
-            'shortDesc' => 'Taco Kit',
-            'DetailedDesc' => 'Old El Paso Taco Kit',
-            'barcode' => '8410076481320'
-         ]);
+        
+
+        \DB::table('products')->delete();
+        
+        \DB::table('products')->insert(array (
+            5 =>
+            array (
+                'id' => 1,
+                'name' => 'Kingsmill Soft White Thick Bread',
+                'price' => 1.0,
+                'shortDesc' => 'White Bread',
+                'detailedDesc' => 'White Bread',
+                'barcode' => 'fefefefew',
+                'category_id' => 18,
+                'created_at' => '2020-02-13 15:47:00',
+                'updated_at' => '2020-02-13 15:47:00',
+            ),
+            6 => 
+            array (
+                'id' => 2,
+                'name' => 'Organic Fair Trade Bananas 5 Pack',
+                'price' => 1.35,
+                'shortDesc' => 'Bananas.',
+                'detailedDesc' => 'Bananas.',
+                'barcode' => '48948974894',
+                'category_id' => 11,
+                'created_at' => '2020-02-13 15:52:50',
+                'updated_at' => '2020-02-13 15:52:50',
+            ),
+            7 => 
+            array (
+                'id' => 3,
+                'name' => 'Blueberries 150G',
+                'price' => 2.0,
+                'shortDesc' => 'Blueberries.',
+                'detailedDesc' => 'Blueberries.',
+                'barcode' => '4564987',
+                'category_id' => 11,
+                'created_at' => '2020-02-13 15:53:37',
+                'updated_at' => '2020-02-13 15:53:37',
+            ),
+            8 => 
+            array (
+                'id' => 4,
+                'name' => 'Rosedene Farms Strawberries 227G',
+                'price' => 1.85,
+                'shortDesc' => 'Strawberries',
+                'detailedDesc' => 'Strawberries
+Rosedene Farms Strawberries
+Pack size: 227G',
+                'barcode' => '878989874',
+                'category_id' => 11,
+                'created_at' => '2020-02-13 15:54:29',
+                'updated_at' => '2020-02-13 15:54:29',
+            ),
+            9 => 
+            array (
+                'id' => 5,
+                'name' => 'Redmere Farms Carrots 1Kg',
+                'price' => 0.57,
+                'shortDesc' => 'Carrots',
+                'detailedDesc' => 'Carrots',
+                'barcode' => '554984',
+                'category_id' => 12,
+                'created_at' => '2020-02-13 15:56:14',
+                'updated_at' => '2020-02-13 15:56:14',
+            ),
+            10 => 
+            array (
+                'id' => 6,
+                'name' => 'Baking Potatoes Loose',
+                'price' => 0.3,
+                'shortDesc' => 'Lose Potatoes',
+                'detailedDesc' => 'Lose Potatoes',
+                'barcode' => '1894897489',
+                'category_id' => 12,
+                'created_at' => '2020-02-13 15:57:03',
+                'updated_at' => '2020-02-13 15:57:03',
+            ),
+            11 => 
+            array (
+                'id' => 7,
+                'name' => 'Tesco Baby Plum Tomatoes 325G',
+                'price' => 1.0,
+                'shortDesc' => 'Tesco Baby Plum Tomatoes 325G',
+                'detailedDesc' => 'Tesco Baby Plum Tomatoes 325G',
+                'barcode' => '189498498',
+                'category_id' => 13,
+                'created_at' => '2020-02-13 15:57:52',
+                'updated_at' => '2020-02-13 15:57:52',
+            ),
+            12 => 
+            array (
+                'id' => 8,
+                'name' => 'Lactose Free Semi Skimmed Dairy Drink 1Ltr',
+                'price' => 1.2,
+                'shortDesc' => 'Lactose Free Semi Skimmed Dairy Drink 1Ltr',
+                'detailedDesc' => 'Lactose Free Semi Skimmed Dairy Drink 1Ltr',
+                'barcode' => '4564489489',
+                'category_id' => 15,
+                'created_at' => '2020-02-13 15:58:49',
+                'updated_at' => '2020-02-13 15:58:49',
+            ),
+            13 => 
+            array (
+                'id' => 9,
+                'name' => 'Creamfields Uht Semi Skimmed Milk 1 Litre',
+                'price' => 0.55,
+                'shortDesc' => 'Creamfields Uht Semi Skimmed Milk 1 Litre',
+                'detailedDesc' => 'Creamfields Uht Semi Skimmed Milk 1 Litre',
+                'barcode' => '415664987',
+                'category_id' => 15,
+                'created_at' => '2020-02-13 15:59:27',
+                'updated_at' => '2020-02-13 15:59:27',
+            ),
+            14 => 
+            array (
+                'id' => 10,
+                'name' => 'Vita Coco Natural Coconut Water 1 Litre',
+                'price' => 3.49,
+                'shortDesc' => 'Vita Coco Natural Coconut Water 1 Litre',
+                'detailedDesc' => 'Vita Coco Natural Coconut Water 1 Litre',
+                'barcode' => '4854987',
+                'category_id' => 14,
+                'created_at' => '2020-02-13 16:00:02',
+                'updated_at' => '2020-02-13 16:00:02',
+            ),
+            15 => 
+            array (
+                'id' => 11,
+                'name' => 'Innocent Kids Mango & Pineapple Smoothie 4 X 180 Ml',
+                'price' => 1.6,
+                'shortDesc' => 'Innocent Kids Mango & Pineapple Smoothie 4 X 180 Ml',
+                'detailedDesc' => 'Innocent Kids Mango & Pineapple Smoothie 4 X 180 Ml',
+                'barcode' => '2648949',
+                'category_id' => 14,
+                'created_at' => '2020-02-13 16:00:37',
+                'updated_at' => '2020-02-13 16:00:37',
+            ),
+            16 => 
+            array (
+                'id' => 12,
+                'name' => 'Sunny Delight Florida Citrus Juice Drink 1 Litre',
+                'price' => 1.0,
+                'shortDesc' => 'Sunny Delight Florida Citrus Juice Drink 1 Litre',
+                'detailedDesc' => 'Sunny Delight Florida Citrus Juice Drink 1 Litre',
+                'barcode' => '456498744789',
+                'category_id' => 14,
+                'created_at' => '2020-02-13 16:01:13',
+                'updated_at' => '2020-02-13 16:01:13',
+            ),
+            17 => 
+            array (
+                'id' => 13,
+                'name' => 'H.W Nevills 8 Plain Tortilla Wraps',
+                'price' => 0.79,
+                'shortDesc' => 'H.W Nevills 8 Plain Tortilla Wraps',
+                'detailedDesc' => 'H.W Nevills 8 Plain Tortilla Wraps',
+                'barcode' => '894894',
+                'category_id' => 19,
+                'created_at' => '2020-02-13 16:02:10',
+                'updated_at' => '2020-02-13 16:02:10',
+            ),
+            18 => 
+            array (
+                'id' => 14,
+                'name' => 'H.W Nevills 8 Wholemeal Tortilla Wrap',
+                'price' => 0.79,
+                'shortDesc' => 'H.W Nevills 8 Wholemeal Tortilla Wrap',
+                'detailedDesc' => 'H.W Nevills 8 Wholemeal Tortilla Wrap',
+                'barcode' => '8489489',
+                'category_id' => 19,
+                'created_at' => '2020-02-13 16:02:36',
+                'updated_at' => '2020-02-13 16:02:36',
+            ),
+            19 => 
+            array (
+                'id' => 15,
+                'name' => 'Birds Eye Petit Pois 1.05Kg',
+                'price' => 3.29,
+                'shortDesc' => 'Birds Eye Petit Pois 1.05Kg',
+                'detailedDesc' => 'Birds Eye Petit Pois 1.05Kg',
+                'barcode' => '894984894',
+                'category_id' => 23,
+                'created_at' => '2020-02-13 16:03:20',
+                'updated_at' => '2020-02-13 16:03:20',
+            ),
+            20 => 
+            array (
+                'id' => 16,
+                'name' => 'Tesco Finest Supersweet Sweetcorn 1Kg',
+                'price' => 2.0,
+                'shortDesc' => 'Tesco Finest Supersweet Sweetcorn 1Kg',
+                'detailedDesc' => 'Tesco Finest Supersweet Sweetcorn 1Kg',
+                'barcode' => '489489489',
+                'category_id' => 23,
+                'created_at' => '2020-02-13 16:03:51',
+                'updated_at' => '2020-02-13 16:03:51',
+            ),
+            21 => 
+            array (
+                'id' => 17,
+                'name' => 'Mccain Home Chips Straight Cut 2.1Kg',
+                'price' => 3.85,
+                'shortDesc' => 'Mccain Home Chips Straight Cut 2.1Kg',
+                'detailedDesc' => 'Mccain Home Chips Straight Cut 2.1Kg',
+                'barcode' => '84984984',
+                'category_id' => 24,
+                'created_at' => '2020-02-13 16:04:34',
+                'updated_at' => '2020-02-13 16:04:34',
+            ),
+            22 => 
+            array (
+                'id' => 18,
+                'name' => 'Mccain Jackets 8 Pack 1.6Kg',
+                'price' => 4.0,
+                'shortDesc' => 'Mccain Jackets 8 Pack 1.6Kg',
+                'detailedDesc' => 'Mccain Jackets 8 Pack 1.6Kg',
+                'barcode' => '48949849',
+                'category_id' => 24,
+                'created_at' => '2020-02-13 16:05:06',
+                'updated_at' => '2020-02-13 16:05:06',
+            ),
+            23 => 
+            array (
+                'id' => 19,
+                'name' => 'Birds Eye 38 Crispy Chicken Dippers 697G',
+                'price' => 4.0,
+                'shortDesc' => 'Birds Eye 38 Crispy Chicken Dippers 697G',
+                'detailedDesc' => 'Birds Eye 38 Crispy Chicken Dippers 697G',
+                'barcode' => '7889489489',
+                'category_id' => 25,
+                'created_at' => '2020-02-13 16:05:39',
+                'updated_at' => '2020-02-13 16:05:39',
+            ),
+            24 => 
+            array (
+                'id' => 20,
+                'name' => 'Tesco Chicken Breast Fillets 640G',
+                'price' => 3.75,
+                'shortDesc' => 'Tesco Chicken Breast Fillets 640G',
+                'detailedDesc' => 'Tesco Chicken Breast Fillets 640G',
+                'barcode' => '8489489489',
+                'category_id' => 25,
+                'created_at' => '2020-02-13 16:06:04',
+                'updated_at' => '2020-02-13 16:06:04',
+            ),
+            25 => 
+            array (
+                'id' => 21,
+                'name' => 'Richmond Skinless Sausages 16 Pack 426G',
+                'price' => 2.0,
+                'shortDesc' => 'Richmond Skinless Sausages 16 Pack 426G',
+                'detailedDesc' => 'Richmond Skinless Sausages 16 Pack 426G',
+                'barcode' => '97897897',
+                'category_id' => 25,
+                'created_at' => '2020-02-13 16:06:30',
+                'updated_at' => '2020-02-13 16:06:30',
+            ),
+            26 => 
+            array (
+                'id' => 22,
+                'name' => 'Birds Eye Inspirations Fish Chargrilled With Tomato & Herb 300G',
+                'price' => 3.5,
+                'shortDesc' => 'Birds Eye Inspirations Fish Chargrilled With Tomato & Herb 300G',
+                'detailedDesc' => 'Birds Eye Inspirations Fish Chargrilled With Tomato & Herb 300G',
+                'barcode' => '94594894',
+                'category_id' => 26,
+                'created_at' => '2020-02-13 16:07:41',
+                'updated_at' => '2020-02-13 16:07:41',
+            ),
+            27 => 
+            array (
+                'id' => 23,
+                'name' => 'Birds Eye 4 Sausage Rolls 360G',
+                'price' => 1.55,
+                'shortDesc' => 'Birds Eye 4 Sausage Rolls 360G',
+                'detailedDesc' => 'Birds Eye 4 Sausage Rolls 360G',
+                'barcode' => '894984',
+                'category_id' => 27,
+                'created_at' => '2020-02-13 16:09:19',
+                'updated_at' => '2020-02-13 16:09:19',
+            ),
+            28 => 
+            array (
+                'id' => 24,
+                'name' => 'Brew City Ipa Last Order Fries 400G',
+                'price' => 2.0,
+                'shortDesc' => 'Brew City Ipa Last Order Fries 400G',
+                'detailedDesc' => 'Brew City Ipa Last Order Fries 400G',
+                'barcode' => '894984984',
+                'category_id' => 27,
+                'created_at' => '2020-02-13 16:09:45',
+                'updated_at' => '2020-02-13 16:09:45',
+            ),
+            29 => 
+            array (
+                'id' => 25,
+                'name' => 'Chicago Town Medium Takeaway Four Cheese Melt Pizza 480G',
+                'price' => 3.0,
+                'shortDesc' => 'Chicago Town Medium Takeaway Four Cheese Melt Pizza 480G',
+                'detailedDesc' => 'Chicago Town Medium Takeaway Four Cheese Melt Pizza 480G',
+                'barcode' => '8489494984',
+                'category_id' => 28,
+                'created_at' => '2020-02-13 16:10:36',
+                'updated_at' => '2020-02-13 16:10:36',
+            ),
+            30 => 
+            array (
+                'id' => 26,
+                'name' => 'Goodfella\'s Stonebaked Thin Margherita Pizza 345G',
+                'price' => 2.25,
+                'shortDesc' => 'Goodfella\'s Stonebaked Thin Margherita Pizza 345G',
+                'detailedDesc' => 'Goodfella\'s Stonebaked Thin Margherita Pizza 345G',
+                'barcode' => '498449',
+                'category_id' => 28,
+                'created_at' => '2020-02-13 16:10:59',
+                'updated_at' => '2020-02-13 16:10:59',
+            ),
+            31 => 
+            array (
+                'id' => 27,
+                'name' => 'Grower\'s Harvest Island Mix 300G',
+                'price' => 1.19,
+                'shortDesc' => 'Grower\'s Harvest Island Mix 300G',
+                'detailedDesc' => 'Grower\'s Harvest Island Mix 300G',
+                'barcode' => '4849849',
+                'category_id' => 29,
+                'created_at' => '2020-02-13 16:12:50',
+                'updated_at' => '2020-02-13 16:12:50',
+            ),
+            32 => 
+            array (
+                'id' => 28,
+                'name' => 'Grower\'s Harvest Trail Mix 300G',
+                'price' => 1.19,
+                'shortDesc' => 'Grower\'s Harvest Trail Mix 300G',
+                'detailedDesc' => 'Grower\'s Harvest Trail Mix 300G',
+                'barcode' => '484894984',
+                'category_id' => 29,
+                'created_at' => '2020-02-13 16:13:20',
+                'updated_at' => '2020-02-13 16:13:20',
+            ),
+            33 => 
+            array (
+                'id' => 29,
+                'name' => 'Nature Valley Protein Salted Caramel Nut Bars 4X40g',
+                'price' => 2.0,
+                'shortDesc' => 'Nature Valley Protein Salted Caramel Nut Bars 4X40g',
+                'detailedDesc' => 'Nature Valley Protein Salted Caramel Nut Bars 4X40g',
+                'barcode' => '+564984894894',
+                'category_id' => 30,
+                'created_at' => '2020-02-13 16:14:02',
+                'updated_at' => '2020-02-13 16:14:02',
+            ),
+            34 => 
+            array (
+                'id' => 30,
+                'name' => 'Schar White Ciabatta Rolls 200G',
+                'price' => 2.0,
+                'shortDesc' => 'Schar White Ciabatta Rolls 200G',
+                'detailedDesc' => 'Schar White Ciabatta Rolls 200G',
+                'barcode' => '4894894894',
+                'category_id' => 22,
+                'created_at' => '2020-02-13 16:14:33',
+                'updated_at' => '2020-02-13 16:14:33',
+            ),
+            35 => 
+            array (
+                'id' => 31,
+                'name' => 'Mcvitie\'s Jaffa Cakes Triple Pack 30 Cakes',
+                'price' => 1.25,
+                'shortDesc' => 'Mcvitie\'s Jaffa Cakes Triple Pack 30 Cakes',
+                'detailedDesc' => 'Mcvitie\'s Jaffa Cakes Triple Pack 30 Cakes',
+                'barcode' => '498489494',
+                'category_id' => 21,
+                'created_at' => '2020-02-13 16:15:03',
+                'updated_at' => '2020-02-13 16:15:03',
+            ),
+            36 => 
+            array (
+                'id' => 32,
+                'name' => 'Pepsi Max 24 X 330Ml',
+                'price' => 8.0,
+                'shortDesc' => 'Pepsi Max 24 X 330Ml',
+                'detailedDesc' => 'Pepsi Max 24 X 330Ml',
+                'barcode' => '94894984',
+                'category_id' => 37,
+                'created_at' => '2020-02-13 16:15:44',
+                'updated_at' => '2020-02-13 16:15:44',
+            ),
+        ));
+        
+        
     }
 }

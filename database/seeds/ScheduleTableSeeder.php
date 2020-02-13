@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\DeliverySchedule;
+
+class ScheduleTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $counter = 1;
+        while($counter <= 7){
+            DeliverySchedule::create(['day' => $counter,'start' => '08:15:00','end' => '11:50:00']);
+            DeliverySchedule::create(['day' => $counter,'start' => '01:15:00','end' => '17:50:00']);
+            DeliverySchedule::create(['day' => $counter,'start' => '18:15:00','end' => '22:50:00']);
+            $counter++;
+        }
+    }
+}

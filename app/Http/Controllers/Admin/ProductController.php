@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use App\Category;
 use File;
 use Image;
 use Illuminate\Support\Facades\Storage;
@@ -29,10 +30,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+        return view('admin.products.create')->with('categories', $categories);
     }
 
     public function newProduct(Request $request){
+        //dd($request);
         $request->validate([
             'barcode' => 'required|string|unique:products',
             'name' => 'required|string',
@@ -40,6 +43,7 @@ class ProductController extends Controller
             'shortDesc' => 'required|string',
             'detailedDesc' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category' => 'required',
         ]);
         
         $imageName = '1.'.$request->image->extension(); 
@@ -49,7 +53,7 @@ class ProductController extends Controller
             File::makeDirectory($path, 0777, true, true);
         }
         $img = Image::make($request->file('image'))->resize(144, 144)->encode('jpeg');
-        $img->save('ProductImages/' . $request->barcode . '/' . $imageName, 60);
+        $img->save('ProductImages/' . $request->barcode . '/' . $imageName, 100);
 
         $Product = new Product;
         $Product->name = $request->name;
@@ -57,6 +61,7 @@ class ProductController extends Controller
         $Product->detailedDesc = $request->detailedDesc;
         $Product->price = $request->price;
         $Product->barcode = $request->barcode;
+        $Product->category_id = $request->category;
         $Product->save();
    
         return back()->with('success', 'Product Created!');

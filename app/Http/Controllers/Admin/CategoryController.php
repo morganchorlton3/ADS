@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Product;
 
 class CategoryController extends Controller
 {
@@ -56,39 +57,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -115,5 +83,18 @@ class CategoryController extends Controller
         $category = Category::find($request->id);
         $category->delete();
         return back()->with('toast_success', 'Category Removed!');
+    }
+
+    public function categoryView($slug){
+        $categories = Category::where('parent_id',NULL)->get();
+        $category = Category::where('slug', $slug)->get();
+        $products = Product::where('category_id', $category[0]->id)->get();
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        return view('shop.category')->with([
+            'categories' => $categories,
+            'products' => $products,
+            'category' => $category,
+            'parentCategories' => $parentCategories
+        ]);
     }
 }

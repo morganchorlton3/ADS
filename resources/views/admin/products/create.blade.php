@@ -86,6 +86,23 @@
                                 </span>
                             @enderror
                         </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="type">Category</label>
+                            <input value="" name="category" id="category_id">
+                            <select onchange="val()" id="category_id_selector" class="form-control @error('type') is-invalid @enderror">  
+                                <option></option>                     
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('type')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
                         <div class="form-group col-lg-3">
                             <button type="submit" class="btn btn-primary form-control">Create Product</button>
                         </div>
@@ -99,9 +116,9 @@
 @endsection
 @section('addedJS')
 <script>
-    $('#role_selector').change(function(){
-        role = $(this).val();
-        $('#role').val(role);
+    $('#category_id_selector').change(function(){
+        category = $(this).val();
+        $('#category_id').val(category);
     });
   </script>
 @endsection

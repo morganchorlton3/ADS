@@ -9,6 +9,6 @@ class SlotBooking extends Model
     protected $table = 'slot_booking';
 
     protected $fillable = [
-        'user_id', 'slot_id', 'date'
+        'user_id', 'slot_id', 'date', 'post_code'
     ];
 }

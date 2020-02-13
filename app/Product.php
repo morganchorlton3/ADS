@@ -8,7 +8,7 @@ use App\Category;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode'
+        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id'
     ];
 
     public function Productlocation(){
