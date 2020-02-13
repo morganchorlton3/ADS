@@ -27,9 +27,8 @@ class AddressTableSeeder extends Seeder
         for($i = 0; $i < 100; $i++) {
             Address::create([
                 'user_id' => $counter,
-                'post_code' => $faker->postcode,
+                'post_code' =>  $faker->randomElement(['ol66hw', 'sk153rj', 'sk15 6th', 'sk13 6hx']),
                 'address_line_1' => $faker->streetAddress,
-                'address_line_2' => $faker->streetAddress,
                 'city' => $faker->city,
             ]);
             $counter++;

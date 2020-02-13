@@ -79,9 +79,9 @@ function cartTotal(){
 function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
     $slot = SlotBooking::where('slot_id' , $slot_id)->where('date', $date)->first();
-    $booked_slots = SlotBooking::where('date' , $date)->get();
+    $booked_slots = SlotBooking::where('date' , $date->format('Y:m:d'))->get();
     $bookingCount = 0;
-    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date)->where('user_id', Auth::id())->pluck('user_id');
+    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
     foreach($booked_slots as $slot){
         if($slot_id == $slot->slot_id){
             $bookingCount ++;
@@ -99,21 +99,21 @@ function checkSlot($slot_id, $date){
 }
 function SlotDate($id){
     $date = Carbon::now();
-    $monday = $date->startOfWeek();
+    //$monday = $date->startOfWeek();
     if($id == 1){
-        return $monday;
+        return $date;
     }else if($id == 2){
-        return $monday->addDays(1);
+        return $date->addDays(1);
     }else if($id == 3){
-        return $monday->addDays(2);
+        return $date->addDays(2);
     }else if($id == 4){
-        return $monday->addDays(3);
+        return $date->addDays(3);
     }else if($id == 5){
-        return $monday->addDays(4);
+        return $date->addDays(4);
     }else if($id == 6){
-        return $monday->addDays(5);
+        return $date->addDays(5);
     }else if($id == 7){
-        return $monday->addDays(6);
+        return $date->addDays(6);
     }
 }
 

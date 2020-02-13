@@ -27,6 +27,5 @@ class SlotTableSeeder extends Seeder
         Slot::create(['day' => 1, 'start' => '20:00:00', 'end' => '21:00:00', 'price' => 5]);
         Slot::create(['day' => 1, 'start' => '21:00:00', 'end' => '22:00:00', 'price' => 5]);
         Slot::create(['day' => 1, 'start' => '22:00:00', 'end' => '23:00:00', 'price' => 5]);
-
     }
 }

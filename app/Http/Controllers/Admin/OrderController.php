@@ -18,16 +18,9 @@ class OrderController extends Controller
     public function index()
     {
         $date = Carbon::now()->format('Y-m-d');
-        $orders = Order::where('delivery_date', $date)->where('status', 3)->with('address')->paginate(8);
+        $orders = Order::where('delivery_date', $date)->with('address')->paginate(8);
         return view('admin.orders.index')->with('orders', $orders);
     }
-
-    public function view($id){
-        dd("ioerhtioehfgioewhgfoie");
-        $order = Order::find($id)->with('address')->get();
-        return view('admin.orders.view')->with('order', $order);
-    }
-
 
     /**
      * Show the form for creating a new resource.

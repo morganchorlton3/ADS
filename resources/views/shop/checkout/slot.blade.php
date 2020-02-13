@@ -16,15 +16,15 @@
                                     
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Mon</h4>
-                                    <p class="text-center">{{ SlotDate(1)->format('d') }}</p>
+                                    <h4 class="text-center">{{ SlotDate(1)->format('D') }}</h4>
+                                    <p class="text-center">{{ SlotDate(1)->format('d')  }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Tue</h4>
+                                    <h4 class="text-center">{{ SlotDate(2)->format('D') }}</h4>
                                     <p class="text-center">{{ SlotDate(2)->format('d') }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Wed</h4>
+                                    <h4 class="text-center">{{ SlotDate(3)->format('D') }}</h4>
                                     <p class="text-center">{{ SlotDate(3)->format('d') }}</p>
                                 </div>
                             </div>
@@ -32,19 +32,19 @@
                         <div class="col-lg-6">
                             <div class="row">
                                 <div class="col-lg-3">
-                                   <h4 class="text-center">Thu</h4>
+                                   <h4 class="text-center">{{ SlotDate(4)->format('D') }}</h4>
                                    <p class="text-center">{{ SlotDate(4)->format('d') }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Fri</h4>
+                                    <h4 class="text-center">{{ SlotDate(5)->format('D') }}</h4>
                                     <p class="text-center">{{ SlotDate(5)->format('d') }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Sat</h4>
+                                    <h4 class="text-center">{{ SlotDate(6)->format('D') }}</h4>
                                     <p class="text-center">{{ SlotDate(6)->format('d') }}</p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <h4 class="text-center">Sun</h4>
+                                    <h4 class="text-center">{{ SlotDate(7)->format('D') }}</h4>
                                     <p class="text-center">{{ SlotDate(7)->format('d') }}</p>
                                 </div>
                             </div>

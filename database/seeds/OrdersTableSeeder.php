@@ -14,11 +14,13 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        $counter = 0;
-        while($counter < 10){
+        $faker = Faker\Factory::create();
+
+        $counter = $faker->numberBetween($min = 1, $max = 101);
+        while($counter > 0){
             Order::create([
-                'user_id' => 1, 
-                'slot_id' => 1, 
+                'user_id' => $counter, 
+                'slot_id' => $faker->numberBetween($min = 1, $max = 3), 
                 'placed_date' => Carbon::now()->subDays(1),
                 'delivery_date' => Carbon::now(),
                 'address_id' => 1,
@@ -26,27 +28,19 @@ class OrdersTableSeeder extends Seeder
                 'total_weight' => 22.5,
                 'item_count' => 5,
                 'total' => 12.97,
-                'status' => 1
+                'status' => $faker->numberBetween($min = 1, $max = 3)
             ]);
-    
-            OrderProducts::create([
-                'order_id' => $counter,
-                'product_id' => 2,
-                'product_name' => "Tuna Chunks",
-                'product_quantity' => 2,
-                'product_price' => 3.99,
-                'product_barcode' => "5057967621057",
-            ]);
-    
-            OrderProducts::create([
-                'order_id' => $counter,
-                'product_id' => 3,
-                'product_name' => "Tinned Tomatoes",
-                'product_quantity' => 3,
-                'product_price' => 2.99,
-                'product_barcode' => "8001440000010",
-            ]);
-            $counter++;
+            for($i = 0; $i < 5; $i++) {
+                OrderProducts::create([
+                    'order_id' => $counter,
+                    'product_id' => $faker->numberBetween($min = 1, $max = 5),
+                    'product_name' => "Tuna Chunks",
+                    'product_quantity' => 2,
+                    'product_price' => 3.99,
+                    'product_barcode' => "5057967621057",
+                ]);
+            }
+            $counter--;
         }       
 
     }
