@@ -19,7 +19,7 @@ Route::middleware('verified')->group(function () {
     Route::get('/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
     //checkout
     Route::name('checkout.')->group(function(){
-        Route::get('/book-slot', 'SlotController@index')->name('book.slot');
+        Route::get('checkout/book-slot', 'SlotController@index')->name('book.slot');
         Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
     });

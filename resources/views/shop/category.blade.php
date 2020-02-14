@@ -17,7 +17,7 @@
               </nav>
             {{--<h1 class="mb-2">{{ $category[0]->name }}</h1>--}}
             <div class="row">
-                @foreach($products as $product)
+               {{-- @foreach($products as $product)
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100">
                         <div class="d-flex justify-content-center">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @endforeach--}}
             </div>
         </div>
         @include('partials.shop.cart')
