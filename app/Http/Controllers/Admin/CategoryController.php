@@ -88,11 +88,11 @@ class CategoryController extends Controller
     public function categoryView($slug){
         $categories = Category::where('parent_id',NULL)->get();
         $category = Category::where('slug', $slug)->get();
-        //$products = Product::where('category_id', $category[0]->id)->get();
+        $products = Product::where('category_id', $category[0]->id)->get();
         $parentCategories = Category::where('parent_id',NULL)->get();
         return view('shop.category')->with([
             'categories' => $categories,
-            //'products' => $products,
+            'products' => $products,
             'category' => $category,
             'parentCategories' => $parentCategories
         ]);
