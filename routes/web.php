@@ -16,7 +16,7 @@ Route::middleware('verified')->group(function () {
     Route::get('/profile', 'ProfileController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //shop
-    Route::get('/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
+    Route::get('shop/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
     //checkout
     Route::name('checkout.')->group(function(){
         Route::get('checkout/book-slot', 'SlotController@index')->name('book.slot');
@@ -62,3 +62,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
     Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
 });
+
+
+
+//Testing Routes
+Route::get('organise', 'DeliveryController@index');

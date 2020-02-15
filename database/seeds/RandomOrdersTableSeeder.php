@@ -5,7 +5,7 @@ use App\Order;
 use App\OrderProducts;
 use Carbon\Carbon;
 
-class OrdersTableSeeder extends Seeder
+class RandomOrdersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
