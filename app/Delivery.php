@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DeliveryProfile extends Model
+class Delivery extends Model
 {
     protected $fillable = [
-        'van_id', 'schedule_id',
+        'slot_id','schedule_id', 'user_id', 'date','order_id'
     ];
 }

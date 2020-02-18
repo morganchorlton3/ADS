@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use App\Address;
+use DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +80,14 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+
+        Address::create([
+            'user_id' => DB::getPdo()->lastInsertId(),
+            'post_code' => $data['post_code'],
+            'address_line_1' => $data['addressLine1'],
+            'address_line_2' => $data['addressLine2'],
+            'address_line_3' => $data['addressLine3'],
         ]);
 
         $user->roles()->attach($roleUser);

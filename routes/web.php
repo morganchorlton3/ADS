@@ -1,4 +1,7 @@
 <?php
+
+use Carbon\Carbon;
+
 Auth::routes(['verify' => true]);
 
 //cart
@@ -67,3 +70,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 //Testing Routes
 Route::get('organise', 'DeliveryController@index');
+
+Route::get('test', function () {
+    getDayID(Carbon::now());
+});

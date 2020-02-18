@@ -1,6 +1,8 @@
 <?php
 use Carbon\Carbon;
 use App\Category;
+use App\Delivery;
+use App\DeliverySchedule;
 use App\User;
 use App\Product;
 use App\Job;
@@ -83,6 +85,7 @@ function cartTotal(){
     return $total;
 }
 //slots
+/*
 function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
     $slot = SlotBooking::where('slot_id' , $slot_id)->where('date', $date)->first();
@@ -114,6 +117,22 @@ function checkSlot($slot_id, $date){
     }else{
         return 1;
     }
+}*/
+function checkSlot($slot_id, $date){
+    $vanCount = DeliveryVehicle::all()->count();
+    $bookedSlots = Delivery::where('slot_id' , $slot_id)->where('date', $date->format('Y:m:d'))->get();
+    $userSlot = Delivery::where('slot_id' , $slot_id)->where('user_id', Auth::id())->where('date', $date->format('Y:m:d'))->count();
+    //dd($slot);
+
+    if($userSlot == 1){
+        return 2;
+    }elseif($date->isPast() | $date->isToday()){
+        return 3;
+    }elseif($bookedSlots->count() > 0){
+        return 3;
+    }else{
+        return 1;
+    }
 }
 function SlotDate($id){
     $date = Carbon::now();
@@ -135,6 +154,37 @@ function SlotDate($id){
     }
 }
 
+function getDayID($date){
+
+    $day = Carbon::parse($date)->format('D');
+    if($day == "Mon"){
+        return 1;
+    }else if($day == "Tue"){
+        return 2;
+    }else if($day == "Wed"){
+        return 3;
+    }else if($day == "Thu"){
+        return 4;
+    }else if($day == "Fri"){
+        return 5;
+    }else if($day == "Sat"){
+        return 6;
+    }else if($day == "Sun"){
+        return 7;
+    }
+    
+}
+function getScheduleFromSlot($time, $day){
+    $schedules = DeliverySchedule::all();
+    foreach($schedules as $schedule){
+        if ($time >= $schedule->start && $time <= $schedule->end && $schedule->day == getDayID($day)) {
+            return $schedule->id;
+        }
+    }
+
+}
+
+//Deliveries
 function getDirections($start_post_code, $end_post_code){
     $client = new \GuzzleHttp\Client();
 

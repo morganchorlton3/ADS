@@ -110,6 +110,62 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="post_code" class="col-md-4 col-form-label text-md-right">{{ __('Post Code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="post_code" type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" required autocomplete="postCode">
+
+                                @error('post_cod')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="addressLine1" class="col-md-4 col-form-label text-md-right">{{ __('Address line 1') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="addressLine1" type="text" class="form-control @error('addressLine1') is-invalid @enderror" name="addressLine1" required autocomplete="addressLine1">
+
+                                @error('addressLine1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="addressLine2" class="col-md-4 col-form-label text-md-right">{{ __('Address line 2') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="addressLine2" type="text" class="form-control @error('addressLine2') is-invalid @enderror" name="addressLine2" autocomplete="addressLine2">
+
+                                @error('addressLine2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="addressLine3" class="col-md-4 col-form-label text-md-right">{{ __('Address line 3') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="addressLine3" type="text" class="form-control @error('addressLine3') is-invalid @enderror" name="addressLine3"  autocomplete="addressLine3">
+
+                                @error('addressLine3')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

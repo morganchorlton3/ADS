@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeliveryProfileTable extends Migration
+class CreateDeliveriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateDeliveryProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('delivery_profile', function (Blueprint $table) {
+        Schema::create('deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('van_id');
+            $table->integer('slot_id');
             $table->integer('schedule_id');
+            $table->integer('user_id');
+            $table->date('date');
+            $table->integer('order_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateDeliveryProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('delivery_profile');
+        Schema::dropIfExists('deliveries');
     }
 }

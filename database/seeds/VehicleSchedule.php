@@ -1,8 +1,9 @@
 <?php
 
+use App\VehicelSchedule;
 use Illuminate\Database\Seeder;
 
-class OrderTableSeeder extends Seeder
+class VehicleSchedule extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,5 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        
     }
 }
