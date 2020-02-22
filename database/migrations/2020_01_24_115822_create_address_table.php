@@ -20,7 +20,7 @@ class CreateAddressTable extends Migration
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('address_Line_3')->nullable();
-            $table->string('city');
+            $table->string('city')->nullable();
             $table->timestamps();
         });
     }

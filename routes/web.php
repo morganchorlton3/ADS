@@ -72,5 +72,33 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 Route::get('organise', 'DeliveryController@index');
 
 Route::get('test', function () {
-    getDayID(Carbon::now());
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, "https://api.openrouteservice.org/v2/directions/driving-car/");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    
+    //curl_setopt($ch, CURLOPT_POSTFIELDS, '{"coordinates":[[-2.019521,53.451183],[-2.091962,53.49183],[-2.034677,53.497569],[-1.984228,53.446114],[-2.019521,53.451183]]}');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, '{"coordinates":[[-2.091962,53.49183],[-1.984228,53.446114]]}');
+    
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      "Accept: application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+      "Authorization: 5b3ce3597851110001cf6248180654af4b1a405b86bf89497fd9ac67",
+      "Content-Type: application/json; charset=utf-8"
+    ));
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    $test = json_decode($response,true);
+    dd($test);
+    //dd($test['features'][0]['properties']['summary']['distance'] / 1000);
+});
+
+Route::get('calculate', function () {
+    $postCodes = ['ol6 6hw', 'sk13 6th'];
+    dd(calculateRouteDistance($postCodes));
 });

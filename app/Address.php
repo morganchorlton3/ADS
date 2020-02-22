@@ -11,7 +11,7 @@ class Address extends Model
     protected $primaryKey = 'user_id';
     
     protected $fillable = [
-        'post_code', 'address_line_1', 'address_line_2', 'address_line_3', 'city'
+        'user_id', 'post_code', 'address_line_1', 'address_line_2', 'address_line_3', 'city'
     ];
 
     public function User()

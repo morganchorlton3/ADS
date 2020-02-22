@@ -7,6 +7,7 @@ use App\Product;
 use App\Category;
 use App\Delivery;
 use App\DeliverySchedule;
+use App\User;
 use App\Slot;
 use App\SlotBooking;
 use Illuminate\Support\Facades\Auth;
@@ -52,11 +53,16 @@ class SlotController extends Controller
         $slotET = Slot::find($id)->end;*/
 
         //Van Schedule
+        $bookedSlotsCount = Delivery::where('slot_id' , $id)->where('date', $date->format('Y:m:d'))->get()->count();
+        if($bookedSlotsCount == 0 ){
+            $storePostCode = Store::first()->post_code;
+        }
         $delivery = new Delivery;
         $delivery->slot_id = $id;
         $delivery->schedule_id = getScheduleFromSlot(Slot::find($id)->start, $date);
         $delivery->user_id = Auth::id();
         $delivery->date = $date;
+        $delivery->post_code = User::find(Auth::id())->address->post_code;
         $delivery->save();
 
         return back()->with('success', 'You Have booked the time slot');

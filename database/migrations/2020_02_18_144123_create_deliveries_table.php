@@ -19,6 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->integer('schedule_id');
             $table->integer('user_id');
             $table->date('date');
+            $table->string('post_code');
             $table->integer('order_id')->nullable();
             $table->timestamps();
         });

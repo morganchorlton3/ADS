@@ -10,6 +10,7 @@ use App\Staff;
 use App\Order;
 use App\SlotBooking;
 use App\DeliveryVehicle;
+use GuzzleHttp\Psr7\Request;
 //Users
 function getUserCount(){
     return User::all()->count();
@@ -122,11 +123,20 @@ function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
     $bookedSlots = Delivery::where('slot_id' , $slot_id)->where('date', $date->format('Y:m:d'))->get();
     $userSlot = Delivery::where('slot_id' , $slot_id)->where('user_id', Auth::id())->where('date', $date->format('Y:m:d'))->count();
-    //dd($slot);
-
+    $currentUserPostCode = User::find(Auth::id())->address->post_code;
     if($userSlot == 1){
         return 2;
-    }elseif($date->isPast() | $date->isToday()){
+    }else if($bookedSlots->count() != 0){
+        foreach($bookedSlots as $slot){
+            //dd($slot);
+            if($slot->post_code == $currentUserPostCode){
+                return 1;
+            }else{
+                $distanceFromLast = getDistanceMiles($slot->post_code, $currentUserPostCode);
+                
+            }
+        }
+    }else if($date->isPast() | $date->isToday()){
         return 3;
     }elseif($bookedSlots->count() > 0){
         return 3;
@@ -134,6 +144,7 @@ function checkSlot($slot_id, $date){
         return 1;
     }
 }
+
 function SlotDate($id){
     $date = Carbon::now();
     //$monday = $date->startOfWeek();
@@ -185,11 +196,11 @@ function getScheduleFromSlot($time, $day){
 }
 
 //Deliveries
-function getDirections($start_post_code, $end_post_code){
+function getDistanceMiles($startPostCode, $endPostCode){
     $client = new \GuzzleHttp\Client();
 
-    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&postalcode=' . $start_post_code);
-    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&postalcode=' . $end_post_code);
+    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $startPostCode);
+    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $endPostCode);
         
     $start_response = json_decode($start_request->getBody(),true);
     $end_response = json_decode($end_request->getBody(),true);
@@ -206,5 +217,77 @@ function getDirections($start_post_code, $end_post_code){
 
     $distance_km = $route['features'][0]['properties']['summary']['distance'] / 1000;
 
-    dd($distance_km);
+    return $distance_km * 0.621371;
+}
+
+function calculateRoute($postCodes){
+    $client = new \GuzzleHttp\Client();
+
+    $coordinatesString = null;
+    $counter = 0;
+    foreach($postCodes as $postCode){
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinatesResponse = json_decode($coordinates->getBody(),true);
+        $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
+        $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
+        if($counter == 0){
+            $coordinatesString = $coordinatesString . '['. $long . ',' . $lat . ']';
+        }else{
+            $coordinatesString = $coordinatesString . ',['. $long . ',' . $lat . ']';
+        }
+        $counter++;
+    }
+
+    $headers = [
+        'Accept' => 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+        'Authorization' => '5b3ce3597851110001cf6248180654af4b1a405b86bf89497fd9ac67',
+        'Content-Type' => 'application/json; charset=utf-8'
+    ];
+    $body = '{"coordinates":[' . $coordinatesString . ']}';
+
+    //dd($body);
+    
+    $request = new Request('POST', 'https://api.openrouteservice.org/v2/directions/driving-car/', $headers, $body);
+    $response = $client->send($request, ['timeout' => 2]);
+
+    dd(json_decode($response->getBody(),true));
+
+}
+
+function calculateRouteDistance($postCodes){
+    $client = new \GuzzleHttp\Client();
+    
+    $coordinatesString = null;
+    $counter = 0;
+    foreach($postCodes as $postCode){
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinatesResponse = json_decode($coordinates->getBody(),true);
+        $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
+        $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
+        if($counter == 0){
+            $coordinatesString = $coordinatesString . '['. $long . ',' . $lat . ']';
+        }else{
+            $coordinatesString = $coordinatesString . ',['. $long . ',' . $lat . ']';
+        }
+        $counter++;
+    }
+
+    $headers = [
+        'Accept' => 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+        'Authorization' => '5b3ce3597851110001cf6248180654af4b1a405b86bf89497fd9ac67',
+        'Content-Type' => 'application/json; charset=utf-8'
+    ];
+    $body = '{"coordinates":[' . $coordinatesString . ']}';
+
+    //dd($body);
+    
+    $request = new Request('POST', 'https://api.openrouteservice.org/v2/directions/driving-car/', $headers, $body);
+    $response = $client->send($request, ['timeout' => 2]);
+
+    $result = json_decode($response->getBody(),true);
+
+    //return $result;
+
+    return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
+    ;
 }
