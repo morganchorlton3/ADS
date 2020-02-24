@@ -272,6 +272,7 @@ function calculateRouteDistance($postCodes){
         $counter++;
     }
 
+    dd($coordinatesString);
     $headers = [
         'Accept' => 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
         'Authorization' => '5b3ce3597851110001cf6248180654af4b1a405b86bf89497fd9ac67',
@@ -286,8 +287,8 @@ function calculateRouteDistance($postCodes){
 
     $result = json_decode($response->getBody(),true);
 
-    //return $result;
+    return $result;
 
-    return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
+    //return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
     ;
 }

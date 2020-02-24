@@ -99,6 +99,6 @@ Route::get('test', function () {
 });
 
 Route::get('calculate', function () {
-    $postCodes = ['ol6 6hw', 'sk13 6th'];
+    $postCodes = ['SK14 6QA', 'sk14 3dg', 'sk14 3jr', 'sk15 2qz', 'sk16 5nh', 'm34 3ta', 'm34 5ah', 'ol7 0dz', 'm34 5ga', 'm34 5uq', 'ol7 0lw', 'ol7 9el','m34 7qq'];
     dd(calculateRouteDistance($postCodes));
 });

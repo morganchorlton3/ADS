@@ -12,14 +12,15 @@
         "alexpechkarev/google-maps": "6.0",
         "cornford/googlmapper": "^3.0",
         "fideloper/proxy": "^4.0",
+        "fzaninotto/faker": "^1.4",
         "guzzlehttp/guzzle": "^6.5",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
+        "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "orangehill/iseed": "^2.6",
-        "realrashid/sweet-alert": "^3.1",
-        "fzaninotto/faker": "^1.4"
+        "realrashid/sweet-alert": "^3.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
