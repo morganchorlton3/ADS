@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
-use App\Delivery;
+use App\Deliveries;
 use App\DeliverySchedule;
+use App\DeliveryVehicle;
 use App\User;
 use App\Slot;
 use App\SlotBooking;
@@ -38,6 +39,7 @@ class SlotController extends Controller
         $date = Carbon::parse($date);
         $slot = Slot::find($id);
         $run = 0;
+        $vanCount = DeliveryVehicle::count();
         $userBooking = SlotBooking::where('user_id', Auth::id());
         if($userBooking->count() > 0){
             $userBooking->delete();
@@ -60,13 +62,52 @@ class SlotController extends Controller
                 break;
             }
         }
-        $delivery = VehicleRuns::where('delivery_date', $date->format('Y:m:d'))->where('run', $run)->get();
-
-        if($delivery->count() == 0){
-            $newDelivery = new VehicleRuns();
-            $newDelivery->run = $run;
-            $newDelivery->delivery_date = $date;
-            $newDelivery->save();
+        $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+        if($vehicleRuns->count() == 0){
+            $vehicleRun = new VehicleRuns();
+            $vehicleRun->run = $run;
+            $vehicleRun->deliveryDate = $date;
+            $vehicleRun->deliveryCount = 1;
+            $vehicleRun->lastPostCode = User::find(Auth::id())->address->post_code;
+            $vehicleRun->save();
+            $delivery = new Deliveries();
+            $delivery->userID = Auth::id();
+            $delivery->slotID = $id;
+            $delivery->deliveryDate = $date;
+            $delivery->vehicleRun = $vehicleRun->id;
+            $delivery->save();
+        }
+        foreach($vehicleRuns as $vehicleRun){
+            if($vanCount >= $vehicleRun->count()){
+                if($vehicleRun->count() > 0){
+                    //Add delivery to vehicle profile
+                    if(getDistanceMiles($vehicleRun->lastPostCode,User::find(Auth::id())->address->post_code ) < 5){
+                        $vehicleRun->lastPostCode = User::find(Auth::id())->address->post_code;
+                        //Create Delivery
+                        $delivery = new Deliveries();
+                        $delivery->userID = Auth::id();
+                        $delivery->slotID = $id;
+                        $delivery->deliveryDate = $date;
+                        $delivery->vehicleRun = $vehicleRun->id;
+                        $delivery->save();
+                        
+                        $vehicleRun->deliveryCount = Deliveries::where('vehicleRun', $vehicleRun->id)->count();
+                        $vehicleRun->save();
+                    //Creates a new vehicle profile because next drop is to far awway
+                    }else{
+                        newRun($run, $date);
+                        $delivery = new Deliveries();
+                        $delivery->userID = Auth::id();
+                        $delivery->slotID = $id;
+                        $delivery->deliveryDate = $date;
+                        $delivery->vehicleRun = $vehicleRun->id;
+                        $delivery->save();
+                    }
+                    //Creates first profile for specific date
+                }elseif($vehicleRun->count() == 0){
+                    newRun($run, $date);
+                }
+            }
         }
         return back()->with('success', 'You Have booked the time slot');
     }

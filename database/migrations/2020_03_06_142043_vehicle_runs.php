@@ -16,7 +16,9 @@ class VehicleRuns extends Migration
         Schema::create('vehicle_runs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('run');
-            $table->date('delivery_date');
+            $table->date('deliveryDate');
+            $table->integer('deliveryCount');
+            $table->string('lastPostCode');
             $table->timestamps();
         });
     }

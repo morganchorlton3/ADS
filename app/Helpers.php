@@ -11,6 +11,8 @@ use App\Order;
 use App\SlotBooking;
 use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
+use App\VehicleRuns;
+
 //Users
 function getUserCount(){
     return User::all()->count();
@@ -205,8 +207,22 @@ function getScheduleFromSlot($time, $day){
 
 }
 
+function newRun($run, $date){
+    $vehicleRun = new VehicleRuns();
+    $vehicleRun->run = $run;
+    $vehicleRun->deliveryDate = $date;
+    $vehicleRun->deliveryCount = 1;
+    $vehicleRun->lastPostCode = User::find(Auth::id())->address->post_code;
+    $vehicleRun->save();
+}
+
 //Deliveries
 function getDistanceMiles($startPostCode, $endPostCode){
+
+    if($startPostCode == $endPostCode){
+        return 0;
+    }
+
     $client = new \GuzzleHttp\Client();
 
     $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $startPostCode);

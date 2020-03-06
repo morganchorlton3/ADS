@@ -15,7 +15,7 @@ class StoreTableSeeder extends Seeder
     {
         Store::create([
             'name' => 'Depot 1',
-            'post_code' => 'SK14 6QA',
+            'postCode' => 'SK14 6QA',
         ]);
     }
 }

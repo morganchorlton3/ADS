@@ -21,6 +21,15 @@ class AddressTableSeeder extends Seeder
             'city' => 'Ashton-Under-Lyne',
         ]);
 
+        Address::create([
+            'user_id' => '2',
+            'post_code' => 'sk153rj',
+            'address_line_1' => '79 crowswood drive',
+            'address_line_2' => 'stalybridge',
+            'address_line_3' => ' ',
+            'city' => 'stalybridge',
+        ]);
+
         $faker = Faker\Factory::create('en_GB');
 
         $counter = 2;

@@ -34,11 +34,24 @@ class UsersTableSeeder extends Seeder
         //atach roles
         $admin1->roles()->attach($adminUser);
 
+        //user
+        $user1 = User::create([
+            'title' => 'Mr',
+            'first_name' => 'test',
+            'last_name' => 'user',
+            'phone_number' => '07760306029',
+            'email' => 'user@test.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('testpass')
+        ]);
+        //atach roles
+        $user1->roles()->attach($user);
+
 
         $faker = Faker\Factory::create();
 
         for($i = 0; $i < 100; $i++) {
-            App\User::create([
+            $userAccount = User::create([
                 'title' => $faker->title,
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
@@ -47,6 +60,8 @@ class UsersTableSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('adminpass')
             ]);
+
+            $userAccount->roles()->attach($user);
         }
        
     }

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VehicleRuns extends Model
+class Deliveries extends Model
 {
     protected $fillable = [
-        'run', 'deliveryDate', 'deliveryCount', 'lastPostCode'
+        'userID', 'slotID', 'deliveryDate', 'vehicleRun'
     ];
 }
