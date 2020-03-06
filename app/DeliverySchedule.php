@@ -10,6 +10,6 @@ class DeliverySchedule extends Model
     protected $table = 'delivery_schedule';
 
     protected $fillable = [
-       'van_id', 'day', 'start', 'end'
+       'run', 'day', 'start', 'end'
     ];
 }

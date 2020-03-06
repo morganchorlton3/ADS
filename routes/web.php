@@ -15,6 +15,7 @@ Route::get('/cart-view', function () {
 });
 
 Route::get('/', 'HomeController@index')->name('home');
+
 Route::middleware('verified')->group(function () {
     Route::get('/profile', 'ProfileController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -101,4 +102,8 @@ Route::get('test', function () {
 Route::get('calculate', function () {
     $postCodes = ['SK14 6QA', 'sk14 3dg', 'sk14 3jr', 'sk15 2qz', 'sk16 5nh', 'm34 3ta', 'm34 5ah', 'ol7 0dz', 'm34 5ga', 'm34 5uq', 'ol7 0lw', 'ol7 9el','m34 7qq'];
     dd(calculateRouteDistance($postCodes));
+});
+
+Route::get('testing', function(){
+    dd(sprintf('%04d', 23));
 });

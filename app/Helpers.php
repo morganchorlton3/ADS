@@ -86,6 +86,16 @@ function cartTotal(){
     return $total;
 }
 //slots
+function checkSlot($slot_id, $date){
+    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
+    if($userSlot->count() == 1){
+        return 2;
+    }elseif($date->isPast() | $date->isToday()){
+        return 3;
+    }else{
+        return 1;
+    }
+}
 /*
 function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
@@ -118,7 +128,7 @@ function checkSlot($slot_id, $date){
     }else{
         return 1;
     }
-}*/
+}
 function checkSlot($slot_id, $date){
     $vanCount = DeliveryVehicle::all()->count();
     $bookedSlots = Delivery::where('slot_id' , $slot_id)->where('date', $date->format('Y:m:d'))->get();
@@ -144,7 +154,7 @@ function checkSlot($slot_id, $date){
         return 1;
     }
 }
-
+*/
 function SlotDate($id){
     $date = Carbon::now();
     //$monday = $date->startOfWeek();

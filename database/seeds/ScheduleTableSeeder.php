@@ -14,9 +14,9 @@ class ScheduleTableSeeder extends Seeder
     {
         $counter = 1;
         while($counter <= 7){
-            DeliverySchedule::create(['van_id' => $counter, 'day' => $counter,'start' => '08:15:00','end' => '11:50:00']);
-            DeliverySchedule::create(['van_id' => $counter,'day' => $counter,'start' => '01:15:00','end' => '17:50:00']);
-            DeliverySchedule::create(['van_id' => $counter,'day' => $counter,'start' => '18:15:00','end' => '22:50:00']);
+            DeliverySchedule::create(['run' => 1, 'day' => $counter,'start' => '08:15:00','end' => '11:50:00']);
+            DeliverySchedule::create(['run' => 2,'day' => $counter,'start' => '13:15:00','end' => '17:50:00']);
+            DeliverySchedule::create(['run' => 3,'day' => $counter,'start' => '18:15:00','end' => '22:50:00']);
             $counter++;
         }
     }

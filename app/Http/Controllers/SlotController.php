@@ -12,7 +12,8 @@ use App\Slot;
 use App\SlotBooking;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use App\Store;
+use App\VehicleRuns;
 
 class SlotController extends Controller
 {
@@ -34,37 +35,39 @@ class SlotController extends Controller
     }
 
     public function bookSlot($id, $date){
-       /* $checkBooking = SlotBooking::where('user_id', Auth::id())->first();
-        if($checkBooking != null){
-            $checkBooking->delete();
-        }*/
-        $checkDelivery = Delivery::where('user_id', Auth::id())->first();
-        if($checkDelivery != null){
-            $checkDelivery->delete();
+        $date = Carbon::parse($date);
+        $slot = Slot::find($id);
+        $run = 0;
+        $userBooking = SlotBooking::where('user_id', Auth::id());
+        if($userBooking->count() > 0){
+            $userBooking->delete();
         }
-        /*$user = Auth::user();
-        $booking = new SlotBooking;
+        $booking = new SlotBooking();
         $booking->user_id = Auth::id();
         $booking->slot_id = $id;
+        $booking->post_code = User::find(Auth::id())->address->post_code;
         $booking->date = $date;
-        $booking->post_code = $user->address->post_code;
         $booking->save();
-        $slotST = Slot::find($id)->start;
-        $slotET = Slot::find($id)->end;*/
 
-        //Van Schedule
-        $bookedSlotsCount = Delivery::where('slot_id' , $id)->where('date', $date->format('Y:m:d'))->get()->count();
-        if($bookedSlotsCount == 0 ){
-            $storePostCode = Store::first()->post_code;
+        $schedules = DeliverySchedule::where('day', getDayID($date))->get();
+        $timeToAdd = carbon::parse($slot->end)->diffInSeconds(carbon::parse($slot->start)) / 2;
+        $halfWaySlot = carbon::parse($slot->start)->addSeconds($timeToAdd);
+
+        foreach($schedules as $schedule){
+            if($halfWaySlot->between(Carbon::parse($schedule->start), Carbon::parse($schedule->end), true)){
+                $run = $schedule->run;
+            }else{
+                break;
+            }
         }
-        $delivery = new Delivery;
-        $delivery->slot_id = $id;
-        $delivery->schedule_id = getScheduleFromSlot(Slot::find($id)->start, $date);
-        $delivery->user_id = Auth::id();
-        $delivery->date = $date;
-        $delivery->post_code = User::find(Auth::id())->address->post_code;
-        $delivery->save();
+        $delivery = VehicleRuns::where('delivery_date', $date->format('Y:m:d'))->where('run', $run)->get();
 
+        if($delivery->count() == 0){
+            $newDelivery = new VehicleRuns();
+            $newDelivery->run = $run;
+            $newDelivery->delivery_date = $date;
+            $newDelivery->save();
+        }
         return back()->with('success', 'You Have booked the time slot');
     }
 }

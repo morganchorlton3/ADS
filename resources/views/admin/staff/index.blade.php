@@ -21,7 +21,7 @@
         <tbody>
             @foreach($staff as $employee)
                 <tr class="row100 body">
-                    <td class="cell100 column1">{{ $employee->id }}</td>
+                    <td class="cell100 column1">{{ sprintf('%04d', $employee->id) }}</td>
                     <td class="cell100 column2">{{ $employee->first_name }}</td>
                     <td class="cell100 column3">{{ $employee->last_name }}</td>
                     <td class="cell100 column3">{{ getJobRole($employee->job_id) }}</td>

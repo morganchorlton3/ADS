@@ -37,7 +37,6 @@ class StaffController extends Controller
             'last_name' => 'required|string',
             'job_title' => 'required',
         ]);
-
         $staff = new Staff;
         $staff->first_name = $request->first_name;
         $staff->last_name = $request->last_name;

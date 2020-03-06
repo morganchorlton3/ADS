@@ -1,28 +1,32 @@
 {
-  "_from": "startbootstrap-sb-admin-2",
+  "_args": [
+    [
+      "startbootstrap-sb-admin-2@4.0.7",
+      "/home/morgan/Work/Web/ADS"
+    ]
+  ],
+  "_from": "startbootstrap-sb-admin-2@4.0.7",
   "_id": "startbootstrap-sb-admin-2@4.0.7",
   "_inBundle": false,
   "_integrity": "sha512-4MIqbo/Y9Kz/CJ2H/EDHXGLfKuT7tHgmy9+b+SMXK/IwEX06ftJ4/75/IGMFqLazg+VriBJLp1B9dPuHBzaPVw==",
   "_location": "/startbootstrap-sb-admin-2",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "startbootstrap-sb-admin-2",
+    "raw": "startbootstrap-sb-admin-2@4.0.7",
     "name": "startbootstrap-sb-admin-2",
     "escapedName": "startbootstrap-sb-admin-2",
-    "rawSpec": "",
+    "rawSpec": "4.0.7",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "4.0.7"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/startbootstrap-sb-admin-2/-/startbootstrap-sb-admin-2-4.0.7.tgz",
-  "_shasum": "66def78f51dc333b21d0fae5fe49bb5a57430eca",
-  "_spec": "startbootstrap-sb-admin-2",
-  "_where": "/home/morganchorlton/Web/ShopCo",
+  "_spec": "4.0.7",
+  "_where": "/home/morgan/Work/Web/ADS",
   "author": {
     "name": "Start Bootstrap"
   },
@@ -30,7 +34,6 @@
     "url": "https://github.com/BlackrockDigital/startbootstrap-sb-admin-2/issues",
     "email": "feedback@startbootstrap.com"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "David Miller",
@@ -45,7 +48,6 @@
     "jquery": "3.4.1",
     "jquery.easing": "^1.4.1"
   },
-  "deprecated": false,
   "description": "An open source Bootstrap 4 admin theme.",
   "devDependencies": {
     "browser-sync": "2.26.7",
