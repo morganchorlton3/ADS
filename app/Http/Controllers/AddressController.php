@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -55,9 +56,16 @@ class AddressController extends Controller
      * @param  \App\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function edit(Address $address)
+    public function edit(Request $request)
     {
-        //
+        $address = Address::where('user_id', Auth::id())->first();
+        $address->post_code = $request->postCode;
+        $address->address_line_1 = $request->addressLine1;
+        $address->address_line_2 = $request->addressLine2;
+        $address->address_line_3 = $request->addressLine3;
+        $address->city = $request->city;
+        $address->save();
+        return back()->with('success', 'Address Successfully Updated');
     }
 
     /**

@@ -8,6 +8,8 @@ use App\Product;
 use App\Job;
 use App\Staff;
 use App\Order;
+use App\Slot;
+use App\Store;
 use App\SlotBooking;
 use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
@@ -88,14 +90,56 @@ function cartTotal(){
     return $total;
 }
 //slots
-function checkSlot($slot_id, $date){
-    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
+function checkSlot($id, $date){
+    $slot = Slot::find($id);
+    $run = getRun($date, $slot->start, $slot->end);
+    $vehicleRun = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+    $userSlot = SlotBooking::where('slot_id', $slot->id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
     if($userSlot->count() == 1){
         return 2;
     }elseif($date->isPast() | $date->isToday()){
         return 3;
     }else{
+        foreach($vehicleRun as $run){
+            $timeToNewDelivery = getRouteTime($run->lastPostCode, User::find(Auth::id())->address->post_code);
+            if($timeToNewDelivery/60 > 15){
+                return 3;
+            }
+        }
         return 1;
+    }
+    /*foreach($vehicleRun as $run){
+        $timeToNewDelivery = getRouteTime($run->lastPostCode, User::find(Auth::id())->address->post_code);
+        if($timeToNewDelivery/60 > 15){
+            return 3;
+        }
+    }
+    if($date->isPast() | $date->isToday()){
+        return 3;
+    }else{
+        return 1;
+    }*/
+}
+function getRun($date, $startTime, $endTime){
+    $schedules = DeliverySchedule::where('day', getDayID($date))->get();
+    $timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
+    $halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd);
+        
+    foreach($schedules as $schedule){
+        if($halfWaySlot->between(Carbon::parse($schedule->start), Carbon::parse($schedule->end), true)){
+            return $schedule->run;
+        }
+    }
+}
+function getRunStartTime($date, $startTime, $endTime){
+    $schedules = DeliverySchedule::where('day', getDayID($date))->get();
+    $timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
+    $halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd);
+        
+    foreach($schedules as $schedule){
+        if($halfWaySlot->between(Carbon::parse($schedule->start), Carbon::parse($schedule->end), true)){
+            return $schedule->start;
+        }
     }
 }
 /*
@@ -207,12 +251,13 @@ function getScheduleFromSlot($time, $day){
 
 }
 
-function newRun($run, $date){
+function newRun($slot, $run, $date, $userPostCode){
     $vehicleRun = new VehicleRuns();
     $vehicleRun->run = $run;
     $vehicleRun->deliveryDate = $date;
     $vehicleRun->deliveryCount = 1;
     $vehicleRun->lastPostCode = User::find(Auth::id())->address->post_code;
+    $vehicleRun->currentRunTime = Carbon::parse(getRunStartTime($date, $slot->start, $slot->end))->addSeconds(getRouteTime(Store::find(1)->postCode, $userPostCode)); 
     $vehicleRun->save();
 }
 
@@ -246,6 +291,35 @@ function getDistanceMiles($startPostCode, $endPostCode){
     return $distance_km * 0.621371;
 }
 
+function getRouteTime($startPostCode, $endPostCode){
+
+    if($startPostCode == $endPostCode){
+        return 0;
+    }
+
+    $client = new \GuzzleHttp\Client();
+
+    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $startPostCode);
+    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $endPostCode);
+        
+    $start_response = json_decode($start_request->getBody(),true);
+    $end_response = json_decode($end_request->getBody(),true);
+
+    $start_long = $start_response['features'][0]['geometry']['coordinates'][0];
+    $start_lat = $start_response['features'][0]['geometry']['coordinates'][1];
+
+    $end_long = $end_response['features'][0]['geometry']['coordinates'][0];
+    $end_lat = $end_response['features'][0]['geometry']['coordinates'][1];
+
+    $route_request = $client->get('https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&start='.$start_long.','.$start_lat.'&end='.$end_long.','.$end_lat);
+
+    $route = json_decode($route_request->getBody(),true);
+
+    $timeSeconds = $route['features'][0]['properties']['summary']['duration'];
+
+    return $timeSeconds;
+}
+
 function calculateRoute($postCodes){
     $client = new \GuzzleHttp\Client();
 
@@ -277,9 +351,7 @@ function calculateRoute($postCodes){
     $response = $client->send($request, ['timeout' => 2]);
 
     dd(json_decode($response->getBody(),true));
-
 }
-
 function calculateRouteDistance($postCodes){
     $client = new \GuzzleHttp\Client();
     
@@ -317,4 +389,5 @@ function calculateRouteDistance($postCodes){
 
     //return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
     ;
+    
 }

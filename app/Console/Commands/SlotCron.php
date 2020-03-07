@@ -3,26 +3,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use App\DeliveryVehicleProfile;
 use App\SlotBooking;
 use Carbon\Carbon;
 
-class organiseDeliveries extends Command
+class SlotCron extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'deliveries:organise';
+    protected $signature = 'slots:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Organise Deliveries for next working day';
+    protected $description = 'Clear Booked slots where orders havent been placed within 2 hours';
 
     /**
      * Create a new command instance.
@@ -41,11 +39,13 @@ class organiseDeliveries extends Command
      */
     public function handle()
     {
-        /*$vanProfile = new DeliveryVehicleProfile;
-        $vanProfile->van_id  = 1;
-        $vanProfile->delivery_schedule_id = 1;
-        $vanProfile->save();*/
-        $deliveries = SlotBooking::where('date', Carbon::now()->addDays(1)->format('y-m-d'))->where('slot_id', 1)->get();
-        echo $deliveries; 
+        $slots = SlotBooking::all();
+        foreach($slots as $slot){
+            if(Carbon::parse($slot->expiration)->isPast()){
+                $slot->delete();
+            }
+        }
+      
+        $this->info('Demo:Cron Cummand Run successfully!');
     }
 }

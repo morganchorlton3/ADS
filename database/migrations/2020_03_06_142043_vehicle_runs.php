@@ -18,7 +18,8 @@ class VehicleRuns extends Migration
             $table->integer('run');
             $table->date('deliveryDate');
             $table->integer('deliveryCount');
-            $table->string('lastPostCode');
+            $table->string('lastPostCode')->nullable();
+            $table->time('currentRunTime')->nullable();
             $table->timestamps();
         });
     }

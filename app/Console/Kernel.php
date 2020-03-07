@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\SlotCron::class,
     ];
 
     /**
@@ -23,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->command('demo:cron')
-        //         ->everyMinute();
+        $schedule->command('slots:clear')
+                 ->everyMinute();
     }
 
     /**

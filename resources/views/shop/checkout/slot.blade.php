@@ -9,6 +9,55 @@
                   Book Time slot
                 </div>
                 <div class="card-body">
+                    <div class="row col-lg-12 d-flex justify-content-center">
+                        <div class="row mb-4">
+                            <h1 class="text-center">Address</h1>
+                        </div>
+                        <form class="row col-lg-12 mb-4" action="{{ route('account.address.update') }}" method="POST">
+                            @CSRF
+                            <div class="row col-lg-12">
+                                <div class="form-group col-lg-6">
+                                    <label for="postCode">Name</label>
+                                    <input type="text" class="form-control @error('postCode') is-invalid @enderror" id="postCode" value="{{ $address->post_code }}" name="postCode">
+                                    @error('postCode')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="addressLine1">Address Line 1</label>
+                                    <input type="text" class="form-control @error('addressLine1') is-invalid @enderror" id="addressLine1" value="{{ $address->address_line_1 }}" name="addressLine1">
+                                    @error('addressLine1')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row col-lg-12">
+                                <div class="form-group col-lg-6">
+                                    <label for="addressLinew">Address Line 2</label>
+                                    <input type="text" class="form-control @error('addressLine2') is-invalid @enderror" id="addressLine2" value="{{ $address->address_line_2 }}" name="addressLine2">
+                                    @error('addressLine2')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label for="addressLine3">Address Line 3</label>
+                                    <input type="text" class="form-control @error('addressLine3') is-invalid @enderror" id="addressLine3" value="{{ $address->address_line_3 }}" name="addressLine3">
+                                    @error('addressLine3')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-control">Update Address</button>
+                        </form>
+                    </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-6">
                             <div class="row mb-2">

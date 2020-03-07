@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\User;
 
 Auth::routes(['verify' => true]);
 
@@ -26,6 +27,9 @@ Route::middleware('verified')->group(function () {
         Route::get('checkout/book-slot', 'SlotController@index')->name('book.slot');
         Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
+    });
+    Route::name('account.')->group(function(){
+        Route::post('/address/update', 'AddressController@edit')->name('address.update');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
@@ -105,5 +109,18 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dd(sprintf('%04d', 23));
+   // dd(getRouteTime(User::find(Auth::id())->address->post_code, "sk15 3rj"));
+
+  // dd(Carbon::parse(Carbon::now()->subMinutes(2))->isPast());
+
+dd(Carbon::now()->addHours(2)->format('h:m:s'));
+
+   $slots = App\SlotBooking::all();
+        foreach($slots as $slot){
+            dd(Carbon::parse($slot->expiration));
+            if(Carbon::parse($slot->expiration)->isPast()){
+               dd("true");
+            }
+            dd($slot->expiration);
+        }
 });
