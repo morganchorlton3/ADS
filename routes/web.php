@@ -2,26 +2,20 @@
 
 use Carbon\Carbon;
 use App\User;
-
-Auth::routes(['verify' => true]);
-
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
 Route::get('cart/decrease/{id}', 'CartController@decreaseQuantity')->name('cart.decrease');
 Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
-
-Route::get('/cart-view', function () {
-    dd(session()->get('cart'));
-});
-
 Route::get('/', 'HomeController@index')->name('home');
+//shop
+Route::get('shop/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
+
+Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
-    Route::get('/profile', 'ProfileController@index');
+    Route::get('/account', 'AccountController@index')->name('account.manage');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-    //shop
-    Route::get('shop/{slug}', 'Admin\\CategoryController@categoryView')->name('category');
     //checkout
     Route::name('checkout.')->group(function(){
         Route::get('checkout/book-slot', 'SlotController@index')->name('book.slot');

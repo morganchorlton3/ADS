@@ -13,7 +13,7 @@
                         <li><a href="{{ route('register') }}"><i class="fas fa-user fa-fw mr-2 "></i>Register</a></li>
                         <li><a href="{{ route('login') }}"><i class="fas fa-sign-in-alt fa-fw mr-2 "></i>Log in</a></li>
                         @else
-                        <li><a href="{{ route('register') }}"><i class="fas fa-user fa-fw mr-2 "></i>Account</a></li>
+                        <li><a href="{{ route('account.manage') }}"><i class="fas fa-user fa-fw mr-2 "></i>Account</a></li>
                         <li><a href="{{ route('logout') }}"><i class="fas fa-sign-out-alt fa-fw mr-2 "></i>Log Out</a></li>
                         @can('manage-users')
                         <li><a href="{{ route('admin.index') }}"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
@@ -25,6 +25,12 @@
         </div>
     </div>
     <!-- top header close -->
+    <!-- Logo Section -->
+    <div class="d-flex justify-content-center">
+        <div class="row col-lg-12 logo-banner">
+            <h1>Advanced Delivery System</h1>
+        </div>
+    </div>
     <!-- navigation start -->
     <div class="container">
         <div class="row">
@@ -39,6 +45,11 @@
                     <div class="collapse navbar-collapse" id="navbar-classic">
                         <div class="col-lg-9">
                             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mr-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('home') }}">
+                                        Home
+                                    </a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Groceries

@@ -498,6 +498,10 @@ a.text-primary:hover {
   padding: 2px;
 }
 
+.logo-banner {
+  background-color: #000000;
+}
+
 .list-group {
   padding: 0;
 }

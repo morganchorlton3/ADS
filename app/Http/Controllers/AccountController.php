@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use Alert;
+use App\Product;
+use App\Category;
 
-class ProfileController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('auth.profile')->with('success', 'Task Created Successfully!');
+        $products = Product::paginate(16);
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        return view('auth.manage')->with([
+            'products' => $products,
+            'parentCategories' => $parentCategories
+        ]);
     }
 
     /**
