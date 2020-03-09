@@ -29,10 +29,10 @@ add('writable_dirs', [
 
 // Hosts
 
-host('134.209.184.49')
+host('morganchorlton.me')
     ->user('deployer')
     ->identityFile('~/.ssh/deployerkey')
-    ->set('deploy_path', '/var/www/html/shopco.morganchorlton.me');     
+    ->set('deploy_path', '/var/www/html/ads.morganchorlton.me');     
     
 // Tasks
 

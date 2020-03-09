@@ -26,56 +26,63 @@
     </div>
     <!-- top header close -->
     <!-- Logo Section -->
-    <div class="d-flex justify-content-center">
-        <div class="row col-lg-12 logo-banner">
-            <h1>Advanced Delivery System</h1>
+    
+    <header class="masthead">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12 text-center">
+              <img src="{{ asset('img/Main-logo.gif') }}" height="250px" alt="">
+            </div>
+          </div>
         </div>
-    </div>
+      </header>
     <!-- navigation start -->
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <nav class="navbar navbar-expand-lg navbar-classic">
-                    <!--<a class="navbar-brand" href="https://jituchauhan.com/quanto/"> Shop Co</a>-->
-                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-classic" aria-controls="navbar-classic" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="icon-bar top-bar mt-0"></span>
-                        <span class="icon-bar middle-bar"></span>
-                        <span class="icon-bar bottom-bar"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbar-classic">
-                        <div class="col-lg-9">
-                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mr-3">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('home') }}">
-                                        Home
-                                    </a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Groceries
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="menu-2">
-                                        @foreach($parentCategories as $category)
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item dropdown-toggle" href="{{ route('category', $category->slug) }}">{{ $category->name}}</a>
-                                            <ul class="dropdown-menu ">
-                                                @if(count($category->subcategory))
-                                                    @include('subCategoryList',['subcategories' => $category->subcategory])
-                                                @endif 
-                                            </ul>
-                                        </li>
-                                        @endforeach                                    
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="input-group">
-                                <input type="text" class="form-control pb-2" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
+    <div id="navbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <nav class="navbar navbar-expand-lg navbar-classic">
+                        <!--<a class="navbar-brand" href="https://jituchauhan.com/quanto/"> Shop Co</a>-->
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-classic" aria-controls="navbar-classic" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar top-bar mt-0"></span>
+                            <span class="icon-bar middle-bar"></span>
+                            <span class="icon-bar bottom-bar"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbar-classic">
+                            <div class="col-lg-9">
+                                <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mr-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('home') }}">
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Groceries
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="menu-2">
+                                            @foreach($parentCategories as $category)
+                                            <li class="dropdown-submenu">
+                                                <a class="dropdown-item dropdown-toggle" href="{{ route('category', $category->slug) }}">{{ $category->name}}</a>
+                                                <ul class="dropdown-menu ">
+                                                    @if(count($category->subcategory))
+                                                        @include('subCategoryList',['subcategories' => $category->subcategory])
+                                                    @endif 
+                                                </ul>
+                                            </li>
+                                            @endforeach                                    
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control pb-2" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

@@ -21,10 +21,10 @@ p:last-child {
 	margin: 0px;
 }
 a {
-	color: #3544ee;
+	color: $secondary;
 }
 a:hover {
-	color: #202db8;
+	color: $secondary;
 	text-decoration: none;
 }
 a:active, a:hover {
@@ -33,7 +33,7 @@ a:active, a:hover {
 }
 
 a.text-primary:focus, a.text-primary:hover {
-	color: #202db8!important;
+	color: $secondary!important;
 }
 ol, ul {
 }
@@ -77,13 +77,13 @@ ol li, ul li {
 }
 .btn-brand:hover {
 	color: #fff;
-	background-color: #08b072;
-	border-color: #08b072;
+	background-color: red;
+	border-color: red;
 }
 .btn-brand.focus, .btn-brand:focus {
 	color: #fff;
-	background-color: #08b072;
-	border-color: #08b072;
+	background-color: red;
+	border-color: red;
 	box-shadow: none;
 }
 /*----------------- 7. Headers ---------------------------------*/
@@ -97,7 +97,7 @@ ol li, ul li {
 	color: #626582;
 	line-height: 30px;
 	border-bottom: 1px solid #f0f1f9;
-	border-top: 3px solid #3544ee;
+	border-top: 3px solid $secondary;
 	padding-bottom: 4px;
 	padding-top: 4px;
 }
@@ -151,10 +151,10 @@ ol li, ul li {
 	border-bottom: 1px solid #fff;
 }
 .navbar-classic .navbar-nav .nav-item .nav-link:hover {
-	color: #3544ee;
+	color: $secondary;
 }
 .navbar-classic .navbar-nav .nav-item .nav-link:hover.dropdown-toggle::after {
-	color: #3544ee;
+	color: $secondary;
 }
 .navbar-classic.navbar {
 	padding: 18px 0px;
@@ -229,13 +229,13 @@ ol li, ul li {
 	line-height: 15px;
 }
 .dropdown-item:focus, .dropdown-item:hover {
-	color: #4955ef;
+	color: $secondary;
 	text-decoration: none;
 	background-color: #eeeffd;
 	border-radius: 4px;
 }
 .dropdown-item:focus .dropdown-toggle::after, .dropdown-item:hover.dropdown-toggle::after {
-	color: #4955ef;
+	color: $secondary;
 }
 @media(min-width:992px) {
 	.dropdown .dropdown-menu {
@@ -314,16 +314,17 @@ ol li, ul li {
 .nav-dropitem-arrow i {
 	position: absolute;
 	/* top: -1px;
+
 	*/
 }
 .dropdown-item:focus, .dropdown-item:hover {
-	color: #3544ee;
+	color: $secondary;
 	text-decoration: none;
 	background-color: #eeeffd;
 	border-radius: 4px;
 }
 .dropdown-item:hover .nav-dropitem-arrow {
-	color: #4955ef;
+	color: $secondary;
 	opacity: 1;
 	margin-right: 5px;
 }
@@ -365,7 +366,7 @@ ol li, ul li {
 	margin: 7px 0px;
 }
 .navbar-transparent .navbar-collapse.show .navbar-nav .nav-item .nav-link {
-	border-bottom: 1px solid #495bfb;
+	border-bottom: 1px solid $secondary;
 }
 .navbar-transparent .navbar-collapse.show .dropdown .dropdown-menu .dropdown-submenu.dropdown-item {
 	border-bottom: 1px solid #f1f1f6;
@@ -373,7 +374,7 @@ ol li, ul li {
 .icon-bar {
 	width: 21px;
 	height: 3px;
-	background-color: #3544ee;
+	background-color: $primary;
 	display: block;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
@@ -385,7 +386,7 @@ ol li, ul li {
 .navbar-toggler .top-bar {
 	transform: rotate(45deg);
 	transform-origin: 10% 190%;
-	background-color: #3544ee;
+	background-color: $primary;
 }
 .navbar-toggler .middle-bar {
 	opacity: 0;
@@ -393,18 +394,18 @@ ol li, ul li {
 .navbar-toggler .bottom-bar {
 	transform: rotate(-45deg);
 	transform-origin: 10% -80%;
-	background-color: #3544ee;
+	background-color: $primary;
 }
 .navbar-toggler.collapsed .top-bar {
 	transform: rotate(0);
-	background-color: #3544ee;
+	background-color: $primary;
 }
 .navbar-toggler.collapsed .middle-bar {
 	opacity: 1;
 }
 .navbar-toggler.collapsed .bottom-bar {
 	transform: rotate(0);
-	background-color: #3544ee;
+	background-color: $primary;
 }
 
 .nav-btn{
@@ -414,6 +415,20 @@ ol li, ul li {
 }
 
 //nTesting
-.logo-banner{
-	background-color: #000000;
+.masthead {
+	height: 20vh;
+	min-height: 500px;
+	background-color: 	$primary;
+	color: #2E4857;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: #fff;
+	z-index: 100;
 }
