@@ -1,0 +1,34 @@
+.product-card{
+    width: 125%;
+    padding: 0;
+    border-radius: 0px;
+    border: 0.2px solid rgba(46, 72, 87,0.2);
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.card .card-body{
+    padding: 0px;
+    
+}
+.item-in-cart{
+    border-bottom: chartreuse solid 2px;
+}
+.card-title{
+    font-size: 16px;
+}
+/* bottom section */
+.card-bottom{
+    width: 100%;
+}
+.btn-cart{
+    border: #000 2px solid;
+    border-radius: 0px;
+    background-color: transparent;
+    color: red;
+}
+.qty-input{
+    border-radius: 0px;
+    width: 40px;
+}

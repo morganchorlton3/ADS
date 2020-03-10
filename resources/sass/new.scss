@@ -14,8 +14,14 @@
 //navbar
 @import 'partials/navbar';
 
+//product
+@import 'newPartials/product.scss';
+
 //Shadow
 @import 'partials/shadow.scss';
+
+//btn
+@import 'newPartials/btn.scss';
 
 .cart-bar{
     background-color: #fff;
@@ -28,14 +34,4 @@
     .btn{
         color: #fff;
     }
-}
-.btn{
-    background-color: $secondary;
-    border-color: $secondary;
-    color: #fff;
-}
-.btn:hover{
-    background-color: $primary;
-    border-color: $primary;
-    color: $secondary;
 }

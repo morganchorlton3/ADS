@@ -8,7 +8,6 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Searchable;
 
     protected $fillable = [
         'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id'

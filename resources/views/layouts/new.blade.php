@@ -22,7 +22,7 @@
     @yield('style')
 </head>
 <body>
-    @include('layouts.new-partials.navbar')
+    @include('layouts.partials.navbar')
     @include('sweetalert::alert')
     <div class="container">
         <div class="row col-lg-12">
@@ -30,7 +30,7 @@
                 @yield('content')
             </div>
             <div class="col-lg-3">
-                @include('layouts.new-partials.cart')
+                @include('layouts.partials.cart')
             </div>
         </div>
     </div>

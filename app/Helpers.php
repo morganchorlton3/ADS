@@ -82,6 +82,9 @@ function getJobRole($id){
 //Cart
 function cartTotal(){
     $cart = session()->get('cart');
+    if($cart == null){
+        return 0;
+    }
     $total = 0;
     foreach($cart as $item){
         $itemPrice = $item['price'] * $item['quantity'];
