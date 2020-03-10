@@ -19,4 +19,5 @@ mix.copy('node_modules/startbootstrap-sb-admin-2/', 'public/sb-admin-2/');
 mix.js(['node_modules/jquery/dist/jquery.js'],
       'resources/js/app.js', 'public/js',)
    .sass('resources/sass/app.scss', 'public/css')
-   .sass('resources/sass/dashboard.scss', 'public/css');
+   .sass('resources/sass/dashboard.scss', 'public/css')
+   .sass('resources/sass/new.scss', 'public/css');

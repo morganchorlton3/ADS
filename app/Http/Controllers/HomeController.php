@@ -28,7 +28,7 @@ class HomeController extends Controller
         $products = Product::paginate(16);
         $parentCategories = Category::where('parent_id',NULL)->get();
         //return view('home', compact('parentCategories'));
-        return view('home')->with([
+        return view('new-home')->with([
             'products' => $products,
             'parentCategories' => $parentCategories
         ]);

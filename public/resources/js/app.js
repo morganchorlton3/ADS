@@ -10718,16 +10718,28 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./resources/sass/new.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/new.scss ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!************************************************************************************************************!*\
-  !*** multi ./node_modules/jquery/dist/jquery.js ./resources/sass/app.scss ./resources/sass/dashboard.scss ***!
-  \************************************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** multi ./node_modules/jquery/dist/jquery.js ./resources/sass/app.scss ./resources/sass/dashboard.scss ./resources/sass/new.scss ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/morgan/Work/Web/ADS/node_modules/jquery/dist/jquery.js */"./node_modules/jquery/dist/jquery.js");
 __webpack_require__(/*! /home/morgan/Work/Web/ADS/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/morgan/Work/Web/ADS/resources/sass/dashboard.scss */"./resources/sass/dashboard.scss");
+__webpack_require__(/*! /home/morgan/Work/Web/ADS/resources/sass/dashboard.scss */"./resources/sass/dashboard.scss");
+module.exports = __webpack_require__(/*! /home/morgan/Work/Web/ADS/resources/sass/new.scss */"./resources/sass/new.scss");
 
 
 /***/ })
