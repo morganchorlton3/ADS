@@ -9,9 +9,9 @@
                 <div class="col-lg-8">
                     <h4 class="pull-left">Cart Total: </h4>
                 </div>
-                <div class="col-lg-4">
+                {{--<div class="col-lg-4">
                     <h4>£{{ CartTotal()}}</h4>
-                </div>
+                </div>--}}
                 <div class="col-lg-12 mt-1">
                     <a href="{{ route('checkout.book.slot') }}" style="width:100%;" class="btn btn-primary">Checkout</a>
                 </div>

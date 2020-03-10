@@ -146,13 +146,11 @@ body {
 
 .navbar-brand {
   display: inline-block;
-  padding-top: 5px;
-  padding-bottom: 2px;
   margin-right: initial;
   line-height: inherit;
   white-space: nowrap;
   color: #181825;
-  font-size: 24px;
+  font-size: 20px;
   z-index: 100;
 }
 
@@ -469,6 +467,22 @@ body {
 }
 
 .cart-bar a {
+  color: #2b2b2b;
+}
+
+.cart-bar .btn {
   color: #fff;
+}
+
+.btn {
+  background-color: #2b2b2b;
+  border-color: #2b2b2b;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #FFDC4A;
+  border-color: #FFDC4A;
+  color: #2b2b2b;
 }
 

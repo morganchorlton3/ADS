@@ -80,8 +80,8 @@
             </nav>
         </div>
         <div class="col-lg-3 d-none d-lg-block">
-            <nav class="navbar navbar-expand-lg navbar-classic pb-4 pt-4 shadow p-3" style="font-size:30px;">
-                <a class="mx-auto nav-brand">Cart</a>
+            <nav class="navbar navbar-expand-lg navbar-classic shadow p-3" style="font-size:30px;">
+                <a class="mx-auto nav-brand">Total: £ {{ number_format(cartTotal(), 2, '.', '') }}</a>
             </nav>
         </div>
     </div>

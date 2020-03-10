@@ -23,6 +23,19 @@
     top: -5px;
     color: #2b2b2b;
     a{
+        color: $secondary;
+    }
+    .btn{
         color: #fff;
     }
+}
+.btn{
+    background-color: $secondary;
+    border-color: $secondary;
+    color: #fff;
+}
+.btn:hover{
+    background-color: $primary;
+    border-color: $primary;
+    color: $secondary;
 }
