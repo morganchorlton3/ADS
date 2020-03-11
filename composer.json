@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.2",
         "alexpechkarev/google-maps": "6.0",
-        "algolia/algoliasearch-client-php": "^2.2",
         "cornford/googlmapper": "^3.0",
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.4",
