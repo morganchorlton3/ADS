@@ -41,7 +41,11 @@
     <div class="row">
         @foreach($products as $product)
             <div class="col-lg-3 col-md-6 d-flex align-items-stretch p-2">
-                <div class="card product-card item-in-cart">
+                @if(inCart($product->name) == 1)
+                    <div class="card product-card item-in-cart">
+                @else
+                    <div class="card product-card">
+                @endif
                     <div class="d-flex justify-content-center ">
                         <a href="#"><img class="text-center" width="150px" height="150px;" src="{{asset('ProductImages/' . $product->barcode . '/1.jpeg')}}" alt=""></a>
                     </div>
@@ -62,6 +66,9 @@
                                     <a href="{{ route('cart.add', $product->id) }}" style="background-color:transparent" class="btn btn-cart mt-auto">Add</a>
                                 </div>
                             </div>
+                            @if(inCart($product->name) == 1)
+                                <p class="text-center bottom-cart-text">Item In Cart</p>
+                            @endif
                         </div>
                     </div>
                 </div>

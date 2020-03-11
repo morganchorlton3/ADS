@@ -82,6 +82,7 @@ function getJobRole($id){
 //Cart
 function cartTotal(){
     $cart = session()->get('cart');
+    //dd($cart);
     if($cart == null){
         return 0;
     }
@@ -91,6 +92,17 @@ function cartTotal(){
         $total = $total + $itemPrice;
     }
     return $total;
+}
+function inCart($name){
+    $cart = session()->get('cart');
+    if($cart == null){
+        return 0;
+    }
+    foreach($cart as $item){
+        if($item['name'] == $name){
+            return 1;
+        }
+    }
 }
 //slots
 function checkSlot($id, $date){
