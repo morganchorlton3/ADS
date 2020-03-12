@@ -103,18 +103,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-   // dd(getRouteTime(User::find(Auth::id())->address->post_code, "sk15 3rj"));
-
-  // dd(Carbon::parse(Carbon::now()->subMinutes(2))->isPast());
-
-dd(Carbon::now()->addHours(2)->format('h:m:s'));
-
-   $slots = App\SlotBooking::all();
-        foreach($slots as $slot){
-            dd(Carbon::parse($slot->expiration));
-            if(Carbon::parse($slot->expiration)->isPast()){
-               dd("true");
-            }
-            dd($slot->expiration);
-        }
+    dd(Carbon::now()->addHours(2)->format('H:m:s'));
 });

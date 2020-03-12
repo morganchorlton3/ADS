@@ -446,7 +446,7 @@ body {
 
 .banner {
   background-color: #FFDC4A;
-  width: 100vw;
+  width: 100%;
 }
 
 .list-group {
@@ -514,5 +514,24 @@ a.disabled {
 
 .booked a {
   color: #fff !important;
+}
+
+.btn {
+  background-color: #2E4857;
+  border-color: #2E4857;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #FFDC4A;
+  border-color: #FFDC4A;
+  color: #2E4857;
+}
+
+.btn-cart {
+  border: #000 2px solid;
+  border-radius: 0px;
+  background-color: transparent;
+  color: black;
 }
 

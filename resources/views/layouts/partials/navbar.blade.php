@@ -18,8 +18,8 @@
 		</div>
 	</div>
 </div>
-<div class="row banner">
-    <div class="col-lg-12 pb-4 pt-4">
+<div class="row">
+    <div class="col-lg-12 pb-4 pt-4 banner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">

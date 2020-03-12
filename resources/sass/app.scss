@@ -4,6 +4,7 @@
 // Variables
 @import 'variables';
 
+
 // Bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,4 +17,7 @@
 
 //cart
 @import 'partials/cart';
+
+//btn
+@import 'newPartials/btn.scss';
 

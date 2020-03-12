@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Store;
 use App\VehicleRuns;
 use App\Address;
+use App\RunHours;
 
 class SlotController extends Controller
 {
@@ -53,14 +54,19 @@ class SlotController extends Controller
         $booking->slot_id = $id;
         $booking->post_code = $userPostCode;
         $booking->date = $date;
-        $booking->expiration = Carbon::now()->addHours(2)->format('h:m:s');
+        $booking->status = 1;
+        $booking->expiration = Carbon::now()->addHours(2)->format('H:m:s');
         $booking->save();
 
-        $run = getRun($date, $slot->start, $slot->end);
+        //$run = getRun($date, $slot->start, $slot->end);
 
-        $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+
+
+        //$vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+
+
         //If there is no run for that day create a new run
-        if($vehicleRuns->count() == 0){
+        /*if($vehicleRuns->count() == 0){
             $vehicleRun = new VehicleRuns();
             $vehicleRun->run = $run;
             $vehicleRun->deliveryDate = $date;
@@ -104,7 +110,7 @@ class SlotController extends Controller
             }elseif($vehicleRun->count() == 0){
                 newRun($slot, $run, $date, $userPostCode);
             }
-        }
+        }*/
         return back()->with('success', 'You Have booked the time slot');
     }
 }

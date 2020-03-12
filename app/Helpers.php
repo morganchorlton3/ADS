@@ -137,11 +137,10 @@ function checkSlot($id, $date){
 }
 function getRun($date, $startTime, $endTime){
     $schedules = DeliverySchedule::where('day', getDayID($date))->get();
-    $timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
-    $halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd);
-        
+    //$timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
+    //$halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd); 
     foreach($schedules as $schedule){
-        if($halfWaySlot->between(Carbon::parse($schedule->start), Carbon::parse($schedule->end), true)){
+        if(Carbon::parse($startTime)->between(Carbon::parse($schedule->start), Carbon::parse($schedule->end), true)){
             return $schedule->run;
         }
     }

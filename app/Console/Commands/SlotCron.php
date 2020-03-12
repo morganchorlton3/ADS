@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\SlotBooking;
 use Carbon\Carbon;
+use Log;
 
 class SlotCron extends Command
 {
@@ -39,13 +40,14 @@ class SlotCron extends Command
      */
     public function handle()
     {
+        Log::info('Cron Job Started');
         $slots = SlotBooking::all();
         foreach($slots as $slot){
-            if(Carbon::parse($slot->expiration)->isPast()){
+            if(Carbon::parse($slot->expiration)->isPast() && $slot->status == 1){
                 $slot->delete();
+                Log::info('Slot Deleted');
             }
         }
-      
-        $this->info('Demo:Cron Cummand Run successfully!');
+        Log::info('Cron Job Ended');
     }
 }
