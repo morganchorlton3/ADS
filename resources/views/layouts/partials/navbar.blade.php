@@ -18,25 +18,23 @@
 		</div>
 	</div>
 </div>
-<div class="row">
-    <div class="col-lg-12 pb-4 pt-4 banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <img src="{{ asset('img/banner-1.png')}}" class="img-fluid mx-auto d-block" style="height: 70px;" alt="">
-                </div>
-                <div class="col-lg-9 d-flex align-items-center">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
-                        </div>
-                      </div>
+<div class="col-lg-12 row banner pt-4 pb-4 m-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <img src="{{ asset('img/banner-1.png')}}" class="img-fluid mx-auto d-block" style="height: 70px;" alt="">
+            </div>
+            <div class="col-lg-9 d-flex align-items-center">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
-        {{--<img src="{{ asset('img/banner-1.png')}}" alt="">--}}
     </div>
+        {{--<img src="{{ asset('img/banner-1.png')}}" alt="">--}}
 </div>
 <!-- Main Nav -->
 <div class="container mt-4">
