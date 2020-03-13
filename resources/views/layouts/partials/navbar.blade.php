@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <img src="{{ asset('img/banner-1.png')}}" class="img-fluid mx-auto d-block" style="height: 70px;" alt="">
+                <a href="{{ route('home') }}"><img src="{{ asset('img/banner-1.png')}}" class="img-fluid mx-auto d-block" style="height: 70px;" alt=""></a>
             </div>
             <div class="col-lg-9 d-flex align-items-center">
                 <div class="input-group">
@@ -38,8 +38,8 @@
 </div>
 <!-- Main Nav -->
 <div class="container mt-4">
-    <div class="row col-lg-12">
-        <div class="col-lg-9">
+    <div class="row">
+        <div class="col-lg-9 pr-0 pl-0">
             <nav class="navbar navbar-expand-lg navbar-classic shadow p-3">
                 <!--<a class="navbar-brand" href="https://jituchauhan.com/quanto/"> Shop Co</a>-->
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-classic" aria-controls="navbar-classic" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col-lg-3 d-none d-lg-block">
+        <div class="col-lg-3">
             <nav class="navbar navbar-expand-lg navbar-classic shadow p-3" style="font-size:30px;">
                 <a class="mx-auto nav-brand">Total: £ {{ number_format(cartTotal(), 2, '.', '') }}</a>
             </nav>

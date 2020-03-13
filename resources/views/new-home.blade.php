@@ -37,34 +37,35 @@
 @endsection
 
 @section('content')
-<div class="col-lg-12 mt-4">
-    <div class="row">
+    <div class="row mt-4">
         @foreach($products as $product)
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch p-2">
-                @if(inCart($product->name) == 1)
-                    <div class="card product-card item-in-cart">
-                @else
-                    <div class="card product-card">
-                @endif
-                    <div class="d-flex justify-content-center ">
+           {{-- @if(inCart($product->name) >= 1)
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch card product-card item-in-cart ml-2 p-2">
+            @else
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            @endif--}}
+            <div class="col-lg-3 col-md-6 col-sm-12 d-flex pr-1 pl-1 pb-2">
+                <div class="card product-card p-2">
+                    <div class="d-flex justify-content-center">
                         <a href="#"><img class="text-center" width="150px" height="150px;" src="{{asset('ProductImages/' . $product->barcode . '/1.jpeg')}}" alt=""></a>
                     </div>
                     <div class="card-body d-flex flex-column">
                         <p class="card-title">
                             <a href="#">{{ $product->name }}</a>
                         </p>
-                        <div class="card-bottom d-felx align-items-baseline mt-auto p-2">
-                            <div class="row col-lg-12">
-                                <h4 class="text-center">{{ formatPrice($product->price)}}</h4>
-                            </div>
-
-                            <div class="row col-lg-12">
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control qty-input" placeholder="0">
+                        <div class="card-bottom d-felx align-items-baseline mt-auto">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <h4 class="text-center">{{ formatPrice($product->price)}}</h4>
                                 </div>
-                                <div class="col-lg-6">
-                                    <a href="{{ route('cart.add', $product->id) }}" style="background-color:transparent" class="btn btn-cart mt-auto">Add</a>
-                                </div>
+                                <form action="" class="card-form row d-flex justify-content-center">
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control qty-input">
+                                    </div>
+                                    <div class="col-lg-6 ">
+                                        <button href="{{ route('cart.add', $product->id) }}" style="background-color:transparent" class="btn btn-cart mt-auto">Add</button>
+                                    </div>
+                                </form>                        
                             </div>
                             @if(inCart($product->name) == 1)
                                 <p class="text-center bottom-cart-text">Item In Cart</p>
@@ -73,7 +74,6 @@
                     </div>
                 </div>
             </div>
-
         @endforeach
     </div>
     <div class="row">
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>        
-</div>
+
 
 @endsection
 @section('addedJS')

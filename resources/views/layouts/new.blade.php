@@ -25,7 +25,7 @@
     @include('layouts.partials.navbar')
     @include('sweetalert::alert')
     <div class="container">
-        <div class="row col-lg-12">
+        <div class="row">
             <div class="col-lg-9">
                 @yield('content')
             </div>
@@ -34,6 +34,9 @@
             </div>
         </div>
     </div>
+
+
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
         // When the user scrolls the page, execute myFunction
