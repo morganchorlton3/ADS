@@ -33,8 +33,10 @@ class SlotController extends Controller
         $parentCategories = Category::where('parent_id',NULL)->get();
         $slots = Slot::all();
         $userSlot = SlotBooking::latest()->where('user_id', Auth::id())->first();
-        if($userSlot->status == 3){
-            Alert::alert('Slot Expired', 'Your slot has expired, please book another slot', 'error');
+        if($userSlot != null){
+            if($userSlot->status == 3){
+                Alert::alert('Slot Expired', 'Your slot has expired, please book another slot', 'error');
+            }
         }
         return view('shop.checkout.slot')->with([
             'products' => $products,
