@@ -24,6 +24,7 @@
 <body>
     @include('layouts.partials.navbar')
     @include('sweetalert::alert')
+    @include('flash::message')
     <div class="container">
         <div class="row col-lg-12">
             <div class="col-lg-9">
@@ -69,6 +70,9 @@
             return false;
         });
       </script>
+      <script>
+        $('#flash-overlay-modal').modal();
+    </script>
     @yield('addedJS')
 </body>
 </html>

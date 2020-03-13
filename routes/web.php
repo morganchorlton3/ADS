@@ -103,5 +103,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dd(Carbon::now()->addHours(2)->format('H:m:s'));
+  
 });
