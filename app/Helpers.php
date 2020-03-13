@@ -109,9 +109,14 @@ function checkSlot($id, $date){
     $slot = Slot::find($id);
     $run = getRun($date, $slot->start, $slot->end);
     $vehicleRun = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
-    $userSlot = SlotBooking::where('slot_id', $slot->id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
-    if($userSlot->count() == 1){
-        return 2;
+    $userSlot = SlotBooking::where('slot_id', $slot->id)->where('date', $date->format('Y-m-d'))->where('user_id', Auth::id())->first();
+    //dd($date->format('Y:m:d'));
+    if($userSlot != null){
+        if($userSlot->status == 1){
+            return 2;
+        }else{
+            return 1;
+        }
     }elseif($date->isPast() | $date->isToday()){
         return 3;
     }else{
