@@ -11,7 +11,7 @@
         </div>
         <div class="col-lg-12 mt-4 mb-4">
             <div class="d-flex justify-content-center">
-                {{ $products->links() }} 
+                {{$products->links("pagination::bootstrap-4")}}
             </div>
         </div>  
     </div>

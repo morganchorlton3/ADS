@@ -24,3 +24,23 @@
 @import 'newPartials/btn.scss';
 
 @import 'newPartials/checkout.scss';
+
+.pagination{
+    .page-item{
+        .page-link{
+            color: $secondary;
+        }
+        .page-link:hover{
+            background-color: $primary !important;
+            color: $secondary;
+            border-color: $primary;
+        }
+    }
+    .active{
+        .page-link{
+            background-color: $secondary;
+            border-color: $secondary;
+            color: #fff;
+        }
+    }
+}

@@ -641,3 +641,19 @@ a.disabled {
   color: #fff !important;
 }
 
+.pagination .page-item .page-link {
+  color: #2E4857;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #FFDC4A !important;
+  color: #2E4857;
+  border-color: #FFDC4A;
+}
+
+.pagination .active .page-link {
+  background-color: #2E4857;
+  border-color: #2E4857;
+  color: #fff;
+}
+
