@@ -522,16 +522,17 @@ a.disabled {
   color: #fff;
 }
 
-.btn:hover {
+.btn:hover .btn:active .btn:focus {
   background-color: #FFDC4A;
   border-color: #FFDC4A;
   color: #2E4857;
 }
 
-.btn-cart {
-  border: #000 2px solid;
+.card {
   border-radius: 0px;
-  background-color: transparent;
-  color: black;
+}
+
+.red {
+  background-color: red;
 }
 

@@ -1,4 +1,4 @@
-.product-card{
+/*.product-card{
     padding: 0;
     border-radius: 0px;
     //border: 0.2px solid rgba(46, 72, 87,0.2);
@@ -13,7 +13,6 @@
 .card-title{
     font-size: 16px;
 }
-/* bottom section */
 .card-bottom{
     width: 100%;
 }
@@ -43,7 +42,7 @@
     border: #000 2px solid;
     border-radius: 0px;
     background-color: transparent;
-    color: red;
+    color: black;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-left: 10px;
@@ -56,4 +55,20 @@
     margin-bottom: 0px;
     bottom: 0;
     color: $success;
+}
+*/
+.card{
+	border-radius: 1px;
+}
+.card-title{
+	font-size: 14px;
+}
+.card-price{
+	font-weight: 1000;
+	color: black;
+	span{
+		font-size: 14px;
+		font-weight: 400;
+		color: gray;
+	}
 }

@@ -66,7 +66,11 @@ function checkPrimaryCat($primary){
     }
 }
 function formatPrice($price){
-    return "£" . number_format($price, 2);
+    if($price < 1){
+        return substr(number_format($price, 2) . "p", -3);
+    }else{
+        return "£" . number_format($price, 2);
+    }
 }
 //category
 function getParentCategory($name){

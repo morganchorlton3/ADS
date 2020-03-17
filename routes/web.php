@@ -2,6 +2,8 @@
 
 use Carbon\Carbon;
 use App\User;
+use App\Product;
+use App\Category;
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
@@ -103,5 +105,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-  
+    dd(formatPrice(1.23) . "  -  " . formatPrice(0.89));
 });

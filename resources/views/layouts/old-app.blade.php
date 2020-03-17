@@ -17,23 +17,18 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/new.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('style')
 </head>
 <body>
     @include('layouts.partials.navbar')
     @include('sweetalert::alert')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                @yield('content')
-            </div>
-            <div class="col-lg-3">
-                @include('layouts.partials.cart')
-            </div>
-        </div>
-    </div>
+
+
+    
+    @yield('content')
+
 
 
 

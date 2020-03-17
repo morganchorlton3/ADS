@@ -22,7 +22,7 @@
     @yield('style')
 </head>
 <body>
-    @include('layouts.partials.navbar-cart')
+    @include('layouts.partials.navbar')
     @include('sweetalert::alert')
     <div class="container">
         @yield('content')

@@ -11,16 +11,13 @@ class CartController extends Controller
         $product = Product::find($id);
  
         if(!$product) {
- 
             abort(404);
- 
         }
  
         $cart = session()->get('cart');
  
         // if cart is empty then this the first product
         if(!$cart) {
- 
             $cart = [
                     $id => [
                         "product_id" => $id,

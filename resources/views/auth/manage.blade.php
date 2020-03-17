@@ -1,115 +1,43 @@
-@extends('layouts.app')
+@extends('layouts.app-no-cart')
 
 @section('style')
-<style>
-.emp-profile{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    border-radius: 0.5rem;
-    background: #fff;
-}
-.profile-img{
-    text-align: center;
-}
-.profile-img img{
-    width: 70%;
-    height: 100%;
-}
-.profile-img .file {
-    position: relative;
-    overflow: hidden;
-    margin-top: -20%;
-    width: 70%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    background: #212529b8;
-}
-.profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
-.profile-head h5{
-    color: #333;
-}
-.profile-head h6{
-    color: #0062cc;
-}
-.profile-edit-btn{
-    border: none;
-    border-radius: 1.5rem;
-    width: 70%;
-    padding: 2%;
-    font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
-}
-.proile-rating{
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
-}
-.proile-rating span{
-    color: #495057;
-    font-size: 15px;
-    font-weight: 600;
-}
-.profile-head .nav-tabs{
-    margin-bottom:5%;
-}
-.profile-head .nav-tabs .nav-link{
-    font-weight:600;
-    border: none;
-}
-.profile-head .nav-tabs .nav-link.active{
-    border: none;
-    border-bottom:2px solid #0062cc;
-}
-.profile-work{
-    padding: 14%;
-    margin-top: -15%;
-}
-.profile-work p{
-    font-size: 12px;
-    color: #818182;
-    font-weight: 600;
-    margin-top: 10%;
-}
-.profile-work a{
-    text-decoration: none;
-    color: #495057;
-    font-weight: 600;
-    font-size: 14px;
-}
-.profile-work ul{
-    list-style: none;
-}
-.profile-tab label{
-    font-weight: 600;
-}
-.profile-tab p{
-    font-weight: 600;
-    color: #0062cc;
-}
-</style>
+
 @endsection
 
 @section('content')
-<div class="container emp-profile">
-    <form method="post">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="col-lg-6">
-                    <h2>Orders</h2>
-                </div>
-                <div class="col-lg-6">
-                    <h2>Details</h2>
-                </div>
+<div class="row">
+<div class="col-lg-4">
+    <div class="card d-flex justify-content-center">
+        <div class="card-body d-flex flex-column text-center">
+            <h1><i class="fa fa-user"></i></h1>
+            <h5 class="card-title">Profile</h5>
+            <div class="card-bottom d-felx align-items-baseline mt-auto">
+                <a href="{{ route('cart.add', 1) }}" class="btn btn-primary btn-lg btn-block">Manage Profile</a>
             </div>
         </div>
-    </form>           
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="card d-flex justify-content-center">
+        <div class="card-body d-flex flex-column text-center">
+            <h1><i class="fa fa-shopping-cart"></i></h1>
+            <h5 class="card-title">Orders</h5>
+            <div class="card-bottom d-felx align-items-baseline mt-auto">
+                <a href="{{ route('cart.add', 1) }}" class="btn btn-primary btn-lg btn-block">Manage Orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="card d-flex justify-content-center">
+        <div class="card-body d-flex flex-column text-center">
+            <h1><i class="fa fa-home"></i></h1>
+            <h5 class="card-title">Orders</h5>
+            <div class="card-bottom d-felx align-items-baseline mt-auto">
+                <a href="{{ route('cart.add', 1) }}" class="btn btn-primary btn-lg btn-block">Manage Address</a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 @endsection

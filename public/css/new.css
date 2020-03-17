@@ -439,74 +439,6 @@ body {
   width: 100%;
 }
 
-.product-card {
-  padding: 0;
-  border-radius: 0px;
-  width: 100%;
-}
-
-.card .card-body {
-  padding: 0px;
-}
-
-.item-in-cart {
-  border-bottom: #4BB543 solid 2px;
-}
-
-.card-title {
-  font-size: 16px;
-}
-
-/* bottom section */
-
-.card-bottom {
-  width: 100%;
-}
-
-.red {
-  background-color: red;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.card-form {
-  padding-bottom: 8px;
-  padding-left: 0px;
-}
-
-.btn-cart {
-  border: #000 2px solid;
-  border-radius: 0px;
-  background-color: transparent;
-  color: red;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 100%;
-}
-
-.qty-input {
-  border: #000 2px solid;
-  border-radius: 0px;
-  background-color: transparent;
-  color: red;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.bottom-cart-text {
-  padding-top: 8px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
-  bottom: 0;
-  color: #4BB543;
-}
-
 .cart-bar {
   background-color: #fff;
   height: 100vh;
@@ -572,16 +504,88 @@ body {
   color: #fff;
 }
 
-.btn:hover {
+.btn:hover .btn:active .btn:focus {
   background-color: #FFDC4A;
   border-color: #FFDC4A;
   color: #2E4857;
 }
 
-.btn-cart {
-  border: #000 2px solid;
-  border-radius: 0px;
-  background-color: transparent;
+/*.product-card{
+    padding: 0;
+    border-radius: 0px;
+    //border: 0.2px solid rgba(46, 72, 87,0.2);
+    width: 100%;
+}
+.card .card-body{
+    padding: 0px;    
+}
+.item-in-cart{
+    border-bottom: $success solid 2px;
+}
+.card-title{
+    font-size: 16px;
+}
+.card-bottom{
+    width: 100%;
+}
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
+}
+.card-form{
+    padding-bottom: 8px;
+
+    padding-left: 0px;
+}
+.btn-cart{
+    border: #000 2px solid;
+    border-radius: 0px;
+    background-color: transparent;
+    color: red;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+}
+.qty-input{
+    border: #000 2px solid;
+    border-radius: 0px;
+    background-color: transparent;
+    color: black;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+.bottom-cart-text{
+    padding-top: 8px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    bottom: 0;
+    color: $success;
+}
+*/
+
+.card {
+  border-radius: 1px;
+}
+
+.card-title {
+  font-size: 14px;
+}
+
+.card-price {
+  font-weight: 1000;
   color: black;
+}
+
+.card-price span {
+  font-size: 14px;
+  font-weight: 400;
+  color: gray;
 }
 
