@@ -473,10 +473,24 @@ body {
   color: #fff;
 }
 
-.btn:hover .btn:active .btn:focus {
+.btn:hover {
   background-color: #FFDC4A;
   border-color: #FFDC4A;
   color: #fff;
+}
+
+.btn:focus {
+  background-color: #FFDC4A;
+  border-color: #FFDC4A;
+  color: #fff;
+  border: none;
+}
+
+.btn:active {
+  background-color: #FFDC4A;
+  border-color: #FFDC4A;
+  color: #fff;
+  border: none;
 }
 
 .card {

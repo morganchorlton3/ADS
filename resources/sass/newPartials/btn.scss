@@ -3,8 +3,20 @@
     border-color: $secondary;
     color: #fff;
 }
-.btn:hover .btn:active .btn:focus{
+.btn:hover{
     background-color: $primary;
     border-color: $primary;
     color: #fff;
+}
+.btn:focus{
+    background-color: $primary;
+    border-color: $primary;
+    color: #fff;
+    border: none;
+}
+.btn:active{
+    background-color: $primary;
+    border-color: $primary;
+    color: #fff;
+    border: none;
 }
