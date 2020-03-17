@@ -625,6 +625,8 @@ body {
 
 .btn-slot:hover {
   border-color: #28a745;
+  background-color: #fff;
+  color: #000;
 }
 
 .unavailable {
@@ -637,7 +639,7 @@ body {
   border: #2B2D42 2px dashed;
 }
 
-.btn .booked {
+.booked {
   color: #fff;
 }
 
@@ -648,10 +650,7 @@ a.disabled {
 
 .booked {
   background-color: #28a745;
-  border: #fff 2px solid;
-}
-
-.booked a {
+  border: #28a745 2px solid;
   color: #fff !important;
 }
 
