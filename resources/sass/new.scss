@@ -14,12 +14,13 @@
 //navbar
 @import 'partials/navbar';
 
+//product
+@import 'newPartials/product.scss';
+
 //Cart
 @import 'newPartials/cart.scss';
-
 
 //btn
 @import 'newPartials/btn.scss';
 
-//product
-@import 'newPartials/product.scss';
+@import 'newPartials/checkout.scss';

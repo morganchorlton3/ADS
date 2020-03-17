@@ -439,77 +439,6 @@ body {
   width: 100%;
 }
 
-.cart-bar {
-  background-color: #fff;
-  height: 100vh;
-  top: -5px;
-  color: #2b2b2b;
-}
-
-.cart-bar a {
-  color: #2E4857;
-}
-
-.cart-bar .btn {
-  color: #fff;
-}
-
-.cart-bar .cart-name {
-  font-size: 14px;
-  overflow: hidden;
-  padding-left: 2px;
-  padding-right: 0px;
-}
-
-.cart-bar .cart-img {
-  padding-right: 0px;
-  padding-left: 1px;
-}
-
-.cart-bar .cart-qty {
-  padding-bottom: 0px;
-  padding-top: 4px;
-  font-size: 14px;
-}
-
-.cart-bar .cart-control {
-  border: solid #2E4857 2px;
-  border-radius: 5px;
-  font-size: 11px;
-  padding-right: 0px;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.cart-bar .cart-control a {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.cart-bar .cart-control:hover {
-  background-color: #2E4857;
-  color: #FFDC4A;
-  padding-right: 0px;
-}
-
-.cart-bar .cart-price {
-  font-size: 12px;
-  font-weight: 900;
-  margin-left: -10px;
-}
-
-.btn {
-  background-color: #2E4857;
-  border-color: #2E4857;
-  color: #fff;
-}
-
-.btn:hover .btn:active .btn:focus {
-  background-color: #FFDC4A;
-  border-color: #FFDC4A;
-  color: #2E4857;
-}
-
 /*.product-card{
     padding: 0;
     border-radius: 0px;
@@ -587,5 +516,128 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: gray;
+}
+
+.cart-bar {
+  background-color: #fff;
+  height: 100vh;
+  top: -5px;
+  color: #2b2b2b;
+}
+
+.cart-bar a {
+  color: #2E4857;
+}
+
+.cart-bar .btn {
+  color: #fff;
+}
+
+.cart-bar .cart-name {
+  font-size: 14px;
+  overflow: hidden;
+  padding-left: 2px;
+  padding-right: 0px;
+}
+
+.cart-bar .cart-img {
+  padding-right: 0px;
+  padding-left: 1px;
+}
+
+.cart-bar .cart-qty {
+  padding-bottom: 0px;
+  padding-top: 4px;
+  font-size: 14px;
+}
+
+.cart-bar .cart-control {
+  border: solid #2E4857 2px;
+  border-radius: 5px;
+  font-size: 11px;
+  padding-right: 0px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cart-bar .cart-control a {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cart-bar .cart-control:hover {
+  background-color: #2E4857;
+  color: #FFDC4A;
+  padding-right: 0px;
+}
+
+.cart-bar .cart-price {
+  font-size: 12px;
+  font-weight: 900;
+  margin-left: -10px;
+}
+
+.btn {
+  background-color: #2E4857;
+  border-color: #2E4857;
+  color: #fff;
+}
+
+.btn:hover .btn:active .btn:focus {
+  background-color: #FFDC4A;
+  border-color: #FFDC4A;
+  color: #fff;
+}
+
+.slot-row {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.btn-slot {
+  background-color: #fff;
+  border: #2B2D42 2px solid;
+  color: #2E4857;
+  padding: 6px;
+  width: 4.9vw;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 13px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.btn-slot:hover {
+  border-color: #28a745;
+}
+
+.unavailable {
+  background-color: #fff;
+  color: #fff;
+  border: #2B2D42 2px dashed;
+}
+
+.unavailable .unavailable:hover {
+  border: #2B2D42 2px dashed;
+}
+
+.btn .booked {
+  color: #fff;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.booked {
+  background-color: #28a745;
+  border: #fff 2px solid;
+}
+
+.booked a {
+  color: #fff !important;
 }
 
