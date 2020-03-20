@@ -3,8 +3,60 @@
 @section('content')
 <div class="col-lg-12 card shadow">
     <h5 class="title-span">Your Delivery Address</h5>
-    <div class="container">
-        <p><span>Delivery Address:</span> {{ formatAddress($address)}}</p>
+    <div class="container mt-2">
+        <div class="row">
+            <div>
+                <p><span>Delivery Address:</span> {{ formatAddress($address)}}</p>
+            </div>
+            <div class="ml-auto pr-4">
+                <a id="address"><i class="fas fa-arrow-circle-down" style="font-size:26px;"></i></a>
+                <a id="address-hide" style="display:none;"><i class="fas fa-arrow-circle-up" style="font-size:26px;"></i></a>
+            </div>
+        </div>
+        <form class="row col-lg-12 mb-4 updateAddress" action="{{ route('account.address.update') }}" method="POST" style="display:none;">
+            @CSRF
+            <div class="row col-lg-12" >
+                <div class="form-group col-lg-6">
+                    <label for="postCode">Name</label>
+                    <input type="text" class="form-control @error('postCode') is-invalid @enderror" id="postCode" value="{{ $address->post_code }}" name="postCode">
+                    @error('postCode')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" class="form-control @error('addressLine1') is-invalid @enderror" id="addressLine1" value="{{ $address->address_line_1 }}" name="addressLine1">
+                    @error('addressLine1')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="row col-lg-12">
+                <div class="form-group col-lg-6">
+                    <label for="addressLinew">Address Line 2</label>
+                    <input type="text" class="form-control @error('addressLine2') is-invalid @enderror" id="addressLine2" value="{{ $address->address_line_2 }}" name="addressLine2">
+                    @error('addressLine2')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="addressLine3">Address Line 3</label>
+                    <input type="text" class="form-control @error('addressLine3') is-invalid @enderror" id="addressLine3" value="{{ $address->address_line_3 }}" name="addressLine3">
+                    @error('addressLine3')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary form-control">Update Address</button>
+        </form>
     </div>
     <h5 class="title-span">Your Delivery Slot</h5>
     <!--  Slot Date Row -->
@@ -132,9 +184,28 @@
             </div>
     @endforeach
     </div>
+    <!-- Bottom Section -->
+    @if($slotBooking)
+        <div class="col-lg-12 d-flex justify-content-center mt-4 mb-4">
+            <button type="submit" class="btn btn-primary">Checkout</button>
+        </div>
+    @endif
 </div>
 @endsection
 
 @section('addedJS')
-
+<script>
+$(document).ready(function(){
+    $("#address").click(function(){
+        $(".updateAddress").fadeIn().show();
+        $("#address").hide();
+        $("#address-hide").show();
+    }); 
+    $("#address-hide").click(function(){
+        $(".updateAddress").fadeOut().hide();
+        $("#address-hide").hide();
+        $("#address").show();
+    }); 
+});
+</script>
 @endsection

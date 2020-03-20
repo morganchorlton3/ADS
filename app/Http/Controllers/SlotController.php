@@ -41,6 +41,7 @@ class SlotController extends Controller
         return view('shop.checkout.slot')->with([
             'products' => $products,
             'slots' => $slots,
+            'slotBooking' => $userSlot,
             'parentCategories' => $parentCategories,
             'address' => $address
         ]);
