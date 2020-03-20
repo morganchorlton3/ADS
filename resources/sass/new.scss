@@ -23,8 +23,11 @@
 //btn
 @import 'newPartials/btn.scss';
 
+//Checkout
 @import 'newPartials/checkout.scss';
 
+//Card
+@import 'newPartials/card.scss';
 .pagination{
     .page-item{
         .page-link{
@@ -43,4 +46,10 @@
             color: #fff;
         }
     }
+}
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
 }

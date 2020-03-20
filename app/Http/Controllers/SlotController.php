@@ -65,29 +65,13 @@ class SlotController extends Controller
         $booking->expiration = Carbon::now()->addHours(2)->format('H:m:s');
         $booking->save();
 
-        //$run = getRun($date, $slot->start, $slot->end);
+        $run = getRun($date, $slot->start, $slot->end);
+        $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
 
 
 
-        //$vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
 
-
-        //If there is no run for that day create a new run
-        /*if($vehicleRuns->count() == 0){
-            $vehicleRun = new VehicleRuns();
-            $vehicleRun->run = $run;
-            $vehicleRun->deliveryDate = $date;
-            $vehicleRun->deliveryCount = 1;
-            $vehicleRun->lastPostCode = $userPostCode;
-            $vehicleRun->currentRunTime = Carbon::parse(getRunStartTime($date, $slot->start, $slot->end))->addSeconds(getRouteTime(Store::find(1)->postCode, $userPostCode)); 
-            $vehicleRun->save();
-            $delivery = new Deliveries();
-            $delivery->userID = Auth::id();
-            $delivery->slotID = $id;
-            $delivery->deliveryDate = $date;
-            $delivery->vehicleRun = $vehicleRun->id;
-            $delivery->save();
-        }
+        /*
         foreach($vehicleRuns as $vehicleRun){
             if($vanCount >= $vehicleRun->count()){
                 //Add delivery to vehicle profile

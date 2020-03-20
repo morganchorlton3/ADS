@@ -1,4 +1,5 @@
-<div class="col-lg-12 cart-bar shadow mt-4">
+<div class="container mt-1 pl-0" style="height:100%;">
+    <div class="cart-bar shadow p-3">
     <div class="cart-head pt-4">
         @if(session('cart'))
         <?php $total = 0 ?>
@@ -51,6 +52,6 @@
                 </div>
             @endforeach
         @endif
- 
+    </div>
 
 </div>

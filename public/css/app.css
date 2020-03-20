@@ -495,9 +495,53 @@ body {
 
 .card {
   border-radius: 0px;
+  background-color: #fff;
+}
+
+/*card titles */
+
+.title-span {
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  color: #000;
+}
+
+.title-span:before,
+.title-span:after {
+  position: absolute;
+  top: 51%;
+  overflow: hidden;
+  margin-left: 1%;
+  width: 50%;
+  height: 1px;
+  content: "\A0";
+  background-color: #000;
+}
+
+.title-span:before {
+  margin-left: -51%;
+  text-align: right;
+}
+
+.color {
+  background-color: #ccc;
+}
+
+span {
+  color: #000;
+  font-weight: 900;
+  margin-right: 5px;
 }
 
 .red {
   background-color: red;
+}
+
+.black {
+  background-color: #000;
 }
 

@@ -14,6 +14,24 @@ use App\SlotBooking;
 use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
+//Formats
+function formatPrice($price){
+    if($price < 1){
+        return substr(number_format($price, 2) . "p", -3);
+    }else{
+        return "£" . number_format($price, 2);
+    }
+}
+function formatAddress($address){
+    if($address->address_line_3 == null){
+        return $address->address_line_1 . ', ' . $address->address_line_2 .', ' . $address->post_code;
+    }else{
+        return $address->address_line_1 . ', ' . $address->address_line_2 .', ' . $address->address_line_3 . ', ' . $address->post_code;
+    }
+}
+
+
+
 
 //Users
 function getUserCount(){
@@ -63,13 +81,6 @@ function checkPrimaryCat($primary){
         return "No Primary Selected";
     }else{
         return Category::find($primary)->name;
-    }
-}
-function formatPrice($price){
-    if($price < 1){
-        return substr(number_format($price, 2) . "p", -3);
-    }else{
-        return "£" . number_format($price, 2);
     }
 }
 //category
