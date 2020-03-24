@@ -20,6 +20,7 @@ class CreateProductLocationTable extends Migration
             $table->integer('mod');
             $table->integer('shelf');
             $table->string('slot');
+            $table->integer('stock');
             $table->timestamps();
         });
     }
