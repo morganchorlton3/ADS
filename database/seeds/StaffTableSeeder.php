@@ -17,9 +17,11 @@ class StaffTableSeeder extends Seeder
 
         for($i = 0; $i < 34; $i++) {
             Staff::create([
+                'employeeId' => $i,
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'job_id' => $faker->numberBetween($min = 1, $max = 4),
+                'pin' => Hash::make('1234'),
             ]);
         }
     }

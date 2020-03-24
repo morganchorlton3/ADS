@@ -18,6 +18,10 @@ class RolesTableSeeder extends Seeder
         Role::create([
             'name' => 'admin'
         ]);
+        //Staff Role
+        Role::create([
+            'name' => 'Staff'
+        ]);
         //Store Manager Role
         Role::create([
             'name' => 'store-manager'

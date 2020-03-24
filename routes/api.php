@@ -24,3 +24,5 @@ Route::any('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
 });
+
+Route::post('e-login', 'API\UserController@Elogin');

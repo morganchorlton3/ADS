@@ -4,6 +4,8 @@ use Carbon\Carbon;
 use App\User;
 use App\Product;
 use App\Category;
+use Illuminate\Support\Facades\Hash;
+use App\Staff;
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
@@ -105,5 +107,15 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dd(formatPrice(1.23) . "  -  " . formatPrice(0.89));
+    if(Auth::attempt(['email' => "morganchorlton3@gmail.com", 'password' => "adminpass"])){ 
+        $user = Auth::user(); 
+        if($user->hasAnyRole('admin')){
+            dd("IT Worked");
+        } else{ 
+            dd("NULL");
+        } 
+    } 
+    else{ 
+        dd("NULL"); 
+    } 
 });
