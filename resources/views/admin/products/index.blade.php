@@ -8,6 +8,11 @@
 
 @section('content')
 <div class="row h-300">
+    <div class="col-lg-12 mb-4">
+        <div class="float-right">
+            <a href="{{ route('admin.products.download') }}" class="btn btn-primary mb-2">Download Product Barcodes</a>
+        </div>
+    </div>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">

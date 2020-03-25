@@ -36,6 +36,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('users', 'UserController', ['except' => ['show', 'create', 'store']]);
     Route::resource('products', 'ProductController', ['except' => ['show', 'store']]);
     Route::post('product.upload', 'ProductController@newProduct')->name('product.new');
+    Route::get('/products/download','BarcodeController@downloadPDF')->name('products.download');
     //Categories
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/create', 'CategoryController@new')->name('category.create');
@@ -107,15 +108,6 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    if(Auth::attempt(['email' => "morganchorlton3@gmail.com", 'password' => "adminpass"])){ 
-        $user = Auth::user(); 
-        if($user->hasAnyRole('admin')){
-            dd("IT Worked");
-        } else{ 
-            dd("NULL");
-        } 
-    } 
-    else{ 
-        dd("NULL"); 
-    } 
+    $products = Product::all();
+    return view('admin.export.barcodes')->with('products', $products);
 });

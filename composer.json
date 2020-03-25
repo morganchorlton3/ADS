@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "alexpechkarev/google-maps": "6.0",
+        "barryvdh/laravel-dompdf": "^0.8.6",
         "cornford/googlmapper": "^3.0",
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.4",
@@ -19,6 +20,7 @@
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
+        "milon/barcode": "^6.0",
         "orangehill/iseed": "^2.6",
         "realrashid/sweet-alert": "^3.1"
     },
