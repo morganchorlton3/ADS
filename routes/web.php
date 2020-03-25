@@ -108,6 +108,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    $products = Product::all();
-    return view('admin.export.barcodes')->with('products', $products);
+    dd(Product::latest()->first());
 });

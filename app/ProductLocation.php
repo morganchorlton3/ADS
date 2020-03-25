@@ -10,8 +10,9 @@ class ProductLocation extends Model
         'product_ID', 'aisle', 'mod', 'shelf', 'slot',
     ];
 
-    public function Product()
-    {
-        return $this->belongsTo('App\Product');
+    protected $primaryKey = 'product_ID';
+
+    public function Product(){
+        return $this->hasOne('App\Product');
     }
 }

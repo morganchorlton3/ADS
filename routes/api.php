@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
 });
 
-Route::post('e-login', 'API\UserController@Elogin');
+Route::post('stock-dec', 'API\ProductController@descStock');
+Route::post('getPrice', 'API\ProductController@getPrice');

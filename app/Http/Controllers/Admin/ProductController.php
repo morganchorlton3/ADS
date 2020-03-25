@@ -9,6 +9,7 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ProductLocation;
 
 class ProductController extends Controller
 {
@@ -44,6 +45,10 @@ class ProductController extends Controller
             'detailedDesc' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category' => 'required',
+            'aisle' => 'required',
+            'mod' => 'required',
+            'shelf' => 'required',
+            'slot' => 'required',
         ]);
         
         $imageName = '1.'.$request->image->extension(); 
@@ -63,6 +68,14 @@ class ProductController extends Controller
         $Product->barcode = $request->barcode;
         $Product->category_id = $request->category;
         $Product->save();
+        $productLocation = new ProductLocation();
+        $productLocation->product_ID = Product::latest()->first()->id;
+        $productLocation->aisle = $request->aisle;
+        $productLocation->mod = $request->mod;
+        $productLocation->shelf = $request->shelf;
+        $productLocation->slot = $request->slot;
+        $productLocation->stock = 0;
+        $productLocation->save();
    
         return back()->with('success', 'Product Created!');
     }

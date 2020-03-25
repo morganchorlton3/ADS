@@ -87,9 +87,9 @@
                             @enderror
                         </div>
 
-                        <div class="form-group col-lg-3">
+                        <div class="form-group col-lg-6">
                             <label for="type">Category</label>
-                            <input value="" name="category" id="category_id">
+                            <input hidden value="" name="category" id="category_id">
                             <select onchange="val()" id="category_id_selector" class="form-control @error('type') is-invalid @enderror">  
                                 <option></option>                     
                                 @foreach($categories as $category)
@@ -104,7 +104,51 @@
                         </div>
 
                         <div class="form-group col-lg-3">
-                            <button type="submit" class="btn btn-primary form-control">Create Product</button>
+                            <label for="aisle">Aisle</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control @error('aisle') is-invalid @enderror" id="aisle" name="aisle">
+                                @error('aisle')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="mod">Mod</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control @error('mod') is-invalid @enderror" id="mod" name="mod">
+                                @error('mod')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="shelf">Shelf</label>
+                            <input type="text" name="shelf" class="form-control @error('shelf') is-invalid @enderror">
+                            @error('shelf')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="slot">Slot</label>
+                            <input type="text" name="slot" class="form-control @error('slot') is-invalid @enderror">
+                            @error('slot')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <button type="submit" class="btn btn-primary form-control mt-2">Create Product</button>
                         </div>
                     </div>
                 </form>
