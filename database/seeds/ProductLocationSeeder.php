@@ -14,14 +14,14 @@ class ProductLocationSeeder extends Seeder
     public function run()
     {
         $productCount = Product::count();
-        for($i = $productCount; $i < 0; $i--) {
+        for($i = $productCount; $i > 0; $i--) {
             ProductLocation::create([
                 'product_id' => $i,
                 'aisle' => 1,
                 'mod' => 2,
                 'shelf' => 3,
                 'slot' => 'a',
-                'stock' => randomNumber($nbDigits = 3, $strict = false),
+                'stock' => 200,
             ]);
         }
     }

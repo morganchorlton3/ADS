@@ -9,7 +9,12 @@ class ProductController extends Controller
 {
     function getPrice(){
         $product = Product::where('barcode',request('barcode'))->first();
-        return $product->price;
+        if($product == null){
+            return response()->json([
+                'name' => 'error'
+            ]);
+        }
+        return $product;  
     }   
 
     function descStock(){
