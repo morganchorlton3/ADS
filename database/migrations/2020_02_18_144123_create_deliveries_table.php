@@ -18,7 +18,7 @@ class CreateDeliveriesTable extends Migration
             $table->integer('userID');
             $table->integer('slotID');
             $table->date('deliveryDate');
-            //$table->integer('vehicleRun');
+            $table->integer('group');
             $table->timestamps();
         });
     }

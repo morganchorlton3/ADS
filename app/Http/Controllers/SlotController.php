@@ -67,9 +67,25 @@ class SlotController extends Controller
         $booking->save();
 
         $run = getRun($date, $slot->start, $slot->end);
+        //dd($run);
         $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+        if($vehicleRuns->count() == 0){
+            $vehicleRun = new VehicleRuns();
+            $vehicleRun->run = $run;
+            $vehicleRun->deliveryDate = $date;
+            $vehicleRun->group = 1;
+            $vehicleRun->last_postcode = $userPostCode;
+            $vehicleRun->save();
+            $delivery = new Deliveries();
+            $delivery->userID = Auth::id();
+            $delivery->slotID = $slot->id;
+            $delivery->deliveryDate = $date;
+            $delivery->group = 1;
+            $delivery->save();
+        }
 
 
+        
 
 
         /*
