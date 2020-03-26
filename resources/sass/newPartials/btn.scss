@@ -20,3 +20,7 @@
     color: #fff;
     border: none;
 }
+.btn-primary.disabled{
+    background-color: $secondary;
+    border-color: $secondary;
+}

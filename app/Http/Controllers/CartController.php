@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Alert;
 
 class CartController extends Controller
 {
     public function addToCart($id){
         $product = Product::find($id);
+        if($product->productLocation->stock >= 0){
+            Alert::alert('Item Out of stock', 'This item is now out of stock sorry for any inconvenience', 'error');
+        }
  
         if(!$product) {
             abort(404);

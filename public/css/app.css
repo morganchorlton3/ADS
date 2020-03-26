@@ -493,6 +493,11 @@ body {
   border: none;
 }
 
+.btn-primary.disabled {
+  background-color: #2E4857;
+  border-color: #2E4857;
+}
+
 .card {
   border-radius: 0px;
   background-color: #fff;

@@ -19,7 +19,9 @@ class ProductController extends Controller
 
     function descStock(){
         $product = Product::where('barcode',request('barcode'))->first();
-        $product->productLocation->stock = $product->productLocation->stock - 1;
+        if($product->productLocation->stock != 0){
+            $product->productLocation->stock = $product->productLocation->stock - 1;
+        }
         $product->productLocation->save();
         return $product->productLocation->stock;
     }

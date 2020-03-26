@@ -602,6 +602,11 @@ body {
   border: none;
 }
 
+.btn-primary.disabled {
+  background-color: #2E4857;
+  border-color: #2E4857;
+}
+
 .slot-row {
   margin-top: 2%;
   margin-bottom: 2%;

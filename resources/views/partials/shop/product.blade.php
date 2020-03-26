@@ -42,7 +42,11 @@
             <h5 class="card-title">{{ $product->name}}</h5>
             <div class="card-bottom d-felx align-items-baseline mt-auto">
                 <h6 class="card-price">{{ formatPrice($product->price) }}<span>/unit</span></h6>
+                @if($product->productLocation->stock > 0)
                 <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary btn-lg btn-block">Add</a>
+                @else
+                <a href="#" class="btn btn-primary btn-lg disabled" role="button" aria-disabled="true">Out Of Stock</a>
+                @endif
             </div>
         </div>
     </div>
