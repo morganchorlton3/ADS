@@ -34,6 +34,7 @@ class UsersTableSeeder extends Seeder
         ]);
         //atach roles
         $admin1->roles()->attach($staffUser);
+        $admin1->roles()->attach($adminUser);
 
         //user
         $user1 = User::create([
