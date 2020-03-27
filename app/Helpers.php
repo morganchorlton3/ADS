@@ -127,7 +127,6 @@ function checkSlot($id, $date){
     $vehicleRun = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->first();
     $userSlot = SlotBooking::where('slot_id', $slot->id)->where('date', $date->format('Y-m-d'))->where('user_id', Auth::id())->first();
     $vanCount = DeliveryVehicle::all()->count();
-    //dd($date->format('Y:m:d'));
     if($userSlot != null){
         if($userSlot->status == 1){
             return 2;
@@ -137,39 +136,20 @@ function checkSlot($id, $date){
     }elseif($date->isPast() | $date->isToday()){
         return 3;
     }elseif($vehicleRun != null){
-        /*foreach($vehicleRun as $run){
-            //dd($run->last_postcode . "    " .  User::find(Auth::id())->address->post_code);
-            if($run->last_postcode == User::find(Auth::id())->address->post_code){
-                return 1;
-            }else{
-                $timeToNewDelivery = getRouteTime($run->last_postcode, User::find(Auth::id())->address->post_code);
-                if($timeToNewDelivery/60 > 10){
-                    return 3;
-                }
-            }
-        }*/
-        if($vanCount > $vehicleRun->count()){
+        $timeToNewDelivery = getRouteTime($vehicleRun->last_postcode, User::find(Auth::id())->address->post_code);
+        $runTime = Carbon::parse($vehicleRun->run_time)->addSeconds($timeToNewDelivery);
+        //$currentRunTime = $vehicleRun
+        if($runTime->isBefore(Carbon::parse($slot->end))){
+           return 1; 
+        }else if($timeToNewDelivery/60 > 10){
+            return 3;
+        }else if($vanCount > $vehicleRun->count()){
             return 1;
         }
-        $timeToNewDelivery = getRouteTime($vehicleRun->last_postcode, User::find(Auth::id())->address->post_code);
-        if($timeToNewDelivery/60 > 10){
-            return 3;
-        }
         return 1;
     }else{
         return 1;
     }
-    /*foreach($vehicleRun as $run){
-        $timeToNewDelivery = getRouteTime($run->lastPostCode, User::find(Auth::id())->address->post_code);
-        if($timeToNewDelivery/60 > 15){
-            return 3;
-        }
-    }
-    if($date->isPast() | $date->isToday()){
-        return 3;
-    }else{
-        return 1;
-    }*/
 }
 function getRun($date, $startTime, $endTime){
     $schedules = DeliverySchedule::where('day', getDayID($date))->get();
@@ -192,65 +172,6 @@ function getRunStartTime($date, $startTime, $endTime){
         }
     }
 }
-/*
-function checkSlot($slot_id, $date){
-    $vanCount = DeliveryVehicle::all()->count();
-    $slot = SlotBooking::where('slot_id' , $slot_id)->where('date', $date)->first();
-    $booked_slots = SlotBooking::where('date' , $date->format('Y:m:d'))->get();
-    $bookingCount = 0;
-    $userSlot = SlotBooking::where('slot_id', $slot_id)->where('date', $date->format('Y:m:d'))->where('user_id', Auth::id())->pluck('user_id');
-    foreach($booked_slots as $slot){
-        if($slot_id == $slot->slot_id){
-            $bookingCount ++;
-        }
-    }
-    $currentUserPost_codeArea = substr(auth()->user()->address->post_code, 0, 1);
-    //dd($currentUserPost_code);
-    $bookedSlot = SlotBooking::where('date' , $date->format('Y:m:d'))->where('slot_id', $slot_id)->get();
-
-    if($bookedSlot->count() == 1){
-        $bookedSlotPost_codeArea = substr($bookedSlot[0]['post_code'], 0, 1);
-        if($currentUserPost_codeArea != $bookedSlotPost_codeArea){
-            return 3;
-        }
-    }
-
-    if($userSlot->count() == 1){
-        return 2;
-    }elseif($date->isPast() | $date->isToday()){
-        return 3;
-    }else if($bookingCount >= $vanCount){
-        return 3;
-    }else{
-        return 1;
-    }
-}
-function checkSlot($slot_id, $date){
-    $vanCount = DeliveryVehicle::all()->count();
-    $bookedSlots = Delivery::where('slot_id' , $slot_id)->where('date', $date->format('Y:m:d'))->get();
-    $userSlot = Delivery::where('slot_id' , $slot_id)->where('user_id', Auth::id())->where('date', $date->format('Y:m:d'))->count();
-    $currentUserPostCode = User::find(Auth::id())->address->post_code;
-    if($userSlot == 1){
-        return 2;
-    }else if($bookedSlots->count() != 0){
-        foreach($bookedSlots as $slot){
-            //dd($slot);
-            if($slot->post_code == $currentUserPostCode){
-                return 1;
-            }else{
-                $distanceFromLast = getDistanceMiles($slot->post_code, $currentUserPostCode);
-                
-            }
-        }
-    }else if($date->isPast() | $date->isToday()){
-        return 3;
-    }elseif($bookedSlots->count() > 0){
-        return 3;
-    }else{
-        return 1;
-    }
-}
-*/
 function SlotDate($id){
     $date = Carbon::now();
     //$monday = $date->startOfWeek();

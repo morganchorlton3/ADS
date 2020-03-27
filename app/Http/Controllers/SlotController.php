@@ -52,6 +52,7 @@ class SlotController extends Controller
         $slot = Slot::find($id);
         $run = 0;
         $userPostCode = User::find(Auth::id())->address->post_code;
+        $storePostCode = Store::first()->postCode;
         $vanCount = DeliveryVehicle::count();
         $userBooking = SlotBooking::where('user_id', Auth::id());
         if($userBooking->count() > 0){
@@ -70,11 +71,13 @@ class SlotController extends Controller
         //dd($run);
         $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
         if($vehicleRuns->count() == 0){
+            $runTime = Carbon::parse($slot->start)->addSecond(getRouteTime($storePostCode, User::find(Auth::id())->address->post_code));
             $vehicleRun = new VehicleRuns();
             $vehicleRun->run = $run;
             $vehicleRun->deliveryDate = $date;
             $vehicleRun->group = 1;
             $vehicleRun->last_postcode = $userPostCode;
+            $vehicleRun->run_time = $runTime;
             $vehicleRun->save();
             $delivery = new Deliveries();
             $delivery->userID = Auth::id();

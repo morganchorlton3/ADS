@@ -6,6 +6,8 @@ use App\Product;
 use App\Category;
 use Illuminate\Support\Facades\Hash;
 use App\Staff;
+use App\Slot;
+use App\VehicleRuns;
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
@@ -108,5 +110,13 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dd(Product::latest()->first());
+    $slot = Slot::find(1);
+    $vehicleRun = VehicleRuns::find(1);
+    $timeToNewDelivery = getRouteTime($vehicleRun->last_postcode, User::find(Auth::id())->address->post_code);
+    $runTime = Carbon::parse($vehicleRun->run_time)->addSeconds($timeToNewDelivery);
+    //dd(Carbon::parse($vehicleRun->run_time));
+    //dd($runTime);
+    //$currentRunTime = $vehicleRun
+    dd($runTime->isBefore(Carbon::parse($slot->end)));
+            
 });

@@ -20,6 +20,7 @@ class VehicleRuns extends Migration
             $table->date('deliveryDate');
             $table->integer('group');
             $table->string('last_postcode');
+            $table->time('run_time');
             $table->timestamps();
         });
     }
