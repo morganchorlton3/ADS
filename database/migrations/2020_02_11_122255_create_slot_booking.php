@@ -20,6 +20,7 @@ class CreateSlotBooking extends Migration
             $table->date('date');
             $table->string('post_code');
             $table->integer('status');
+            $table->integer('van_run');
             $table->Time('expiration')->nullable();
             $table->timestamps();
         });

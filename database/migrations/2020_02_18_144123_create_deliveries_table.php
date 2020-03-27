@@ -19,6 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->integer('slotID');
             $table->date('deliveryDate');
             $table->integer('group');
+            $table->string('postCode');
             $table->timestamps();
         });
     }
