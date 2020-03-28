@@ -307,8 +307,8 @@ function getRouteTime($startPostCode, $endPostCode){
     $client = new \GuzzleHttp\Client();
 
 
-    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $startPostCode);
-    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $endPostCode);
+    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $startPostCode);
+    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $endPostCode);
 
 
     $start_response = json_decode($start_request->getBody(),true);
@@ -342,7 +342,7 @@ function calculateRoute($postCodes){
     $coordinatesString = null;
     $counter = 0;
     foreach($postCodes as $postCode){
-        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $postCode);
         $coordinatesResponse = json_decode($coordinates->getBody(),true);
         $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
         $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
@@ -374,7 +374,7 @@ function calculateRouteDistance($postCodes){
     $coordinatesString = null;
     $counter = 0;
     foreach($postCodes as $postCode){
-        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $postCode);
         $coordinatesResponse = json_decode($coordinates->getBody(),true);
         $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
         $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
