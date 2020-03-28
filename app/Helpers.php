@@ -160,6 +160,8 @@ function checkSlot($id, $date){
         //If user has a booked slot
         if($userSlot->status == 1){
             return 2;
+        }else{
+            return 1;
         }
     }
     if($bookedSlots->count() == 4){
@@ -174,7 +176,9 @@ function checkSlot($id, $date){
         //dump($postCodes);
         if(getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60 >= 10){
             return 3;
-        } 
+        }else{
+            return 1;
+        }
         //return 3;
     }else{
         return 1;
