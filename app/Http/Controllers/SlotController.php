@@ -86,7 +86,6 @@ class SlotController extends Controller
             $delivery->group = $vehicleRun->id;
             $delivery->postCode = $userPostCode;
             $delivery->save();
-            $booking->van_run = $vehicleRun->id;
         }
         //Check Where To Place Run
         if($vehicleRuns->count() > 0 && $vehicleRuns->count() < $vanCount){
@@ -117,7 +116,6 @@ class SlotController extends Controller
             $delivery->group = $vehicleRun->id;
             $delivery->postCode = $userPostCode;
             $delivery->save();
-            $booking->van_run = $vehicleRun->id;
 
         }
         $booking->save();
