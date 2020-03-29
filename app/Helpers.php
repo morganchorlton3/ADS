@@ -14,6 +14,12 @@ use App\SlotBooking;
 use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
+use Illuminate\Support\Facades\Cache;
+use Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy;
+use Kevinrob\GuzzleCache\Storage\LaravelCacheStorage;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
 
 //Formats
 function formatPrice($price){
@@ -121,7 +127,7 @@ function inCart($name){
     }
 }
 //slots
-function checkSlot($id, $date){
+/*function checkSlot($id, $date){
     $slot = Slot::find($id);
     $run = getRun($date, $slot->start, $slot->end);
     $vehicleRun = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->first();
@@ -147,6 +153,39 @@ function checkSlot($id, $date){
             return 1;
         }
         return 1;
+    }else{
+        return 1;
+    }
+}*/
+function checkSlot($id, $date){
+    $slot = Slot::find($id);
+    $storePostCode = Store::first()->postCode;
+    $userSlot = SlotBooking::where('slot_id', $slot->id)->where('date', $date->format('Y-m-d'))->where('user_id', Auth::id())->first();
+    $bookedSlots = SlotBooking::where('date', $date->format('Y-m-d'))->where('slot_id', $slot->id)->get();
+    if ($userSlot != null){
+        //If user has a booked slot
+        if($userSlot->status == 1){
+            return 2;
+        }else{
+            return 1;
+        }
+    }
+    if($bookedSlots->count() == 4){
+        //If to many deliveries per hour
+        return 3;
+    }else if($bookedSlots->count() > 1){
+        $postCodes = array();
+        foreach($bookedSlots as $bookedSlot){
+            array_push($postCodes,$bookedSlot->post_code);
+        }
+        asort($postCodes);
+        //dump($postCodes);
+        if(getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60 >= 10){
+            return 3;
+        }else{
+            return 1;
+        }
+        //return 3;
     }else{
         return 1;
     }
@@ -264,8 +303,8 @@ function getDistanceMiles($startPostCode, $endPostCode){
 
     return $distance_km * 0.621371;
 }
-
-function getRouteTime($startPostCode, $endPostCode){
+/* OpenRouteService */
+function OldgetRouteTime($startPostCode, $endPostCode){
 
     if($startPostCode == $endPostCode){
         return 0;
@@ -274,8 +313,8 @@ function getRouteTime($startPostCode, $endPostCode){
     $client = new \GuzzleHttp\Client();
 
 
-    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $startPostCode);
-    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $endPostCode);
+    $start_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $startPostCode);
+    $end_request = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $endPostCode);
 
 
     $start_response = json_decode($start_request->getBody(),true);
@@ -291,7 +330,12 @@ function getRouteTime($startPostCode, $endPostCode){
 
     $route_request = $client->get('https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624864fbb490590e46bcbdcb34db2222f284&start='.$start_long.','.$start_lat.'&end='.$end_long.','.$end_lat);
 
+    //dump($startPostCode . "  ---  ", $endPostCode);
+    //dump($start_long.','.$start_lat.'   '.$end_long.','.$end_lat);
+
     $route = json_decode($route_request->getBody(),true);
+
+    //dd($route);
 
     $timeSeconds = $route['features'][0]['properties']['summary']['duration'];
 
@@ -304,7 +348,7 @@ function calculateRoute($postCodes){
     $coordinatesString = null;
     $counter = 0;
     foreach($postCodes as $postCode){
-        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $postCode);
         $coordinatesResponse = json_decode($coordinates->getBody(),true);
         $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
         $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
@@ -336,7 +380,7 @@ function calculateRouteDistance($postCodes){
     $coordinatesString = null;
     $counter = 0;
     foreach($postCodes as $postCode){
-        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . env('MapKey') . '&postalcode=' . $postCode);
+        $coordinates = $client->get('https://api.openrouteservice.org/geocode/search/structured?api_key=' . config('services.map.key') . '&postalcode=' . $postCode);
         $coordinatesResponse = json_decode($coordinates->getBody(),true);
         $long = $coordinatesResponse['features'][0]['geometry']['coordinates'][0];
         $lat = $coordinatesResponse['features'][0]['geometry']['coordinates'][1];
@@ -367,5 +411,25 @@ function calculateRouteDistance($postCodes){
 
     //return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
     ;
+    
+}
+// GCP 
+function getRouteTime($startPostCode, $endPostCode){
+
+    if($startPostCode == $endPostCode){
+        return 0;
+    }
+
+    $client = new Client();
+
+    $route_request = $client->get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+
+    $route = json_decode($route_request->getBody(),true);
+
+    $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+
+    return $timeSeconds;
+}
+function cacheRoute($route){
     
 }

@@ -113,29 +113,32 @@
                         {{\Carbon\Carbon::parse($slot->end)->format('h:i')}}</p>
                     </div>
                     <div class="col-lg-3 col">
-                        @if(checkSlot($slot->id, SlotDate(1)) == 1)
+                        <?php $checkSlot = checkSlot($slot->id, SlotDate(1)); ?>
+                        @if( $checkSlot  == 1)
                             <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(1)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                        @elseif(checkSlot($slot->id, SlotDate(1)) == 2)
+                        @elseif($checkSlot  == 2)
                             <a class="btn btn-slot booked" >Booked</a>
-                        @elseif(checkSlot($slot->id, SlotDate(1)) == 3)
+                        @elseif($checkSlot  == 3)
                             <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
                         @endif
                     </div>
                     <div class="col-lg-3">
-                        @if(checkSlot($slot->id, SlotDate(2)) == 1)
+                        <?php $checkSlot = checkSlot($slot->id, SlotDate(2)); ?>
+                        @if($checkSlot == 1)
                             <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(2)]) }}"type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                        @elseif(checkSlot($slot->id, SlotDate(2)) == 2)
+                        @elseif($checkSlot == 2)
                             <a aria-disabled="true"  class="btn btn-slot booked" >Booked</a>
-                        @elseif(checkSlot($slot->id, SlotDate(2)) == 3)
+                        @elseif($checkSlot == 3)
                             <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
                         @endif
                     </div>
                     <div class="col-lg-3">
-                        @if(checkSlot($slot->id, SlotDate(3)) == 1)
+                        <?php $checkSlot = checkSlot($slot->id, SlotDate(3)); ?>
+                        @if($checkSlot == 1)
                             <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(3)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                        @elseif(checkSlot($slot->id, SlotDate(3)) == 2)
+                        @elseif($checkSlot == 2)
                             <a aria-disabled="true" class="btn btn-slot booked" >Booked</a>
-                            @elseif(checkSlot($slot->id, SlotDate(3)) == 3)
+                            @elseif($checkSlot == 3)
                             <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
                         @endif
                     </div>
@@ -144,38 +147,42 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-3">
-                            @if(checkSlot($slot->id, SlotDate(4)) == 1)
+                            <?php $checkSlot = checkSlot($slot->id, SlotDate(4)); ?>
+                            @if($checkSlot == 1)
                                 <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(4)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                            @elseif(checkSlot($slot->id, SlotDate(4)) == 2)
+                            @elseif($checkSlot == 2)
                                 <a class="btn btn-slot booked" >Booked</a>
-                            @elseif(checkSlot($slot->id, SlotDate(4)) == 3)
+                            @elseif($checkSlot == 3)
                                 <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
                             @endif
                         </div>
                         <div class="col-lg-3">
-                            @if(checkSlot($slot->id, SlotDate(5)) == 1)
+                            <?php $checkSlot = checkSlot($slot->id, SlotDate(5)); ?>
+                            @if($checkSlot == 1)
                                 <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(5)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                            @elseif(checkSlot($slot->id, SlotDate(5)) == 2)
+                            @elseif($checkSlot == 2)
                                 <a class="btn btn-slot booked" >Booked</a>
-                                @elseif(checkSlot($slot->id, SlotDate(5)) == 3)
+                                @elseif($checkSlot == 3)
                                 <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
                             @endif
                         </div>
                         <div class="col-lg-3" >
-                            @if(checkSlot($slot->id, SlotDate(6)) == 1)
+                            <?php $checkSlot = checkSlot($slot->id, SlotDate(6)); ?>
+                            @if($checkSlot == 1)
                                 <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(6)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                            @elseif(checkSlot($slot->id, SlotDate(6)) == 2)
+                            @elseif($checkSlot == 2)
                                 <a class="btn btn-slot booked" >Booked</a>
-                                @elseif(checkSlot($slot->id, SlotDate(6)) == 3)
+                                @elseif($checkSlot == 3)
                                 <a class="btn btn-slot unavailable disabled" >Unavailable</a>
                             @endif
                         </div>
                         <div class="col-lg-3" >
-                            @if(checkSlot($slot->id, SlotDate(7)) == 1)
+                            <?php $checkSlot = checkSlot($slot->id, SlotDate(7)); ?>
+                            @if($checkSlot == 1)
                                 <a href="{{ route('checkout.book.time.slot' , [$id = $slot->id, $day = SlotDate(7)]) }}" type="button" class="btn btn-slot">{{ formatPrice($slot->price) }}</a>
-                            @elseif(checkSlot($slot->id, SlotDate(7)) == 2)
+                            @elseif($checkSlot == 2)
                                 <a class="btn btn-slot booked" >Booked</a>
-                            @elseif(checkSlot($slot->id, SlotDate(7)) == 3)
+                            @elseif($checkSlot == 3)
                                 <a class="btn btn-slot unavailable disabled">Unavailable</a>
                             @endif
                         </div>
