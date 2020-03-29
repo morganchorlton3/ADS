@@ -32,5 +32,8 @@ return [
     'map' => [
         'key' => env('MapKey'),
     ],
+    'GCP' => [
+        'key' => env('GCP_KEY'),
+    ],
 
 ];

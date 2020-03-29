@@ -111,7 +111,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    $slotCount = Slot::count(); 
-    dump($slotCount . "  ---  " . rand(0,1));
-            
+    dump(getRouteTime("OL6 6HW", "sk15 3rj"));
 });

@@ -14,6 +14,12 @@ use App\SlotBooking;
 use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
+use Illuminate\Support\Facades\Cache;
+use Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy;
+use Kevinrob\GuzzleCache\Storage\LaravelCacheStorage;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
 
 //Formats
 function formatPrice($price){
@@ -297,8 +303,8 @@ function getDistanceMiles($startPostCode, $endPostCode){
 
     return $distance_km * 0.621371;
 }
-
-function getRouteTime($startPostCode, $endPostCode){
+/* OpenRouteService */
+function OldgetRouteTime($startPostCode, $endPostCode){
 
     if($startPostCode == $endPostCode){
         return 0;
@@ -405,5 +411,25 @@ function calculateRouteDistance($postCodes){
 
     //return round($result['routes'][0]['segments'][0]['distance'] * 0.000621371) . " Miles" . ' - ' . gmdate("H:i:s", ($result['routes'][0]['segments'][0]['duration']));
     ;
+    
+}
+// GCP 
+function getRouteTime($startPostCode, $endPostCode){
+
+    if($startPostCode == $endPostCode){
+        return 0;
+    }
+
+    $client = new Client();
+
+    $route_request = $client->get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+
+    $route = json_decode($route_request->getBody(),true);
+
+    $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+
+    return $timeSeconds;
+}
+function cacheRoute($route){
     
 }
