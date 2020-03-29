@@ -420,16 +420,25 @@ function getRouteTime($startPostCode, $endPostCode){
         return 0;
     }
 
-    $client = new Client();
+    if(Cache::get($startPostCode.'-'.$endPostCode) == null){
+        $client = new Client();
 
-    $route_request = $client->get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+        $route_request = $client->get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
 
-    $route = json_decode($route_request->getBody(),true);
+        $route = json_decode($route_request->getBody(),true);
 
-    $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+        Cache::forever($startPostCode.'-'.$endPostCode, $route);
 
+        $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+
+    }else{
+        $route = Cache::get($startPostCode.'-'.$endPostCode);
+        $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+        //dump("Cached Response!");
+    }
     return $timeSeconds;
 }
+
 function cacheRoute($route){
     
 }

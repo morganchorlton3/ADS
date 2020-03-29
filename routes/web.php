@@ -111,5 +111,6 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dump(getRouteTime("OL6 6HW", "sk15 3rj"));
+    dump(getRouteTime("ol66hw","sk153rj"));
+    //dump(phpinfo());
 });
