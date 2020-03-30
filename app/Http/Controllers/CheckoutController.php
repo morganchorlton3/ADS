@@ -7,7 +7,7 @@ use App\Category;
 use App\Address;
 use Auth;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
-
+use Cart;
 
 class CheckoutController extends Controller
 {
@@ -57,7 +57,7 @@ class CheckoutController extends Controller
               ]);
 
               //Clear Cart
-              CartController::clearCart();
+              Cart::clearCart();
 
               return back()->with('success', 'Payment Successful');
 
