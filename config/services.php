@@ -35,5 +35,9 @@ return [
     'GCP' => [
         'key' => env('GCP_KEY'),
     ],
+    'stripe' => [
+        'secret'  => env('STRIPE_SECRET_KEY'),
+        'version' => '2019-02-19',
+    ],
 
 ];

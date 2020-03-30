@@ -24,10 +24,12 @@ Route::middleware('verified')->group(function () {
     Route::get('/account', 'AccountController@index')->name('account.manage');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //checkout
-    Route::name('checkout.')->group(function(){
-        Route::get('checkout/book-slot', 'SlotController@index')->name('book.slot');
+    Route::name('checkout.')->prefix('checkout')->group(function(){
+        Route::get('book-slot', 'SlotController@index')->name('book.slot');
         Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
+        Route::get('payment', 'CheckoutController@index')->name('payment');
+        Route::post('payment', 'CheckoutController@store')->name('payment.store');
     });
     Route::name('account.')->group(function(){
         Route::post('/address/update', 'AddressController@edit')->name('address.update');
@@ -71,6 +73,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Route::get('/orders', 'OrderController@index')->name('orders.index');
     //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
     Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
+
 });
 
 
@@ -111,6 +114,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    dump(getRouteTime("ol66hw","sk153rj"));
-    //dump(phpinfo());
+    return Cart::getTotal();
 });

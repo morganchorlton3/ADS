@@ -664,6 +664,26 @@ a.disabled {
   color: #fff !important;
 }
 
+.StripeElement {
+  padding: 9px 9px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #000;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
 .card {
   border-radius: 0px;
   background-color: #fff;

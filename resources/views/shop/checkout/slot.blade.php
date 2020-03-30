@@ -194,7 +194,7 @@
     <!-- Bottom Section -->
     @if($slotBooking)
         <div class="col-lg-12 d-flex justify-content-center mt-4 mb-4">
-            <button type="submit" class="btn btn-primary">Checkout</button>
+            <a href="{{ route('checkout.payment') }}" class="btn btn-primary">Checkout</a>
         </div>
     @endif
 </div>

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Address;
+use Auth;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+
 
 class CheckoutController extends Controller
 {
@@ -13,7 +18,12 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        $user = Auth::user();
+        return view('shop.checkout.payment')->with([
+            'parentCategories' => $parentCategories,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -34,7 +44,26 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $charge = Stripe::charges()->create([
+                'amount' => formatPrice(CartTotal()),
+                'currency' => 'GBP',
+                'description' => 'Advanced Delivery System Order',
+                'receipt_email' => Auth::user()->email,
+                'source' => $request->stripeToken,
+                'metadata'=> [
+
+                ],
+              ]);
+
+              //Clear Cart
+              CartController::clearCart();
+
+              return back()->with('success', 'Payment Successful');
+
+        }catch(Exception $e){
+
+        }
     }
 
     /**

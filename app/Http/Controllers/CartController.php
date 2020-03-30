@@ -103,4 +103,39 @@ class CartController extends Controller
         return redirect()->back()->with('toast_success', 'Product removed from cart');
     }
 
+    public function clearCart(){
+        session()->forget('cart');
+    }
+    public function getTotal(){
+        $cart = session()->get('cart');
+        //dd($cart);
+        if($cart == null){
+            return 0;
+        }
+        $total = 0;
+        foreach($cart as $item){
+            $itemPrice = $item['price'] * $item['quantity'];
+            $total = $total + $itemPrice;
+        }
+        return $total;
+    }
+
+    public function getFormatedTotal(){
+        $cart = session()->get('cart');
+        //dd($cart);
+        if($cart == null){
+            return "£0.00";
+        }
+        $total = 0;
+        foreach($cart as $item){
+            $itemPrice = $item['price'] * $item['quantity'];
+            $total = $total + $itemPrice;
+        }
+        if($total < 1){
+            return substr(number_format($total, 2) . "p", -3);
+        }else{
+            return "£" . number_format($total, 2);
+        }
+        return $total;
+    }
 }

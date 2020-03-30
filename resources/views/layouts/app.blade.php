@@ -20,6 +20,8 @@
     <link href="{{ asset('css/new.css') }}" rel="stylesheet">
 
     @yield('style')
+
+    @yield('head-scripts')
 </head>
 <body>
     @include('layouts.partials.navbar-cart')
