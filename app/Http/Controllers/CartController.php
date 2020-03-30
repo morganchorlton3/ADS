@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Alert;
+use UxWeb\SweetAlert\SweetAlert;
 
 class CartController extends Controller
 {
     public function addToCart($id){
         $product = Product::find($id);
         if($product->productLocation->stock >= 0){
-            Alert::alert('Item Out of stock', 'This item is now out of stock sorry for any inconvenience', 'error');
+            //Alert::alert('Item Out of stock', 'This item is now out of stock sorry for any inconvenience', 'error');
+
+            SweetAlert::error('Item Out of stock', 'This item is now out of stock sorry for any inconvenience');
         }
  
         if(!$product) {
@@ -34,7 +37,7 @@ class CartController extends Controller
  
             session()->put('cart', $cart);
  
-            return redirect()->back()->with('toast_success', 'Product added to cart successfully!');
+            return redirect()->back()->with('success', 'Product added to cart successfully!');
         }
  
         // if cart not empty then check if this product exist then increment quantity

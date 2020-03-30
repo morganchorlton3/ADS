@@ -536,11 +536,12 @@ body {
   background-color: #ccc;
 }
 
-span {
-  color: #000;
-  font-weight: 900;
-  margin-right: 5px;
-}
+/*
+span{
+    color: #000;
+    font-weight: 900;
+    margin-right: 5px;
+}*/
 
 .red {
   background-color: red;

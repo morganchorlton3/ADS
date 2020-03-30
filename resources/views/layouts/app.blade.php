@@ -24,8 +24,8 @@
     @yield('head-scripts')
 </head>
 <body>
-    @include('layouts.partials.navbar-cart')
     @include('sweetalert::alert')
+    @include('layouts.partials.navbar-cart')
     <div class="container">
         @yield('content')
     </div>
