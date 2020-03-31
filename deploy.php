@@ -57,17 +57,17 @@ task('deploy', [
 ]);
 
 
-desc('Publish npm');
-task('npm', function () {
-    //run('cd {{release_path}} && npm install');
-    run('cd {{release_path}} && npm run prod');
-});
+//desc('Publish npm');
+//task('npm', function () {
+//    //run('cd {{release_path}} && npm install');
+//    run('cd {{release_path}} && npm run prod');
+//});
 
-after('deploy', 'npm');
+//after('deploy', 'npm');
 
 task('composer', function () {
     //run('cd {{release_path}} && npm install');
-    run('cd {{release_path}} && composer due');
+    run('cd {{release_path}} && composer du');
 });
 
 after('deploy', 'composer');

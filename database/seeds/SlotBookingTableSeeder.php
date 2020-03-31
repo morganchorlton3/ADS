@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use App\SlotBooking;
 use App\Slot;
+use App\User;
+use App\Address;
 
 class SlotBookingTableSeeder extends Seeder
 {
@@ -17,20 +19,18 @@ class SlotBookingTableSeeder extends Seeder
 
         $faker = Faker\Factory::create();
 
-        $slotCount = Slot::count() * 7; 
+        $counter =1; 
 
-        while($slotCount > 0){
-            if(rand(0,1) == 0){
+        while($counter < 100){
                 SlotBooking::create([
                     'user_id' => rand(0,100),
                     'slot_id' => $faker->numberBetween($min = 1, $max = 15),
                     'date' => $faker->randomElement([carbon::now()->add(1, 'day'), carbon::now()->add(2, 'day'), carbon::now()->add(3, 'day'), carbon::now()->add(4, 'day')]),
-                    'post_code' => $faker->randomElement(['OL6 6HW', 'sk15 3rj', 'sk13 6th']),
+                    'post_code' => Address::where('user_id', $counter)->value('post_code'),
                     'status' => 1,
                     'expiration' => carbon::now()->add(1, 'day'),
                 ]);
-            }
-            $slotCount--;
+                $counter++;
         }
     }
 }

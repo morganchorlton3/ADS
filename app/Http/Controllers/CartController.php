@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Alert;
-use UxWeb\SweetAlert\SweetAlert;
 
 class CartController extends Controller
 {
@@ -14,7 +13,7 @@ class CartController extends Controller
         if($product->productLocation->stock >= 0){
             //Alert::alert('Item Out of stock', 'This item is now out of stock sorry for any inconvenience', 'error');
 
-            SweetAlert::error('Item Out of stock', 'This item is now out of stock sorry for any inconvenience');
+            Alert::error('Item Out of stock', 'This item is now out of stock sorry for any inconvenience');
         }
  
         if(!$product) {

@@ -9,6 +9,8 @@ use App\Staff;
 use App\Slot;
 use App\VehicleRuns;
 use App\SlotBooking;
+use App\Address;
+use Illuminate\Support\Facades\DB;
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
@@ -114,5 +116,5 @@ Route::get('calculate', function () {
 });
 
 Route::get('testing', function(){
-    return Cart::getTotal();
+    dump(Address::where('user_id', 1)->value('post_code'));
 });

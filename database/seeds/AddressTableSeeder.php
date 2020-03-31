@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Address;
+use App\User;
+use Illuminate\Support\Arr;
 
 class AddressTableSeeder extends Seeder
 {
@@ -33,13 +35,24 @@ class AddressTableSeeder extends Seeder
         $faker = Faker\Factory::create('en_GB');
 
         $counter = 2;
+
+        global $available;
+
+        $available = DB::table('available_postcodes')->pluck('postCode')->toArray();
+
+        //echo $postCodeList[2];    
+
         for($i = 0; $i < 100; $i++) {
+            $randPostCode = Arr::random(DB::table('available_postcodes')->pluck('postCode')->toArray());
             Address::create([
                 'user_id' => $counter,
-                'post_code' =>  $faker->randomElement(['ol66hw', 'sk153rj', 'sk15 6th', 'sk13 6hx']),
+                'post_code' =>  $randPostCode,
                 'address_line_1' => $faker->streetAddress,
                 'city' => $faker->city,
             ]);
+            //Remove PostCode
+            unset($available, $randPostCode);
+            //Increment Counter
             $counter++;
         }
     }
