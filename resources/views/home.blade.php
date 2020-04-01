@@ -16,7 +16,7 @@
         </div>  
     </div>
     <div class="col-lg-3 pr-0 mt-0 d-none d-lg-block">
-        @include('layouts.partials.cart')
+        {{--@include('layouts.partials.cart')--}}
     </div>
 </div>     
 @endsection

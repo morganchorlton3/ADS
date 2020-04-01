@@ -10,7 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+/*
 mix.copy('node_modules/bootstrap', 'public/js/bootstrap');
 mix.copy('node_modules/jquery', 'public/js/jquery');
 mix.copy('node_modules/jquery.easing/jquery.easing.js', 'public/js/jquery-easing.js');
@@ -21,3 +21,11 @@ mix.js(['node_modules/jquery/dist/jquery.js'],
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/dashboard.scss', 'public/css')
    .sass('resources/sass/new.scss', 'public/css');
+*/
+const tailwindcss = require('tailwindcss')
+
+mix.sass('resources/sass/app.scss', 'public/css')
+  .options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('./tailwind.config.js') ],
+  })
