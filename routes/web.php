@@ -11,6 +11,8 @@ use App\VehicleRuns;
 use App\SlotBooking;
 use App\Address;
 use Illuminate\Support\Facades\DB;
+
+
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
@@ -24,7 +26,7 @@ Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
     Route::get('/account', 'AccountController@index')->name('account.manage');
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    //Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //checkout
     Route::name('checkout.')->prefix('checkout')->group(function(){
         Route::get('book-slot', 'SlotController@index')->name('book.slot');
@@ -47,7 +49,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Categories
     Route::get('categories', 'CategoryController@index')->name('category.index');
     Route::get('categories/create', 'CategoryController@new')->name('category.create');
-    Route::post('categories/create', 'CategoryController@create')->name('category.create');
+    Route::post('categories/create', 'CategoryController@create')->name('category.create.post');
     Route::post('categories/update', 'CategoryController@update')->name('category.update');
     Route::delete('/categories', 'CategoryController@destroy')->name('category.destroy');
     //jobs
@@ -78,43 +80,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 });
 
+Route::get('/route', function(){
 
+    dd(Directions::betweenPostCodes('ol66hw', 'sk153rjjj'));
 
-//Testing Routes
-Route::get('organise', 'DeliveryController@index');
-
-Route::get('test', function () {
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, "https://api.openrouteservice.org/v2/directions/driving-car/");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_HEADER, FALSE);
-    
-    curl_setopt($ch, CURLOPT_POST, TRUE);
-    
-    //curl_setopt($ch, CURLOPT_POSTFIELDS, '{"coordinates":[[-2.019521,53.451183],[-2.091962,53.49183],[-2.034677,53.497569],[-1.984228,53.446114],[-2.019521,53.451183]]}');
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{"coordinates":[[-2.091962,53.49183],[-1.984228,53.446114]]}');
-    
-
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      "Accept: application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-      "Authorization: 5b3ce3597851110001cf6248180654af4b1a405b86bf89497fd9ac67",
-      "Content-Type: application/json; charset=utf-8"
-    ));
-    
-    $response = curl_exec($ch);
-    curl_close($ch);
-    
-    $test = json_decode($response,true);
-    dd($test);
-    //dd($test['features'][0]['properties']['summary']['distance'] / 1000);
-});
-
-Route::get('calculate', function () {
-    $postCodes = ['SK14 6QA', 'sk14 3dg', 'sk14 3jr', 'sk15 2qz', 'sk16 5nh', 'm34 3ta', 'm34 5ah', 'ol7 0dz', 'm34 5ga', 'm34 5uq', 'ol7 0lw', 'ol7 9el','m34 7qq'];
-    dd(calculateRouteDistance($postCodes));
-});
-
-Route::get('testing', function(){
-    dump(Address::where('user_id', 1)->value('post_code'));
 });

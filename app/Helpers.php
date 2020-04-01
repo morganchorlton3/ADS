@@ -15,11 +15,7 @@ use App\DeliveryVehicle;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
 use Illuminate\Support\Facades\Cache;
-use Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy;
-use Kevinrob\GuzzleCache\Storage\LaravelCacheStorage;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use Kevinrob\GuzzleCache\CacheMiddleware;
+use Illuminate\Support\Facades\Http;
 
 //Formats
 function formatPrice($price){
@@ -421,9 +417,10 @@ function getRouteTime($startPostCode, $endPostCode){
     }
 
     if(Cache::get($startPostCode.'-'.$endPostCode) == null){
-        $client = new Client();
 
-        $route_request = $client->get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+        $route_request = Http::get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+
+        dd('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
 
         $route = json_decode($route_request->getBody(),true);
 
@@ -433,12 +430,9 @@ function getRouteTime($startPostCode, $endPostCode){
 
     }else{
         $route = Cache::get($startPostCode.'-'.$endPostCode);
+        dd($route);
         $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
         //dump("Cached Response!");
     }
     return $timeSeconds;
-}
-
-function cacheRoute($route){
-    
 }
