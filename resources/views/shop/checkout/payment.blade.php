@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.checkout')
 
 @section('head-scripts')
 <script src="https://js.stripe.com/v3/"></script>
@@ -6,9 +6,11 @@
 
 @section('content')
 <div class="card">
+  <div class="card-body">
+
 
     <!--Card content-->
-    <form class="card-body" id="payment-form" action="{{ route('checkout.payment.store') }}" method="POST">
+    <form id="payment-form" action="{{ route('checkout.payment.store') }}" method="POST">
         @CSRF
 
         <h1 class="text-center">Payment Details</h1>
@@ -88,8 +90,9 @@
       <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
 
     </form>
-
   </div>
+
+</div>
 @endsection
 
 @section('addedJS')

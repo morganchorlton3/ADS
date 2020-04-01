@@ -25,44 +25,6 @@ class OrderController extends Controller
 
     }
 
-    public function NewOrder()
-    {
-        $cart = Session::get('cart');
-        $item_count = 0;
-        $total = 0;
-        foreach ($cart as $item) {
-            $item_count = $item_count  + 1 * $item['quantity'];
-            $total = $total + ($item['price'] * $item['quantity']);
-        }
-        $order = new Order();
-        $order->user_id = Auth::user()->id;
-        $order->slot_id = SlotBooking::where('user_id', Auth::id())->pluck('slot_id')[0];
-        $order->address_id = Address::where('user_id', Auth::id())->pluck('id')[0];
-        $order->note = "This is a note test";
-        $order->total_weight = 22.5;
-        $order->item_count = $item_count;
-        $order->total = $total;
-        $order->status = 1;
-        $order->save();
-
-        $order_id = DB::getPdo()->lastInsertId();
-
-        foreach ($cart as $item) {
-            $total_price = $item['price'] * $item['quantity'];
-            $qty = $item['quantity'];
-            $OrderPro = new OrderProducts;
-            $OrderPro->order_id = $order_id;
-            $OrderPro->product_id = $item['product_id'];
-            $OrderPro->product_name = $item['name'];
-            $OrderPro->product_price = $item['price'];
-            $OrderPro->product_quantity = $item['quantity'];
-            $OrderPro->product_barcode = $item['barcode'];
-            $OrderPro->save();
-        }
-
-        Session::forget('cart');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -70,7 +32,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
