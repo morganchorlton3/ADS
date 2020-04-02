@@ -22,6 +22,9 @@
     @yield('style')
 
     @yield('head-scripts')
+    
+    @livewireStyles
+
 </head>
 <body>
     @include('sweetalert::alert')
@@ -30,7 +33,7 @@
         @yield('content')
     </div>
 
-
+    @livewireScripts
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">

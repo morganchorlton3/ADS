@@ -25,12 +25,13 @@
                 <a href="{{ route('home') }}"><img src="{{ asset('img/banner-1.png')}}" class="img-fluid mx-auto d-block" style="height: 70px;" alt=""></a>
             </div>
             <div class="col-lg-9 d-flex align-items-center">
-                <div class="input-group">
+                {{--<div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
                     </div>
-                </div>
+                </div>--}}
+                <livewire:product-search>
             </div>
         </div>
     </div>
