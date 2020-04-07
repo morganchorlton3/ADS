@@ -165,12 +165,16 @@ function checkSlot($id, $date){
             return view('shop.checkout.slots.booked');
         }else{
            // return 1;
-           return view('shop.checkout.slots.available')->with('price', 1);
+           return view('shop.checkout.slots.available')->with([
+               'price'=> 1,
+               'id' => $id,
+               'day' => getDayID($date)
+           ]);
         }
     }
     if($bookedSlots->count() == 4){
         //If to many deliveries per hour
-        return view('shop.checkout.slots.unavilable');
+        return view('shop.checkout.slots.unavailable');
     }else if($bookedSlots->count() > 1){
         $postCodes = array();
         foreach($bookedSlots as $bookedSlot){
@@ -179,14 +183,22 @@ function checkSlot($id, $date){
         asort($postCodes);
         //dump($postCodes);
         if(getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60 >= 10){
-            return view('shop.checkout.slots.unavilable');
+            return view('shop.checkout.slots.unavailable');
         }else{
-            return view('shop.checkout.slots.available')->with('price', 1);
+            return view('shop.checkout.slots.available')->with([
+                'price'=> 1,
+               'id' => $id,
+               'day' => getDayID($date)
+            ]);
         }
         //return 3;
     }else{
         //return 1;
-        return view('shop.checkout.slots.available')->with('price', 1);
+        return view('shop.checkout.slots.available')->with([
+            'price'=> 1,
+               'id' => $id,
+               'day' => getDayID($date)
+        ]);
     }
 }
 

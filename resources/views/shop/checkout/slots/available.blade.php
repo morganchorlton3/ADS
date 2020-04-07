@@ -1,1 +1,1 @@
-<a type="button" class="btn btn-slot">{{ formatPrice($price) }}</a>
+<a href="{{ route('checkout.book.time.slot' , [$id = $id, $day = SlotDate($day)]) }}" type="button" class="btn btn-slot">{{ formatPrice($price) }}</a>

@@ -26,7 +26,7 @@ class CartController extends Controller
         if(!$cart) {
             $cart = [
                     $id => [
-                        "product_id" => $id,
+                        "id" => $id,
                         "name" => $product->name,
                         "quantity" => 1,
                         "barcode" => $product->barcode,
@@ -52,7 +52,7 @@ class CartController extends Controller
  
         // if item not exist in cart then add to cart with quantity = 1
         $cart[$id] = [
-            "product_id" => $id,
+            "id" => $id,
             "name" => $product->name,
             "quantity" => 1,
             "barcode" => $product->barcode,
@@ -108,6 +108,7 @@ class CartController extends Controller
     public function clearCart(){
         session()->forget('cart');
     }
+
     public function getTotal(){
         $cart = session()->get('cart');
         //dd($cart);
@@ -140,4 +141,27 @@ class CartController extends Controller
         }
         return $total;
     }
+    public function count(){
+        $cart = session()->get('cart');
+        return count($cart);
+    }
+
+    public function get(){
+        return session()->get('cart');
+    }
+
+    public function total(){
+        $cart = session()->get('cart');
+        //dd($cart);
+        if($cart == null){
+            return 0;
+        }
+        $total = 0;
+        foreach($cart as $item){
+            $itemPrice = $item['price'] * $item['quantity'];
+            $total = $total + $itemPrice;
+        }
+        return $total;
+    }
+
 }

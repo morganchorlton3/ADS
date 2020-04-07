@@ -25,13 +25,13 @@
                     <div class="row">
                     <div class="col-lg-2">
                         <div class="row">
-                            <a href="{{ route('cart.increase', $details['product_id']) }}" style="width:100%;"><i class="fas fa-plus"></i></a>
+                            <a href="{{ route('cart.increase', $details['id']) }}" style="width:100%;"><i class="fas fa-plus"></i></a>
                         </div>
                         <div class="row">
                             <p>{{ $details['quantity'] }}</p>
                         </div>
                         <div class="row">
-                            <a href="{{ route('cart.decrease', $details['product_id']) }}" style="width:100%;"><i class="fas fa-minus"></i></a>
+                            <a href="{{ route('cart.decrease', $details['id']) }}" style="width:100%;"><i class="fas fa-minus"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-5">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-2">
 
-                        <a href="{{ route('cart.remove', $details['product_id']) }}" class="remove-from-cart" data-id="{{ $details['product_id'] }}"><i class="fas fa-times"></i></a>
+                        <a href="{{ route('cart.remove', $details['id']) }}" class="remove-from-cart" data-id="{{ $details['id'] }}"><i class="fas fa-times"></i></a>
                     </div>
                     </div>
                 </div>

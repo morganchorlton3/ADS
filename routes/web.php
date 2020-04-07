@@ -84,6 +84,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 Route::get('/route', function(){
 
-    dd(Directions::betweenPostCodes('ol66hw', 'sk153rjjj'));
+    dd(Cart::count());
 
 });

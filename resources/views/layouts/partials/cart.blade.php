@@ -25,13 +25,13 @@
                     <div class="row mb-2">
                         <div class="col-lg-2 cart-controls d-flex flex-column">
                             <div class="row p-1 mb-0 d-flex align-items-start">
-                                <a class="cart-control text-center" href="{{ route('cart.increase', $details['product_id']) }}" style="width:100%;"><i class="fas fa-plus"></i></a>
+                                <a class="cart-control text-center" href="{{ route('cart.increase', $details['id']) }}" style="width:100%;"><i class="fas fa-plus"></i></a>
                             </div>
                             <div class="row cart-qty d-flex align-items-center justify-content-center">
                                 {{ $details['quantity'] }}
                             </div>
                             <div class="row  p-1 mt-0 d-flex align-items-end">
-                                <a class="cart-control text-center" href="{{ route('cart.decrease', $details['product_id']) }}" style="width:100%;"><i class="fas fa-minus"></i></a>
+                                <a class="cart-control text-center" href="{{ route('cart.decrease', $details['id']) }}" style="width:100%;"><i class="fas fa-minus"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4 cart-img mt-2">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-lg-2 mt-2 d-flex align-item-strech">
                             <div class="row col-lg-12 d-flex align-items-start">
-                                <a href="{{ route('cart.remove', $details['product_id']) }}" class="remove-from-cart" data-id="{{ $details['product_id'] }}"><i class="fas fa-times"></i></a>
+                                <a href="{{ route('cart.remove', $details['id']) }}" class="remove-from-cart" data-id="{{ $details['id'] }}"><i class="fas fa-times"></i></a>
                             </div>
                             <div class="d-flex align-items-end cart-price">
                                 {{ formatPrice($details['price']) }}
