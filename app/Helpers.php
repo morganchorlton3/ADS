@@ -420,7 +420,7 @@ function getRouteTime($startPostCode, $endPostCode){
 
         $route_request = Http::get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
 
-        dd('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
+        //dd('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
 
         $route = json_decode($route_request->getBody(),true);
 
@@ -430,7 +430,7 @@ function getRouteTime($startPostCode, $endPostCode){
 
     }else{
         $route = Cache::get($startPostCode.'-'.$endPostCode);
-        dd($route);
+        //dd($route);
         $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
         //dump("Cached Response!");
     }

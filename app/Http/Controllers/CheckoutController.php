@@ -59,7 +59,9 @@ class CheckoutController extends Controller
               //Clear Cart
               Cart::clearCart();
 
-              return back()->with('success', 'Payment Successful');
+              return redirect()->route('checkout.success')->with([
+                'success_toast'=> "Thankyou for your order!",
+            ]);
 
         }catch(Exception $e){
 

@@ -34,6 +34,8 @@ Route::middleware('verified')->group(function () {
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
         Route::get('payment', 'CheckoutController@index')->name('payment');
         Route::post('payment', 'CheckoutController@store')->name('payment.store');
+        Route::get('/checkout/success', 'ConfirmationController@index')->name('success');
+
     });
     Route::name('account.')->group(function(){
         Route::post('/address/update', 'AddressController@edit')->name('address.update');
