@@ -161,14 +161,16 @@ function checkSlot($id, $date){
     if ($userSlot != null){
         //If user has a booked slot
         if($userSlot->status == 1){
-            return 2;
+            //return 2;
+            return view('shop.checkout.slots.booked');
         }else{
-            return 1;
+           // return 1;
+           return view('shop.checkout.slots.available')->with('price', 1);
         }
     }
     if($bookedSlots->count() == 4){
         //If to many deliveries per hour
-        return 3;
+        return view('shop.checkout.slots.unavilable');
     }else if($bookedSlots->count() > 1){
         $postCodes = array();
         foreach($bookedSlots as $bookedSlot){
@@ -177,15 +179,17 @@ function checkSlot($id, $date){
         asort($postCodes);
         //dump($postCodes);
         if(getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60 >= 10){
-            return 3;
+            return view('shop.checkout.slots.unavilable');
         }else{
-            return 1;
+            return view('shop.checkout.slots.available')->with('price', 1);
         }
         //return 3;
     }else{
-        return 1;
+        //return 1;
+        return view('shop.checkout.slots.available')->with('price', 1);
     }
 }
+
 function getRun($date, $startTime, $endTime){
     $schedules = DeliverySchedule::where('day', getDayID($date))->get();
     //$timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;

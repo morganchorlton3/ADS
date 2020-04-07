@@ -1,0 +1,1 @@
+<a class="btn btn-slot booked" >Booked</a>

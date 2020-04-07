@@ -1,0 +1,1 @@
+<a type="button" class="btn btn-slot">{{ formatPrice($price) }}</a>
