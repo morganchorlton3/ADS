@@ -12,12 +12,13 @@ use App\User;
 use App\Slot;
 use App\SlotBooking;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use App\Store;
 use App\VehicleRuns;
 use App\Address;
 use App\RunHours;
 Use Alert;
+use App\SlotAvailability;
+use Illuminate\Support\Carbon;
 
 class SlotController extends Controller
 {
@@ -31,16 +32,28 @@ class SlotController extends Controller
         $products = Product::all();
         $address = Address::where('user_id', Auth::id())->first();
         $parentCategories = Category::where('parent_id',NULL)->get();
-        $slots = Slot::all();
+        $slotsText = Slot::all();#
         $userSlot = SlotBooking::latest()->where('user_id', Auth::id())->first();
         if($userSlot != null){
             if($userSlot->status == 3){
                 Alert::alert('Slot Expired', 'Your slot has expired, please book another slot', 'error');
             }
         }
+        $slots = collect(new SlotAvailability);
+        $date = Carbon::now()->format('Y:m:d');
+        foreach($slotsText as $slot){
+            $slotBookings = SlotBooking::where('slot_id', $slot->id)->where('date', $date)->get();
+            foreach($slotBookings as $slotBooking){
+                $slotAvailability = new SlotAvailability();
+                $slotAvailability->type = 1;
+                $slotAvailability->price = 10;
+                $slots->add($slotAvailability);
+            }
+        }
+        dd($slots);
         return view('shop.checkout.slot')->with([
             'products' => $products,
-            'slots' => $slots,
+            'slotsText' => $slotsText,
             'slotBooking' => $userSlot,
             'parentCategories' => $parentCategories,
             'address' => $address

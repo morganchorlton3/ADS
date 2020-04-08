@@ -86,7 +86,7 @@
                 <p class="text-center d-flex justify-content-center">{{ SlotDate(5)->format('d') }}</p>
             </div>
         </div>
-        @foreach($slots as $slot)
+        @foreach($slotsText as $slot)
         <div class="row mb-2">
             <div class="col-lg-2">
                 <p class="text-center" style="font-size:14px;">{{\Carbon\Carbon::parse($slot->start)->format('H:i')}} - 

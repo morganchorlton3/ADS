@@ -30,8 +30,8 @@ add('writable_dirs', [
 // Hosts
 
 host('morganchorlton.me')
-    ->user('deployer')
-    ->identityFile('~/.ssh/deployerkey')
+    ->user('root')
+    ->identityFile('~/.ssh/Laptop')
     ->set('deploy_path', '/var/www/html/ads.morganchorlton.me');     
     
 // Tasks
