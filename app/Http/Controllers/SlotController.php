@@ -68,7 +68,7 @@ class SlotController extends Controller
 
         $run = getRun($date, $slot->start, $slot->end);
         //dd($run);
-        $vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
+        /*$vehicleRuns = VehicleRuns::where('deliveryDate', $date->format('Y:m:d'))->where('run', $run)->get();
         //If no Runs Exist Create A New Run
         if($vehicleRuns->count() == 0){
             $runTime = Carbon::parse($slot->start)->addSecond(getRouteTime($storePostCode, $userPostCode));
@@ -117,7 +117,7 @@ class SlotController extends Controller
             $delivery->postCode = $userPostCode;
             $delivery->save();
 
-        }
+        }*/
         $booking->save();
         return back()->with('success', 'You Have booked the time slot');
     }
