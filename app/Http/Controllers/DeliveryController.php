@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DeliverySchedule;
 use Illuminate\Http\Request;
 
 use App\SlotBooking;
 use Carbon\Carbon;
 use App\DeliveryVehicleDeliveries;
+use App\Slot;
 
 class DeliveryController extends Controller
 {
@@ -32,6 +34,28 @@ class DeliveryController extends Controller
     public function create()
     {
         //
+    }
+
+    public static function arrangeDelivery(){
+        $schedule = DeliverySchedule::first();
+        $todaysSlots = SlotBooking::where('date', Carbon::now()->format('Y-m-d'))->with('slot')->get();
+        $slots = collect(new Slot());
+        foreach($todaysSlots as $todaysSlot){
+            $scheduleStart = Carbon::parse($schedule->start);
+            $scheduleEnd = Carbon::parse($schedule->end);
+            $slotBookingTime = Carbon::parse($todaysSlot->slot->start);
+            if($slotBookingTime->isBefore($scheduleEnd)){
+               $slots->add($todaysSlot);
+            }
+        }
+        //Soprting By ID
+        $sortedByID = $slots->sortBy('post_code')->sortBy('slot_id');
+
+        
+        $sorted = $sortedByID->where('slot_id', );
+
+        dd($sorted);
+
     }
 
     /**

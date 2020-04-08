@@ -10,6 +10,7 @@ use Cart;
 use Carbon\Carbon;
 use App\Order;
 use App\OrderProducts;
+use App\SlotBooking;
 
 class CheckoutController extends Controller
 {
@@ -46,15 +47,19 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        $slot = SlotBooking::where('user_id', Auth::id())->where('status', 1)->first();
         $order = new Order();
         $order->userId = Auth::id();
         $order->placedDate = Carbon::now();
+        $order->slotBookingId = $slot->id;
         $order->totalWeight = 22.2;
         $order->itemCount = Cart::count();
         $order->total = Cart::total();
         $order->status = 1;
         $cart = Cart::get();
         $order->save();
+        $slot->status = 2;
+        $slot->save();
         foreach($cart as $item){
             $product = new OrderProducts();
             $product->orderID = $order->id;
@@ -76,6 +81,7 @@ class CheckoutController extends Controller
 
             //Clear Cart
             Cart::clearCart();
+            //addToDelivery($order);
             return redirect()->route('checkout.success')->with([
                 'success_toast'=> "Thankyou for your order!",
             ]);

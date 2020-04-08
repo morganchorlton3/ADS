@@ -20,7 +20,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Delivery Slot</th>
+                                {{--<th scope="col">Delivery Slot</th>--}}
                                 <th scope="col">Address</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
@@ -31,7 +31,7 @@
                             <tr>
                                 <th>{{ $order->id }}</th>
                                 <th>{{ $order->user->first_name . ' ' . $order->user->last_name }}</th>
-                                <th>{{ Carbon\Carbon::Parse($order->slot->start)->format('H:i') }} - {{ Carbon\Carbon::Parse($order->slot->end)->format('H:i') }}</th>
+                                {{--<th>{{ Carbon\Carbon::Parse($order->slot->start)->format('H:i') }} - {{ Carbon\Carbon::Parse($order->slot->end)->format('H:i') }}</th>--}}
                                 <td>
                                     {{ $order->address->address_line_1 }},</br>
                                     @if(!$order->address->address_line_2 == "")

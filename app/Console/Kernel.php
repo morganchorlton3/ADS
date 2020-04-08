@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('slots:clear')
                  ->everyMinute();
+        $schedule->command('delivery:createVanTrips')
+                 ->dailyAt('01:00');
     }
 
     /**

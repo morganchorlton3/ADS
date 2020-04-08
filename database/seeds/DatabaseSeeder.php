@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VanTableSeeder::class);
         //$this->call(RandomOrdersTableSeeder::class);
         $this->call(StoreTableSeeder::class);
-        $this->call(SlotBookingTableSeeder::class);
+        //$this->call(SlotBookingTableSeeder::class);
         $this->call(JobTableSeeder::class);
         $this->call(StaffTableSeeder::class);
         $this->call(CategoryTableSeeder::class);

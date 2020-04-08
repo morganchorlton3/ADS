@@ -7,12 +7,11 @@ use Livewire\Component;
 
 class Slots extends Component
 {
-    public $def = [];
+    public $solts = [];
 
     public function render()
     {
-        $this->def = Category::all();
-        dd($this->def);
+        
         return view('livewire.slots');
     }
 }

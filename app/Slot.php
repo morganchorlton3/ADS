@@ -10,6 +10,8 @@ class Slot extends Model
         'day', 'start', 'end', 'price'
     ];
 
+    protected $primaryKey = 'id';
+
     public function Orders()
     {
         return $this->hasOne('App\Orders');

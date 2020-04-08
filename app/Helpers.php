@@ -182,8 +182,33 @@ function checkSlot($id, $date){
         }
         asort($postCodes);
         //dump($postCodes);
-        if(getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60 >= 10){
+        $routeTime = getRouteTime(end($postCodes), User::find(Auth::id())->address->post_code) * 60;
+        if($routeTime >= 10){
             return view('shop.checkout.slots.unavailable');
+        }elseif ($routeTime >= 8 && $routeTime <= 10){
+            return view('shop.checkout.slots.available')->with([
+                'price'=> 8,
+               'id' => $id,
+               'day' => getDayID($date)
+            ]);
+        }elseif ($routeTime >= 6 && $routeTime <= 8){
+            return view('shop.checkout.slots.available')->with([
+                'price'=> 6,
+               'id' => $id,
+               'day' => getDayID($date)
+            ]);
+        }elseif ($routeTime >= 4 && $routeTime <= 6){
+            return view('shop.checkout.slots.available')->with([
+                'price'=> 4,
+               'id' => $id,
+               'day' => getDayID($date)
+            ]);
+        }elseif ($routeTime >= 2 && $routeTime <= 4){
+            return view('shop.checkout.slots.available')->with([
+                'price'=> 2,
+               'id' => $id,
+               'day' => getDayID($date)
+            ]);
         }else{
             return view('shop.checkout.slots.available')->with([
                 'price'=> 1,
@@ -451,4 +476,27 @@ function getRouteTime($startPostCode, $endPostCode){
         //dump("Cached Response!");
     }
     return $timeSeconds;
+}
+
+function addToDelivery($orderID){
+    //$order = Order::find($orderID)->with('slotBooking')->first();
+    //dd(VehicleRuns::where('deliveryDate', $order->slotBooking->date)->get());
+    for($i=DeliveryVehicle::count(); $i > 0; $i--){
+        for($j=1; $j <= 3; $j++){ 
+            $vehicleRun = new VehicleRuns();
+            $vehicleRun->run = $j;
+            $vehicleRun->vanAssignment = $i;
+            $vehicleRun->group = 0;
+            $vehicleRun->deliveryDate = Carbon::now()->addDay(1);
+            $vehicleRun->last_postcode = Store::first()->postCode;
+            if($j == 1){
+                $vehicleRun->run_time = Carbon::parse('08:00:00');
+            }else if($j == 2){
+                $vehicleRun->run_time = Carbon::parse('13:00:00');
+            }else if($j == 3){
+                $vehicleRun->run_time = Carbon::parse('18:00:00');
+            }
+            $vehicleRun->save();
+        }
+    }
 }
