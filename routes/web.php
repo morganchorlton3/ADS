@@ -83,5 +83,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    addToDelivery(1);
+    dd(slotDate());
 });

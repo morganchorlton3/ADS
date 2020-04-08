@@ -92,12 +92,13 @@
                 <p class="text-center" style="font-size:14px;">{{\Carbon\Carbon::parse($slot->start)->format('H:i')}} - 
                     {{\Carbon\Carbon::parse($slot->end)->format('H:i')}}</p>
             </div>
-            <?php $counter = 5 ?>
-            @while($counter > 0)
+            <?php $counter = 1 ?>
+            @while($counter <= 5)
             <div class="col-lg-2" >
-                {{checkSlot($slot->id, SlotDate($counter)) }}
+                {{checkSlot($slot->id, SlotDate($counter))}}
+
             </div>
-            <?php $counter-- ?>
+            <?php $counter++ ?>
             @endwhile
     
         </div>

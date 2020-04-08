@@ -189,31 +189,31 @@ function checkSlot($id, $date){
             return view('shop.checkout.slots.available')->with([
                 'price'=> 8,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
             ]);
         }elseif ($routeTime >= 6 && $routeTime <= 8){
             return view('shop.checkout.slots.available')->with([
                 'price'=> 6,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
             ]);
         }elseif ($routeTime >= 4 && $routeTime <= 6){
             return view('shop.checkout.slots.available')->with([
                 'price'=> 4,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
             ]);
         }elseif ($routeTime >= 2 && $routeTime <= 4){
             return view('shop.checkout.slots.available')->with([
                 'price'=> 2,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
             ]);
         }else{
             return view('shop.checkout.slots.available')->with([
                 'price'=> 1,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
             ]);
         }
         //return 3;
@@ -222,7 +222,7 @@ function checkSlot($id, $date){
         return view('shop.checkout.slots.available')->with([
             'price'=> 1,
                'id' => $id,
-               'day' => getDayID($date)
+               'day' => $date
         ]);
     }
 }
