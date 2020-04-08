@@ -227,7 +227,7 @@ function checkSlot($id, $date){
     }
 }
 
-function getRun($date, $startTime, $endTime){
+function getRun($date, $startTime){
     $schedules = DeliverySchedule::where('day', getDayID($date))->get();
     //$timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
     //$halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd); 
@@ -479,24 +479,20 @@ function getRouteTime($startPostCode, $endPostCode){
 }
 
 function addToDelivery($orderID){
-    //$order = Order::find($orderID)->with('slotBooking')->first();
-    //dd(VehicleRuns::where('deliveryDate', $order->slotBooking->date)->get());
-    for($i=DeliveryVehicle::count(); $i > 0; $i--){
-        for($j=1; $j <= 3; $j++){ 
-            $vehicleRun = new VehicleRuns();
-            $vehicleRun->run = $j;
-            $vehicleRun->vanAssignment = $i;
-            $vehicleRun->group = 0;
-            $vehicleRun->deliveryDate = Carbon::now()->addDay(1);
-            $vehicleRun->last_postcode = Store::first()->postCode;
-            if($j == 1){
-                $vehicleRun->run_time = Carbon::parse('08:00:00');
-            }else if($j == 2){
-                $vehicleRun->run_time = Carbon::parse('13:00:00');
-            }else if($j == 3){
-                $vehicleRun->run_time = Carbon::parse('18:00:00');
-            }
-            $vehicleRun->save();
-        }
+    $order = Order::find($orderID)->with('slotBooking')->first();
+    $vehicleRuns = VehicleRuns::where('run', getRun($order->slotBooking->date,$order->slotBooking->slot->start))->where('deliveryDate', $order->slotBooking->date)->get();
+    $postCodes = [];
+    foreach($vehicleRuns as $run){
+        array_push($postCodes, $run->last_postcode);
     }
+    arsort($postCodes);
+    $vehicleRun = $vehicleRuns->where('last_postcode', $postCodes[0])->first();
+    $runTime = Carbon::parse($vehicleRun->run_time)->addSecond(getRouteTime($vehicleRun->last_postcode, $order->slotBooking->post_code));
+    if($runTime->isBefore(carbon::parse($order->slotBooking->slot->end))){
+        $vehicleRun->last_postcode = $order->slotBooking->post_code;
+        $vehicleRun->run_time = $runTime;
+        $vehicleRun->save();
+    }
+    
+
 }

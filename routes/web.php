@@ -83,5 +83,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    dd(VehicleRuns::where('deliveryDate', Carbon::now()->addDay(1))->get()->count());
+    addToDelivery(1);
 });

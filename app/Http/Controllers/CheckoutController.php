@@ -81,7 +81,7 @@ class CheckoutController extends Controller
 
             //Clear Cart
             Cart::clearCart();
-            //addToDelivery($order);
+            addToDelivery($order->id);
             return redirect()->route('checkout.success')->with([
                 'success_toast'=> "Thankyou for your order!",
             ]);
