@@ -16,4 +16,9 @@ class Slot extends Model
     {
         return $this->hasOne('App\Orders');
     }
+
+    public function SlotBooking()
+    {
+        return $this->hasMany('App\SlotBooking', 'slot_id');
+    }
 }

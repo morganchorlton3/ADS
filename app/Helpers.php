@@ -462,12 +462,13 @@ function getRouteTime($startPostCode, $endPostCode){
         $route_request = Http::get('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
 
         //dd('https://maps.googleapis.com/maps/api/directions/json?origin=' . $startPostCode .'&destination=' . $endPostCode . '&key='. config('services.GCP.key'));
-
-        $route = json_decode($route_request->getBody(),true);
-
+        if(!$route_request->successful()){
+            abort(500);
+        }
+        $route = json_decode($route_request->getBody(), true);
         Cache::forever($startPostCode.'-'.$endPostCode, $route);
 
-        $timeSeconds = $route['routes'][0]['legs'][0]['duration']['value'];
+        $timeSeconds = $route_request['routes'][0]['legs'][0]['duration']['value'];
 
     }else{
         $route = Cache::get($startPostCode.'-'.$endPostCode);

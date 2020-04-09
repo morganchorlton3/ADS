@@ -86,23 +86,34 @@
                 <p class="text-center d-flex justify-content-center">{{ SlotDate(5)->format('d') }}</p>
             </div>
         </div>
-        @foreach($slotsText as $slot)
+ 
         <div class="row mb-2">
-            <div class="col-lg-2">
-                <p class="text-center" style="font-size:14px;">{{\Carbon\Carbon::parse($slot->start)->format('H:i')}} - 
+            @foreach($slots as $slot)
+            <div class="col-lg-2 mb-1 mt-1">
+                <p  class="text-center" style="font-size:14px;">{{\Carbon\Carbon::parse($slot->start)->format('H:i')}} - 
                     {{\Carbon\Carbon::parse($slot->end)->format('H:i')}}</p>
             </div>
-            <?php $counter = 1 ?>
-            @while($counter <= 5)
-            <div class="col-lg-2" >
+                @foreach ($slotAvailability->where('slotID',  $slot->id) as $availability)
+                <?php $date = Carbon\Carbon::now(); ?>
+                    <div class="col-lg-2 mb-1 mt-1">
+                        @if($availability->status == 1)
+                        <a href="{{ route('checkout.book.time.slot' , [$id = $availability->slotID, $availability->date]) }}"  type="button" class="btn btn-slot">{{ formatPrice($availability->price) }}</a>
+                        @elseif($availability->status == 2)
+                        <a  class="btn btn-slot booked" >Booked</a>
+                        @elseif($availability->status == 3)
+                        <a  class="btn btn-slot unavailable disabled" >Unavailable</a>
+                        @endif
+                    </div>
+                @endforeach
+            @endforeach
+            
+           {{-- <div class="col-lg-2" >
                 {{checkSlot($slot->id, SlotDate($counter))}}
+               
 
-            </div>
-            <?php $counter++ ?>
-            @endwhile
-    
+            </div>--}}   
         </div>
-        @endforeach
+
     </div>
     {{--@include('livewire.slots')--}}
     <!-- Bottom Section -->

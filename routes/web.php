@@ -83,5 +83,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    dd(slotDate());
+    dd(getRouteTime('OL6 6HW', 'sk15 3rj'));
 });

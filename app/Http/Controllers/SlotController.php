@@ -32,28 +32,64 @@ class SlotController extends Controller
         $products = Product::all();
         $address = Address::where('user_id', Auth::id())->first();
         $parentCategories = Category::where('parent_id',NULL)->get();
-        $slotsText = Slot::all();#
+        $slots = Slot::all();
         $userSlot = SlotBooking::latest()->where('user_id', Auth::id())->first();
         if($userSlot != null){
             if($userSlot->status == 3){
                 Alert::alert('Slot Expired', 'Your slot has expired, please book another slot', 'error');
             }
         }
-        $slots = collect(new SlotAvailability);
-        $date = Carbon::now()->format('Y:m:d');
-        foreach($slotsText as $slot){
-            $slotBookings = SlotBooking::where('slot_id', $slot->id)->where('date', $date)->get();
-            foreach($slotBookings as $slotBooking){
-                $slotAvailability = new SlotAvailability();
-                $slotAvailability->type = 1;
-                $slotAvailability->price = 10;
-                $slots->add($slotAvailability);
+        $slotAvailability = collect(new SlotAvailability());
+        //Loops through the days displayed (usually 5)
+        for ($x = 0; $x < 5; $x++) {
+            $date = Carbon::now()->addDays($x)->format('Y-m-d');
+            foreach($slots as $slot){
+                $bookedSlots = $slot->slotBooking->where('date', $date);
+                $availability = new SlotAvailability();
+                if($bookedSlots->where('user_id', Auth::id())->where('status', 1)->count() == 1){
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 2;
+                }else if($bookedSlots->count() == 0){
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 1;
+                }else if($bookedSlots->count() < 4 && $bookedSlots->count() > 0){
+                    $routeTime = getRouteTime($bookedSlots->sortByDesc('post_code')->pluck('post_code')[0], User::find(Auth::id())->address->post_code) / 60;
+                    if($routeTime < 10){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 5;
+                        $availability->status = 3;
+                    }else if($routeTime < 6){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 4;
+                        $availability->status = 3;
+                    }else if($routeTime < 5){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 2.50;
+                        $availability->status = 3;
+                    }else if($routeTime < 2){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 1;
+                        $availability->status = 3;
+                    }else{
+                        $availability->slotID = $slot->id;
+                        $availability->price = 1;
+                        $availability->status = 3;
+                    }
+                }else{
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 1;
+                }
+                $availability->date = $date;
+                $slotAvailability->add($availability);                
             }
         }
-        dd($slots);
         return view('shop.checkout.slot')->with([
             'products' => $products,
-            'slotsText' => $slotsText,
+            'slots' => $slots,
+            'slotAvailability' => $slotAvailability,
             'slotBooking' => $userSlot,
             'parentCategories' => $parentCategories,
             'address' => $address
