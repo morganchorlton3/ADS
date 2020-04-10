@@ -19,12 +19,8 @@ class Order extends Model
         return $this->hasOne('App\User', 'id');	
     }	
 
-    public function Slot(){	
-        return $this->hasOne('App\Slot', 'id', 'slot_id');	
-    }
-
     public function SlotBooking(){	
-        return $this->hasOne('App\SlotBooking','id', 'slotBookingID');	
+        return $this->belongsTo('App\SlotBooking', 'slotBookingID');	
     }
 
 }

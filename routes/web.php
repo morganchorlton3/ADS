@@ -11,6 +11,7 @@ use App\VehicleRuns;
 use App\SlotBooking;
 use App\Address;
 use Illuminate\Support\Facades\DB;
+use App\Order;
 
 
 //cart
@@ -83,5 +84,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    addToDelivery(1);
+    addToDelivery(4);
 });

@@ -12,6 +12,7 @@ use App\Slot;
 use App\Store;
 use App\SlotBooking;
 use App\DeliveryVehicle;
+use App\PostCodeDistance;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
 use Illuminate\Support\Facades\Cache;
@@ -483,32 +484,36 @@ function addToDelivery($orderID){
     $order = Order::find($orderID)->with('SlotBooking')->first();
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
     $storePostCode = Store::first()->postCode;
-    $postCodes = [];
+    $postCodes = collect(new PostCodeDistance);
     foreach($vehicleRuns as $run){
-        if($run->last_postcode != $storePostCode){
-            array_push($postCodes, $run->last_postcode);
-        }
+            $time = getRouteTime($run->last_postcode, Auth::user()->address->post_code);
+            $postCodeDistance = new PostCodeDistance();
+            $postCodeDistance->postCode = $run->last_postcode;
+            $postCodeDistance->time = $time;
+            $postCodeDistance->run = $run->id;
+            $postCodes->push($postCodeDistance);
     }
-    if($postCodes == null){
+    if($postCodes->count() == 0){
+        $run = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->first();
         $runTime = Carbon::parse($run->run_time)->addSecond(getRouteTime($run->last_postcode, $order->SlotBooking->post_code));
         $run->last_postcode = $order->SlotBooking->post_code;
         $run->run_time = $runTime;
         $run->save();
     }else{
-        //CHeck which postcode is closer 
-    }
-    /*$postCodes = [];
-    foreach($vehicleRuns as $run){
-        array_push($postCodes, $run->last_postcode);
-    }
-    arsort($postCodes);
-    $vehicleRun = $vehicleRuns->where('last_postcode', $postCodes[0])->first();
-    $runTime = Carbon::parse($vehicleRun->run_time)->addSecond(getRouteTime($vehicleRun->last_postcode, $order->SlotBooking->post_code));
-    if($runTime->isBefore(carbon::parse($order->SlotBooking->slot->end))){
-        $vehicleRun->last_postcode = $order->SlotBooking->post_code;
-        $vehicleRun->run_time = $runTime;
-        $vehicleRun->save();
-    }*/
-    
+        $postCodes->sort();
+        $postCode = $postCodes->first();
+        foreach($vehicleRuns as $run){
+            //dump($run->run_time);
+            if(Carbon::parse($run->run_time)->addSeconds($postCode->time)->isBefore(Carbon::parse($order->SlotBooking->slot->end))){
+                dump("time");
+                $run->last_postcode = $order->SlotBooking->post_code;
+                $run->run_time = Carbon::parse($run->run_time)->addSeconds($postCode->time);
+                $run->save();      
+                break;
+            }else{
+
+            }
+        }
+    }   
 
 }
