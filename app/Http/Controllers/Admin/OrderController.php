@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Address;
 use Carbon\Carbon;
+use App\Slot;
 
 class OrderController extends Controller
 {
@@ -18,7 +19,7 @@ class OrderController extends Controller
     public function index()
     {
         $date = Carbon::now()->format('Y-m-d');
-        $orders = Order::paginate(8);
+        $orders = Order::with('SlotBooking')->paginate(8);
         return view('admin.orders.index')->with('orders', $orders);
     }
 
@@ -62,8 +63,13 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::find($id);
-        return view('admin.orders.view')->with('order', $order);
+        $order = Order::with('SlotBooking', 'User')->find($id);
+        $slot = Slot::find($order->SlotBooking->slot_id);
+        //dd($order);
+        return view('admin.orders.view')->with([
+            'order' => $order,
+            'slot' => $slot,
+        ]);
     }
 
     /**

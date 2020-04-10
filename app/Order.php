@@ -16,11 +16,11 @@ class Order extends Model
     }	
 
     public function User(){	
-        return $this->hasOne('App\User', 'id');	
+        return $this->belongsTo('App\User', 'userID');	
     }	
 
     public function SlotBooking(){	
-        return $this->belongsTo('App\SlotBooking', 'slotBookingID');	
+        return $this->belongsTo('App\SlotBooking', 'slotBookingID', 'id');	
     }
 
 }

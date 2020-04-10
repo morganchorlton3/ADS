@@ -2,11 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\DeliverySchedule;
+use App\DeliveryVehicle;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\DeliveryVehicleProfile;
+use App\Slot;
 use App\SlotBooking;
 use Carbon\Carbon;
+use VehicleRuns;
 
 class OrganiseDeliveries extends Command
 {
@@ -15,7 +19,7 @@ class OrganiseDeliveries extends Command
      *
      * @var string
      */
-    protected $signature = 'deliveries:organise';
+    protected $signature = 'delivery:organise';
 
     /**
      * The console command description.
@@ -41,11 +45,16 @@ class OrganiseDeliveries extends Command
      */
     public function handle()
     {
-        /*$vanProfile = new DeliveryVehicleProfile;
-        $vanProfile->van_id  = 1;
-        $vanProfile->delivery_schedule_id = 1;
-        $vanProfile->save();*/
-        $deliveries = SlotBooking::where('date', Carbon::now()->addDays(1)->format('y-m-d'))->where('slot_id', 1)->get();
-        echo $deliveries; 
+        $slots = Slot::all();
+        $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->addDay(1)->format('Y-m-d'))->get();
+        $deliverySchedules = DeliverySchedule::where('day', 1)->get();
+        $counter = 0;
+        foreach($deliverySchedules as $deliverySchedule){
+            $slots->find($counter);
+            if(Carbon::parse($slot->end)->isBefore(Carbon::parse($deliverySchedule->end))){
+                $counter++;
+            }
+        }
+        dd($counter);
     }
 }

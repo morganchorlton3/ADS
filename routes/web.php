@@ -12,7 +12,8 @@ use App\SlotBooking;
 use App\Address;
 use Illuminate\Support\Facades\DB;
 use App\Order;
-
+use App\DeliverySchedule;
+use App\DeliveryVehicle;
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
@@ -84,5 +85,22 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    addToDelivery(4);
+    $slots = Slot::all();
+    $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->get();
+    $deliverySchedules = DeliverySchedule::where('day', 1)->get();
+    $counter = 1;
+    foreach($deliverySchedules as $deliverySchedule){
+        $slot = $slots->find($counter);
+        if(Carbon::parse($slot->end)->isBefore(Carbon::parse($deliverySchedule->end))){
+            $counter++;
+        }
+    }
+    $vehicleCount = DeliveryVehicle::all()->count();
+    for($i = $vehicleCount; $i > 0; $i--){
+        dump("VehicleCount");
+        dump($i);
+        for($x = $counter; $x > 0; $x--){
+            dump($vehicleRuns->where('slotID', $x)->where('run', $i)->first());
+        }
+    }
 });

@@ -51,7 +51,7 @@ function getOrdersCount(){
 }
 function presentStatus($status){
     if($status == 1){
-        return "Order Placed";
+        return "Placed";
     }else if($status == 2){
         return "Out For Delivery";
     }else if($status == 3){

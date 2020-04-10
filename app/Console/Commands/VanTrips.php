@@ -49,18 +49,20 @@ class VanTrips extends Command
         $counter = 0;
         while($counter < 5){
             if(VehicleRuns::where('deliveryDate', Carbon::now()->addDays($counter)->format('Y-m-d'))->get()->count() == 0){
-                $slots = Slot::all();
-                for($j=1; $j <= 3; $j++){ 
-                    foreach($slots as $slot){
+                $slots = Slot::all(); 
+                $hourCounter = 0;
+                foreach($slots as $slot){
+                    for($i = 1; $i <= 3; $i++){
                         $vehicleRun = new VehicleRuns();
-                        $vehicleRun->run = $j;
-                        $vehicleRun->vanAssignment = $j;
-                        $vehicleRun->group = $j;
+                        $vehicleRun->run = $i;
+                        $vehicleRun->vanAssignment = 2;
+                        $vehicleRun->group = 1;
                         $vehicleRun->slotID = $slot->id;
                         $vehicleRun->deliveryDate = Carbon::now()->addDay($counter);
                         $vehicleRun->last_postcode = Store::first()->postCode;
-                        $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($counter);
+                        $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
                         $vehicleRun->save();
+                        $hourCounter++;
                     }
                 }
                 Log::info('Van run Ended');
