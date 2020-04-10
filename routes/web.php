@@ -97,10 +97,12 @@ Route::get('/route', function(){
     }
     $vehicleCount = DeliveryVehicle::all()->count();
     for($i = $vehicleCount; $i > 0; $i--){
-        dump("VehicleCount");
-        dump($i);
         for($x = $counter; $x > 0; $x--){
-            dump($vehicleRuns->where('slotID', $x)->where('run', $i)->first());
+            //all the runs that need to be added to each run
+            $run1 = collection();
+            foreach($vehicleRuns->where('slotID', $x)->where('run', $i) as $run){
+                
+            }
         }
     }
 });
