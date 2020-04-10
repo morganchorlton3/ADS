@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Deliveries extends Model
 {
-    protected $fillable = [
-        'userID', 'slotID', 'deliveryDate', 'vehicleRun'
-    ];
+    public function Orders(){	
+        return $this->belongsTo('App\Order', 'order', 'id');	
+    }
+
+    public function DeliverySchedule(){	
+        return $this->belongsTo('App\DeliverySchedule', 'deliverySchedule', 'id');	
+    }
 }

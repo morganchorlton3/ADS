@@ -15,11 +15,8 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('userID');
-            $table->integer('slotID');
-            $table->date('deliveryDate');
-            $table->integer('group');
-            $table->string('postCode');
+            $table->integer('deliverySchedule');
+            $table->integer('order');
             $table->timestamps();
         });
     }

@@ -52,9 +52,8 @@ class VanTrips extends Command
                 $slots = Slot::all(); 
                 $hourCounter = 0;
                 foreach($slots as $slot){
-                    for($i = 1; $i <= 3; $i++){
                         $vehicleRun = new VehicleRuns();
-                        $vehicleRun->run = $i;
+                        $vehicleRun->run = 1;
                         $vehicleRun->vanAssignment = 2;
                         $vehicleRun->group = 1;
                         $vehicleRun->slotID = $slot->id;
@@ -63,7 +62,6 @@ class VanTrips extends Command
                         $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
                         $vehicleRun->save();
                         $hourCounter++;
-                    }
                 }
                 Log::info('Van run Ended');
             }else{

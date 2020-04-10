@@ -11,4 +11,8 @@ class VehicleRuns extends Model
     protected $fillable = [
         'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
     ];
+
+    public function Orders(){	
+        return $this->hasMany('App\Order', 'deliverySchedule', 'id');	
+    }
 }

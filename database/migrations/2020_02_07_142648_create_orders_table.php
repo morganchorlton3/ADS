@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer('itemCount');
             $table->double('total');
             $table->integer('status');
+            $table->integer('deliverySchedule')->nullable();
             $table->timestamps();
         });
     }

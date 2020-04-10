@@ -498,6 +498,7 @@ function addToDelivery($orderID){
         $runTime = Carbon::parse($run->run_time)->addSecond(getRouteTime($run->last_postcode, $order->SlotBooking->post_code));
         $run->last_postcode = $order->SlotBooking->post_code;
         $run->run_time = $runTime;
+        $order->deliverySchedule = $run->id;
         $run->save();
     }else{
         $postCodes->sort();
@@ -509,11 +510,13 @@ function addToDelivery($orderID){
                 $run->last_postcode = $order->SlotBooking->post_code;
                 $run->run_time = Carbon::parse($run->run_time)->addSeconds($postCode->time);
                 $run->save();      
+                $order->deliverySchedule = $run->id;
                 break;
             }else{
 
             }
         }
-    }   
+    } 
+    $order->save();  
 
 }

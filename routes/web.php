@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Order;
 use App\DeliverySchedule;
 use App\DeliveryVehicle;
+use App\Deliveries;
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
@@ -86,7 +87,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 Route::get('/route', function(){
     $slots = Slot::all();
-    $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->get();
+    $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('Orders')->get();
     $deliverySchedules = DeliverySchedule::where('day', 1)->get();
     $counter = 1;
     foreach($deliverySchedules as $deliverySchedule){
@@ -95,14 +96,17 @@ Route::get('/route', function(){
             $counter++;
         }
     }
-    $vehicleCount = DeliveryVehicle::all()->count();
-    for($i = $vehicleCount; $i > 0; $i--){
-        for($x = $counter; $x > 0; $x--){
-            //all the runs that need to be added to each run
-            $run1 = collection();
-            foreach($vehicleRuns->where('slotID', $x)->where('run', $i) as $run){
-                
+    $deliveries= collect(new Deliveries);
+        for($x = 4; $x > 0; $x--){
+            foreach($vehicleRuns->where('slotID', $x)->where('run', 1) as $run){
+               foreach($run->Orders as $order){
+                    $delivery = new Deliveries();
+                    $delivery->deliverySchedule = 1;
+                    $delivery->order = $order->id;
+                    //$deliveries->add($delivery);
+                    $delivery->save();
+               }
             }
         }
-    }
+        dump(Deliveries::where('id', 1)->with('Orders', 'DeliverySchedule')->get());
 });
