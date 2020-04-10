@@ -21,6 +21,7 @@ class VehicleRuns extends Migration
             $table->integer('group');
             $table->string('last_postcode');
             $table->time('run_time');
+            $table->integer('slotID');
             $table->softDeletes();
             $table->timestamps();
         });

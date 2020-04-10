@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Log;
 use App\VehicleRuns;
 use App\Store;
+use App\Slot;
 
 
 class VanTrips extends Command
@@ -46,7 +47,7 @@ class VanTrips extends Command
     {
         Log::info('Creating Van Trips');
         if(VehicleRuns::where('deliveryDate', Carbon::now()->addDay(1)->format('Y-m-d'))->get()->count() == 0){
-            for($i=DeliveryVehicle::count(); $i > 0; $i--){
+            /*for($i=DeliveryVehicle::count(); $i > 0; $i--){
                 for($j=1; $j <= 3; $j++){ 
                     $vehicleRun = new VehicleRuns();
                     $vehicleRun->run = $j;
@@ -62,6 +63,22 @@ class VanTrips extends Command
                         $vehicleRun->run_time = Carbon::parse('18:00:00');
                     }
                     $vehicleRun->save();
+                }
+            }*/
+            $slots = Slot::all();
+            for($j=1; $j <= 3; $j++){ 
+                $counter = 0;
+                foreach($slots as $slot){
+                    $vehicleRun = new VehicleRuns();
+                    $vehicleRun->run = $j;
+                    $vehicleRun->vanAssignment = $j;
+                    $vehicleRun->group = 0;
+                    $vehicleRun->slotID = $slot->id;
+                    $vehicleRun->deliveryDate = Carbon::now()->addDay(1);
+                    $vehicleRun->last_postcode = Store::first()->postCode;
+                    $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($counter);
+                    $vehicleRun->save();
+                    $counter++;
                 }
             }
             Log::info('Van run Ended');

@@ -481,8 +481,23 @@ function getRouteTime($startPostCode, $endPostCode){
 
 function addToDelivery($orderID){
     $order = Order::find($orderID)->with('SlotBooking')->first();
-    $vehicleRuns = VehicleRuns::where('run', getRun($order->SlotBooking->date,$order->SlotBooking->slot->start))->where('deliveryDate', $order->SlotBooking->date)->get();
+    $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
+    $storePostCode = Store::first()->postCode;
     $postCodes = [];
+    foreach($vehicleRuns as $run){
+        if($run->last_postcode != $storePostCode){
+            array_push($postCodes, $run->last_postcode);
+        }
+    }
+    if($postCodes == null){
+        $runTime = Carbon::parse($run->run_time)->addSecond(getRouteTime($run->last_postcode, $order->SlotBooking->post_code));
+        $run->last_postcode = $order->SlotBooking->post_code;
+        $run->run_time = $runTime;
+        $run->save();
+    }else{
+        //CHeck which postcode is closer 
+    }
+    /*$postCodes = [];
     foreach($vehicleRuns as $run){
         array_push($postCodes, $run->last_postcode);
     }
@@ -493,7 +508,7 @@ function addToDelivery($orderID){
         $vehicleRun->last_postcode = $order->SlotBooking->post_code;
         $vehicleRun->run_time = $runTime;
         $vehicleRun->save();
-    }
+    }*/
     
 
 }

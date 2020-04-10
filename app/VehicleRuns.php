@@ -9,6 +9,6 @@ class VehicleRuns extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime'
+        'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
     ];
 }
