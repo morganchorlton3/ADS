@@ -46,22 +46,24 @@ class VanTrips extends Command
     public function handle()
     {
         Log::info('Creating Van Trips For the week');
-        for($dayCounter = 1; $dayCounter <= 7; $dayCounter++){
-            $slots = Slot::all(); 
-            for($runCounter = 1; $runCounter <= 3; $runCounter++){
-                $hourCounter = 0;
-                $vehicleRun = VehicleRuns::where('deliveryDate', Carbon::now()->addDay($dayCounter)->format('Y-m-d'))->get();
-                if($vehicleRun->count() == 0){
-                    foreach($slots as $slot){
-                        $vehicleRun = new VehicleRuns();
-                        $vehicleRun->run = $runCounter;
-                        $vehicleRun->slotID = $slot->id;
-                        $vehicleRun->deliveryDate = Carbon::now()->addDay($dayCounter);
-                        $vehicleRun->last_postcode = Store::first()->postCode;
-                        $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
-                        $vehicleRun->save();
-                        $hourCounter++;
-                    }
+        //Weekday Counter
+        for($dayCounter = 1; $dayCounter <= 7; $dayCounter++){ 
+            //Run Count
+            $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->addDay($dayCounter)->format('Y-m-d'))->get();
+            if($vehicleRuns->count() <= 3){
+                for($runCounter = 1; $runCounter <= 3; $runCounter++){
+                    $slots = Slot::all();
+                    $hourCounter = 0;
+                        foreach($slots as $slot){
+                            $vehicleRun = new VehicleRuns();
+                            $vehicleRun->run = $runCounter;
+                            $vehicleRun->slotID = $slot->id;
+                            $vehicleRun->deliveryDate = Carbon::now()->addDay($dayCounter);
+                            $vehicleRun->last_postcode = Store::first()->postCode;
+                            $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
+                            $vehicleRun->save();
+                            $hourCounter++;
+                        }
                 }
             }
         }
