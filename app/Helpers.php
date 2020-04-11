@@ -480,13 +480,13 @@ function getRouteTime($startPostCode, $endPostCode){
     return $timeSeconds;
 }
 
-function addToDelivery($orderID){
+function addToDelivery($orderID, $userID){
     $order = Order::find($orderID)->with('SlotBooking')->first();
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
     $storePostCode = Store::first()->postCode;
     $postCodes = collect(new PostCodeDistance);
     foreach($vehicleRuns as $run){
-            $time = getRouteTime($run->last_postcode, Auth::user()->address->post_code);
+            $time = getRouteTime($run->last_postcode, User::find($userID)->address->post_code);
             $postCodeDistance = new PostCodeDistance();
             $postCodeDistance->postCode = $run->last_postcode;
             $postCodeDistance->time = $time;

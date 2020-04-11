@@ -21,12 +21,12 @@ class SlotBookingTableSeeder extends Seeder
 
         $counter =1; 
 
-        while($counter < 100){
+        for($i=1; $i < User::count(); $i++){
                 SlotBooking::create([
-                    'user_id' => rand(0,100),
+                    'user_id' => $i,
                     'slot_id' => $faker->numberBetween($min = 1, $max = 15),
-                    'date' => $faker->randomElement([carbon::now()->add(1, 'day'), carbon::now()->add(2, 'day'), carbon::now()->add(3, 'day'), carbon::now()->add(4, 'day')]),
-                    'post_code' => Address::where('user_id', $counter)->value('post_code'),
+                    'date' => $faker->randomElement([carbon::now()->add(1, 'day'), carbon::now()->add(2, 'day'), carbon::now()->add(3, 'day'), carbon::now()->add(4, 'day'), carbon::now()->add(5, 'day')]),
+                    'post_code' => User::find($i)->address->post_code,
                     'status' => 1,
                     'expiration' => carbon::now()->add(1, 'day'),
                 ]);
