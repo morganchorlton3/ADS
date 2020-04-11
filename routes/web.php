@@ -110,3 +110,7 @@ Route::get('/route', function(){
         }
         dump(Deliveries::where('id', 1)->with('Orders', 'DeliverySchedule')->get());
 });
+
+Route::get('/testing', function(){
+    addToDelivery(1,1);
+});

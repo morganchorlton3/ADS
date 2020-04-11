@@ -46,28 +46,24 @@ class VanTrips extends Command
     public function handle()
     {
         Log::info('Creating Van Trips For the week');
-        $counter = 0;
-        while($counter < 5){
-            if(VehicleRuns::where('deliveryDate', Carbon::now()->addDays($counter)->format('Y-m-d'))->get()->count() == 0){
-                $slots = Slot::all(); 
+        for($dayCounter = 1; $dayCounter <= 7; $dayCounter++){
+            $slots = Slot::all(); 
+            for($runCounter = 1; $runCounter <= 3; $runCounter++){
                 $hourCounter = 0;
-                foreach($slots as $slot){
+                $vehicleRun = VehicleRuns::where('deliveryDate', Carbon::now()->addDay($dayCounter)->format('Y-m-d'))->get();
+                if($vehicleRun->count() == 0){
+                    foreach($slots as $slot){
                         $vehicleRun = new VehicleRuns();
-                        $vehicleRun->run = 1;
-                        $vehicleRun->vanAssignment = 2;
-                        $vehicleRun->group = 1;
+                        $vehicleRun->run = $runCounter;
                         $vehicleRun->slotID = $slot->id;
-                        $vehicleRun->deliveryDate = Carbon::now()->addDay($counter);
+                        $vehicleRun->deliveryDate = Carbon::now()->addDay($dayCounter);
                         $vehicleRun->last_postcode = Store::first()->postCode;
                         $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
                         $vehicleRun->save();
                         $hourCounter++;
+                    }
                 }
-                Log::info('Van run Ended');
-            }else{
-                Log::info('Van trips already created');
             }
-            $counter++;
         }
     }
 }

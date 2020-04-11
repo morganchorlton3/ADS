@@ -16,9 +16,7 @@ class VehicleRuns extends Migration
         Schema::create('vehicle_runs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('run');
-            $table->string('vanAssignment')->nullable();
             $table->date('deliveryDate');
-            $table->integer('group');
             $table->string('last_postcode');
             $table->time('run_time');
             $table->integer('slotID');
