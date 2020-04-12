@@ -112,5 +112,9 @@ Route::get('/route', function(){
 });
 
 Route::get('/testing', function(){
-    addToDelivery(1,1);
+    //addToDelivery(1,1);
+    //$vehicleRuns = VehicleRuns::where('deliveryDate', "2020-04-12")->where('slotID', 1)->get();
+    //dd($vehicleRuns);
+    $order = Order::first()->with('User');
+    dd($order);
 });

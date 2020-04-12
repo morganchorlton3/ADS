@@ -468,6 +468,7 @@ function getRouteTime($startPostCode, $endPostCode){
         }
         $route = json_decode($route_request->getBody(), true);
         Cache::forever($startPostCode.'-'.$endPostCode, $route);
+        dump($route);
 
         $timeSeconds = $route_request['routes'][0]['legs'][0]['duration']['value'];
 
@@ -521,45 +522,43 @@ function OldaddToDelivery($orderID, $userID){
     $order->save();  
 
 }
-
-function addToDelivery($orderID, $userID){
-    $order = Order::find($orderID)->with('SlotBooking')->first();
+function addToDelivery($orderID, $user){
+    $order = Order::find($orderID)->with('SlotBooking');
+    dd($order);
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
-    dd($vehicleRuns);
+   // dd($vehicleRuns);
     $storePostCode = Store::first()->postCode;
     $postCodes = collect(new PostCodeDistance);
     foreach($vehicleRuns as $run){
-            $time = getRouteTime($run->last_postcode, User::find($userID)->address->post_code);
+            $time = getRouteTime($run->last_postcode, $user->address->post_code);
             $postCodeDistance = new PostCodeDistance();
             $postCodeDistance->postCode = $run->last_postcode;
             $postCodeDistance->time = $time;
             $postCodeDistance->run = $run->id;
             $postCodes->push($postCodeDistance);
     }
-    if($postCodes->count() == 0){
+    /*if($postCodes->count() == 0){
         $run = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->first();
         $runTime = Carbon::parse($run->run_time)->addSecond(getRouteTime($run->last_postcode, $order->SlotBooking->post_code));
         $run->last_postcode = $order->SlotBooking->post_code;
         $run->run_time = $runTime;
         $order->deliverySchedule = $run->id;
         $run->save();
-    }else{
+    }else{*/
         $postCodes->sort();
         $postCode = $postCodes->first();
         foreach($vehicleRuns as $run){
             //dump($run->run_time);
-            if(Carbon::parse($run->run_time)->addSeconds($postCode->time)->isBefore(Carbon::parse($order->SlotBooking->slot->end))){
+            if(Carbon::parse($run->run_time)->addSeconds($postCode->time)->isBefore(Carbon::parse($order->SlotBooking->slot->end)) && Carbon::parse($run->run_time)->addSeconds($postCode->time)->isAfter(Carbon::parse($order->SlotBooking->slot->start)) ){
                 dump("time");
                 $run->last_postcode = $order->SlotBooking->post_code;
                 $run->run_time = Carbon::parse($run->run_time)->addSeconds($postCode->time);
                 $run->save();      
                 $order->deliverySchedule = $run->id;
+                dump($order->id . " Added to route");
                 break;
-            }else{
-                dump("no Time Available");
-            break;
             }
-        }
+       // }
     } 
     $order->save();  
 

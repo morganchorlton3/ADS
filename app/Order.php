@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
+    protected $table = "orders";
+
     protected $fillable = [
         'userID', 'placedDate', 'note', 'totalWeight', 'itemCount', 'total', 'status'
     ];
@@ -20,7 +22,7 @@ class Order extends Model
     }	
 
     public function SlotBooking(){	
-        return $this->belongsTo('App\SlotBooking', 'slotBookingID', 'id');	
+        return $this->belongsTo('App\SlotBooking', 'slotBookingID');	
     }
 
 }
