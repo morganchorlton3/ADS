@@ -43,7 +43,9 @@ class SlotController extends Controller
         //Loops through the days displayed (usually 5)
         for ($x = 0; $x < 5; $x++) {
             $date = Carbon::now()->addDays($x)->format('Y-m-d');
+            //dd($date);
             foreach($slots as $slot){
+                //dd($slot);
                 $bookedSlots = $slot->slotBooking->where('date', $date);
                 $availability = new SlotAvailability();
                 if($bookedSlots->where('user_id', Auth::id())->where('status', 1)->count() == 1){

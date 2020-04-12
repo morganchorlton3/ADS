@@ -88,7 +88,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 Route::get('/route', function(){
     $order = Order::find(1);
-    dump($order->SlotBooking->Slot->start);
+    addToDelivery($order);
 });
 
 Route::get('/orders-test', function(){

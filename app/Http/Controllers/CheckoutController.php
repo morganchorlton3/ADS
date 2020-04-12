@@ -58,8 +58,6 @@ class CheckoutController extends Controller
         $order->status = 1;
         $cart = Cart::get();
         $order->save();
-        $slot->status = 2;
-        $slot->save();
         foreach($cart as $item){
             $product = new OrderProducts();
             $product->orderID = $order->id;
@@ -82,6 +80,8 @@ class CheckoutController extends Controller
             //Clear Cart
             Cart::clearCart();
             addToDelivery($order->id);
+            $slot->status = 2;
+            $slot->save();
             return redirect()->route('checkout.success')->with([
                 'success_toast'=> "Thankyou for your order!",
             ]);

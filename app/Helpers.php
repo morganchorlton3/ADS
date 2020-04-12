@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Category;
+use App\Deliveries;
 use App\Delivery;
 use App\DeliverySchedule;
 use App\User;
@@ -468,7 +469,7 @@ function getRouteTime($startPostCode, $endPostCode){
         }
         $route = json_decode($route_request->getBody(), true);
         Cache::forever($startPostCode.'-'.$endPostCode, $route);
-        dump($route);
+       // dump($route);
 
         $timeSeconds = $route_request['routes'][0]['legs'][0]['duration']['value'];
 
@@ -522,7 +523,7 @@ function OldaddToDelivery($orderID, $userID){
     $order->save();  
 
 }
-function addToDelivery($orderID, $user){
+/*function addToDelivery($orderID){
     $order = Order::find($orderID)->with('SlotBooking');
     dd($order);
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
@@ -544,7 +545,7 @@ function addToDelivery($orderID, $user){
         $run->run_time = $runTime;
         $order->deliverySchedule = $run->id;
         $run->save();
-    }else{*/
+    }else{
         $postCodes->sort();
         $postCode = $postCodes->first();
         foreach($vehicleRuns as $run){
@@ -562,4 +563,25 @@ function addToDelivery($orderID, $user){
     } 
     $order->save();  
 
+}*/
+function addToDelivery($orderID){
+    $order = Order::find($orderID);
+    $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
+    dump($vehicleRuns);
+    $routeTime = 100;
+    foreach($vehicleRuns as $run){
+       $newRouteTime = getRouteTime($run->last_postcode, $order->User->address->post_code) /60;
+       if($routeTime > $newRouteTime){
+           $routeTime = $newRouteTime;
+           $runToAdd = $run;
+       }
+    }
+    $runToAdd->last_postcode = $order->user->address->post_code;
+    $runToAdd->run_time = Carbon::parse($runToAdd->run_time)->addMinutes($routeTime);
+    $runToAdd->save();
+    $delivery = new Deliveries();
+    $delivery->deliverySchedule = $runToAdd->id;
+    $delivery->order = $order->id;
+    $delivery->save();
+    
 }

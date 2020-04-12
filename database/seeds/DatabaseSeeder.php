@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SlotTableSeeder::class);
         $this->call(VanTableSeeder::class);
         $this->call(StoreTableSeeder::class);
-        $this->call(SlotBookingTableSeeder::class);
+        //$this->call(SlotBookingTableSeeder::class);
         $this->call(JobTableSeeder::class);
         $this->call(StaffTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
@@ -32,6 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AvailablePostcodesTableSeeder::class);
         \Artisan::call('delivery:createVanTrips');
         //exec('php artisan delivery:createVanTrips');
-        $this->call(OrderTableSeeder::class);
+       // $this->call(OrderTableSeeder::class);
     }
 }

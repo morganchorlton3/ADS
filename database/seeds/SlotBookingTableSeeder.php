@@ -25,7 +25,7 @@ class SlotBookingTableSeeder extends Seeder
                 SlotBooking::create([
                     'user_id' => $i,
                     'slot_id' => $faker->numberBetween($min = 1, $max = 15),
-                    'date' => $faker->randomElement([carbon::now()->add(1, 'day'), carbon::now()->add(2, 'day'), carbon::now()->add(3, 'day'), carbon::now()->add(4, 'day'), carbon::now()->add(5, 'day')]),
+                    'date' => $faker->randomElement([carbon::now()->add(0, 'day'), carbon::now()->add(1, 'day'), carbon::now()->add(2, 'day'), carbon::now()->add(3, 'day'), carbon::now()->add(4, 'day')]),
                     'post_code' => User::find($i)->address->post_code,
                     'status' => 1,
                     'expiration' => carbon::now()->add(1, 'day'),
