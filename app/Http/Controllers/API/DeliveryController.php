@@ -35,9 +35,12 @@ class DeliveryController extends Controller
                         $runs->add($delivery);
                         $order = Order::find($delivery->order);
                         $user = User::find($order->userID);
+                        $geocode = getLongLat($user->address->post_code)['results'][0]['geometry']['location'];
                         $orders[] = [
                             'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                             'postCode' => $user->address->post_code,
+                            'long' => $geocode['lng'],
+                            'lat' => $geocode['lat'],
                             'addressLine1' => $user->address->address_line_1 . ', '. $user->address->address_line_2 . ', '. $user->address->address_line_3,
                             'deliverySlot' => $order->SlotBooking->Slot->start . ' - ' . $order->SlotBooking->Slot->end,
                             'ambientTrays' => '3',

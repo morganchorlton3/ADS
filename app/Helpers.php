@@ -482,6 +482,15 @@ function getRouteTime($startPostCode, $endPostCode){
     return $timeSeconds;
 }
 
+function getLongLat($postCode){
+    $request = Http::get('https://maps.googleapis.com/maps/api/geocode/json?address=' . $postCode .  '&key='. config('services.GCP.key'));
+    if(!$request->successful()){
+        abort(500);
+    }
+    $geoCode = json_decode($request->getBody(), true);
+    return $geoCode;
+}
+
 function OldaddToDelivery($orderID, $userID){
     $order = Order::find($orderID)->with('SlotBooking')->first();
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
