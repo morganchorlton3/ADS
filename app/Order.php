@@ -22,7 +22,7 @@ class Order extends Model
     }	
 
     public function SlotBooking(){	
-        return $this->belongsTo('App\SlotBooking', 'slotBookingID');	
+        return $this->belongsTo('App\SlotBooking', 'slotBookingID', 'id');	
     }
 
 }

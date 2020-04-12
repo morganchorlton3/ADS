@@ -33,9 +33,9 @@ class DeliveryController extends Controller
                 foreach($vehicleRuns as $run){
                     foreach($run->deliveries as $delivery){
                         $runs->add($delivery);
-                        $order = Order::find($delivery->id);
-                        $user = User::find($order->id);
-                        $data = [
+                        $order = Order::find($delivery->order);
+                        $user = User::find($order->userID);
+                        $orders[] = [
                             'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                             'postCode' => $user->address->post_code,
                             'addressLine1' => $user->address->address_line_1 . ', '. $user->address->address_line_2 . ', '. $user->address->address_line_3,
@@ -45,13 +45,12 @@ class DeliveryController extends Controller
                             'frozenTrays' => '1',
                             'itemCount' => $order->itemCount,
                         ];
-                        $order.push($data);
                     }
                 }
             }
             
         }
-        return response()->json($data);
+        return response()->json($orders);
     }
 
     /**

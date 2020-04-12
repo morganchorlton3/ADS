@@ -567,7 +567,6 @@ function OldaddToDelivery($orderID, $userID){
 function addToDelivery($orderID){
     $order = Order::find($orderID);
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
-    dump($vehicleRuns);
     $routeTime = 100;
     foreach($vehicleRuns as $run){
        $newRouteTime = getRouteTime($run->last_postcode, $order->User->address->post_code) /60;
