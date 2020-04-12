@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class VehicleRuns extends Model
 {
     use SoftDeletes;
+
+
     protected $fillable = [
         'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
     ];
 
-    public function Orders(){	
-        return $this->hasMany('App\Order', 'deliverySchedule', 'id');	
+    /*public function Deliveries(){
+        return $this->hasMany('App\Deliveries', 'deliverySchedule', 'id');
+    }*/
+    public function deliveries()
+    {
+        return $this->hasMany('App\Deliveries', 'deliverySchedule');
     }
+
 }

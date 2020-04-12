@@ -12,13 +12,8 @@ class Slot extends Model
 
     protected $primaryKey = 'id';
 
-    public function Orders()
-    {
-        return $this->hasOne('App\Orders');
-    }
-
     public function SlotBooking()
     {
-        return $this->hasMany('App\SlotBooking', 'slot_id');
+        return $this->belongsTo('App\SlotBooking', 'slot_id');
     }
 }

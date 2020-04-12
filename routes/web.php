@@ -15,6 +15,7 @@ use App\Order;
 use App\DeliverySchedule;
 use App\DeliveryVehicle;
 use App\Deliveries;
+use Carbon\CarbonPeriod;
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
@@ -86,35 +87,27 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    $slots = Slot::all();
-    $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('Orders')->get();
-    $deliverySchedules = DeliverySchedule::where('day', 1)->get();
-    $counter = 1;
-    foreach($deliverySchedules as $deliverySchedule){
-        $slot = $slots->find($counter);
-        if(Carbon::parse($slot->end)->isBefore(Carbon::parse($deliverySchedule->end))){
-            $counter++;
-        }
-    }
-    $deliveries= collect(new Deliveries);
-        for($x = 4; $x > 0; $x--){
-            foreach($vehicleRuns->where('slotID', $x)->where('run', 1) as $run){
-               foreach($run->Orders as $order){
-                    $delivery = new Deliveries();
-                    $delivery->deliverySchedule = 1;
-                    $delivery->order = $order->id;
-                    //$deliveries->add($delivery);
-                    $delivery->save();
-               }
-            }
-        }
-        dump(Deliveries::where('id', 1)->with('Orders', 'DeliverySchedule')->get());
+    $order = Order::find(1);
+    dump($order->SlotBooking->Slot->start);
 });
 
-Route::get('/testing', function(){
-    //addToDelivery(1,1);
-    //$vehicleRuns = VehicleRuns::where('deliveryDate', "2020-04-12")->where('slotID', 1)->get();
-    //dd($vehicleRuns);
-    $order = Order::first()->with('User');
-    dd($order);
+Route::get('/orders-test', function(){
+    $slots = Slot::all();
+    $deliverySchedule = DeliverySchedule::find(1);
+    $start = Carbon::parse($deliverySchedule->start);
+    $end = Carbon::parse($deliverySchedule->end);
+    $runs = collect(new VehicleRuns());
+    for($i = 1; $i <= 4; $i++){
+        $slot = $slots->find($i);
+        if(Carbon::parse($slot->end)->isBetween($start, $end)){
+            $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->where('slotID', $i)->where('run', 1)->with('Deliveries.order')->get();
+            foreach($vehicleRuns as $run){
+                foreach($run->deliveries as $delivery){
+                    $runs->add($delivery);
+                }
+            }
+        }
+        
+    }
+    dump($runs);
 });
