@@ -30,7 +30,7 @@ Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
     Route::get('/account', 'AccountController@index')->name('account.manage');
-    //Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //checkout
     Route::name('checkout.')->prefix('checkout')->group(function(){
         Route::get('book-slot', 'SlotController@index')->name('book.slot');
