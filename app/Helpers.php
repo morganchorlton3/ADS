@@ -16,6 +16,7 @@ use App\DeliveryVehicle;
 use App\PostCodeDistance;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
+use App\Run;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -584,12 +585,66 @@ function addToDelivery($orderID){
            $runToAdd = $run;
        }
     }
+    $deliveryScheduleID = 1;
     $runToAdd->last_postcode = $order->user->address->post_code;
     $runToAdd->run_time = Carbon::parse($runToAdd->run_time)->addMinutes($routeTime);
     $runToAdd->save();
+    $deliverySchedules = DeliverySchedule::all();
+    foreach($deliverySchedules as $deliverySchedule){
+        if(Carbon::parse($order->SlotBooking->Slot->start)->isAfter(Carbon::parse($deliverySchedule->start)) && Carbon::parse($order->SlotBooking->Slot->end)->isBefore(Carbon::parse($deliverySchedule->end)) ){
+            $deliveryScheduleID = $deliverySchedule->id;
+            break;
+        }
+    }
+    $run = Run::where('deliverySchedule', $deliveryScheduleID)->where('date',$order->SlotBooking->date)->first();
+    if($run == null){
+        $run = new Run();
+        $run->runCount = 1;
+    }
+    $run->deliverySchedule = $deliveryScheduleID;
+    $run->date = $order->SlotBooking->date;
+    $run->runCount = $run->runCount++;
+    $run->save();
     $delivery = new Deliveries();
-    $delivery->deliverySchedule = $runToAdd->id;
+    $delivery->deliverySchedule = $deliveryScheduleID;
     $delivery->order = $order->id;
+    $delivery->run = $run->id;
+    $delivery->date = $order->SlotBooking->date;
     $delivery->save();
     
+}
+
+function CreateRuns(){
+    $slots = Slot::all();
+    $deliverySchedule = DeliverySchedule::find(1);
+    $start = Carbon::parse($deliverySchedule->start);
+    $end = Carbon::parse($deliverySchedule->end);
+    $runs = collect(new VehicleRuns());
+    $orders = [];
+    for($i = 1; $i <= 4; $i++){
+        $slot = $slots->find($i);
+        if(Carbon::parse($slot->end)->isBetween($start, $end)){
+            $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->where('slotID', $i)->where('run', 1)->with('Deliveries')->get();
+            foreach($vehicleRuns as $run){
+                foreach($run->deliveries as $delivery){
+                    $runs->add($delivery);
+                    $order = Order::find($delivery->order);
+                    $user = User::find($order->userID);
+                    $geocode = getLongLat($user->address->post_code)['results'][0]['geometry']['location'];
+                    $orders[] = [
+                        'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
+                        'postCode' => $user->address->post_code,
+                        'long' => $geocode['lng'],
+                        'lat' => $geocode['lat'],
+                        'addressLine1' => $user->address->address_line_1 . ', '. $user->address->address_line_2 . ', '. $user->address->address_line_3,
+                        'deliverySlot' => $order->SlotBooking->Slot->start . ' - ' . $order->SlotBooking->Slot->end,
+                        'ambientTrays' => '3',
+                        'chilledTrays' => '2',
+                        'frozenTrays' => '1',
+                        'itemCount' => $order->itemCount,
+                    ];
+                }
+            }
+        }
+    }
 }

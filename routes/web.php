@@ -15,6 +15,8 @@ use App\Order;
 use App\DeliverySchedule;
 use App\DeliveryVehicle;
 use App\Deliveries;
+use App\Run;
+use Barryvdh\DomPDF\PDF;
 use Carbon\CarbonPeriod;
 
 //cart
@@ -76,6 +78,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //vehicles
     Route::get('delivery/vehicles', 'DeliveryVehicleController@index')->name('vehicle.index');
     Route::post('delivery/vehicles', 'DeliveryVehicleController@create')->name('vehicle.create');
+    Route::get('deliveries', 'DeliveryController@index')->name('deliveries.index');
     //Stores
     Route::get('stores/locations', 'StoreController@index')->name('store.index');
     Route::post('stores/locations', 'StoreController@create')->name('store.create');
@@ -87,8 +90,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 });
 
 Route::get('/route', function(){
-    $order = Order::find(1);
-    addToDelivery($order);
+    $run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.User')->first();
+        //dd($runs);
+        /*return view('admin.deliveries.deliveries')->with([
+            'runs' => $runs,
+        ]);*/
+        $pdf = PDF::loadView('admin.export.run', $run);
+        return $pdf->download('invoice.pdf');
 });
 
 Route::get('/orders-test', function(){

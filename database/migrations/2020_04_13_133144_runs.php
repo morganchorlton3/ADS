@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RunHours extends Migration
+class Runs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class RunHours extends Migration
      */
     public function up()
     {
-        Schema::create('run_hours', function (Blueprint $table) {
+        Schema::create('runs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('slot');
-            $table->date('deliveryDate');
-            $table->integer('deliveryCount');
-            $table->string('lastPostCode')->nullable();
-            $table->time('currentRunTime')->nullable();
+            $table->integer('deliverySchedule');
+            $table->integer('runCount');
+            $table->date('date');
+            $table->integer('vanAssignment')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class RunHours extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('run_hours');
+        //
     }
 }
