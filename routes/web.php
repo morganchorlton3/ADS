@@ -21,6 +21,7 @@ use Carbon\CarbonPeriod;
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
+Route::get('products/{id}','HomeController@show')->name('product.show');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
 Route::get('cart/decrease/{id}', 'CartController@decreaseQuantity')->name('cart.decrease');
 Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
