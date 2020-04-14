@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Deliveries extends Model
+class Delivery extends Model
 {
     public function order()
     {

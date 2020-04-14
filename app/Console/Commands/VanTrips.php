@@ -3,14 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Deliveries;
+use App\DeliverySchedule;
 use Illuminate\Console\Command;
-use App\DeliveryVehicle;
 use Carbon\Carbon;
 use Log;
-use App\VehicleRuns;
+use App\VehicleRun;
 use App\Store;
 use App\Slot;
-
 
 class VanTrips extends Command
 {
@@ -48,23 +47,17 @@ class VanTrips extends Command
         Log::info('Creating Van Trips For the week');
         //Weekday Counter
         for($dayCounter = 0; $dayCounter < 7; $dayCounter++){ 
-            //Run Count
-            $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->addDay($dayCounter)->format('Y-m-d'))->get();
-            if($vehicleRuns->count() <= 3){
-                for($runCounter = 1; $runCounter <= 3; $runCounter++){
-                    $slots = Slot::all();
-                    $hourCounter = 0;
-                        foreach($slots as $slot){
-                            $vehicleRun = new VehicleRuns();
-                            $vehicleRun->run = $runCounter;
-                            $vehicleRun->slotID = $slot->id;
-                            $vehicleRun->deliveryDate = Carbon::now()->addDay($dayCounter);
-                            $vehicleRun->last_postcode = Store::first()->postCode;
-                            $vehicleRun->run_time = Carbon::parse('08:00:00')->addHour($hourCounter);
-                            $vehicleRun->save();
-                            $hourCounter++;
-                        }
-                }
+            //Get Delivery Schedule
+            $deliverySchedules = DeliverySchedule::all();
+            foreach($deliverySchedules as $deliverySchedule){
+                $vehicleRun = new VehicleRun();
+                $vehicleRun->run = $deliverySchedule->run;
+                $vehicleRun->deliveryDate = Carbon::now()->addDay($dayCounter);
+                $vehicleRun->lastPostCode = Store::first()->postCode;
+                $vehicleRun->runTime = $deliverySchedule->start;
+                $vehicleRun->runEnd = $deliverySchedule->end;
+                $vehicleRun->deliverySchedule = $deliverySchedule->id;
+                $vehicleRun->save();
             }
         }
     }

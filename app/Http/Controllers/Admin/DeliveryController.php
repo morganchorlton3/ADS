@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Deliveries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Run;
+use App\VehicleRun;
 use Illuminate\Support\Carbon;
 use PDF;
 
@@ -17,7 +19,9 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.SlotBooking.Slot', 'deliveries.Order.User.Address')->first();
+        //$run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.SlotBooking.Slot', 'deliveries.Order.User.Address')->first();
+        $run = VehicleRun::where('deliveryDate', '2020-04-14')->with('deliveries')->get();
+        dd($run);
         //dd($run);
         //dd($runs);
         /*return view('admin.export.run')->with([

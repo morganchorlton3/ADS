@@ -16,7 +16,6 @@ class CreateDeliverySchedule extends Migration
         Schema::create('delivery_schedule', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('run');
-            $table->integer('day');
             $table->time('start');
             $table->time('end');
             $table->timestamps();

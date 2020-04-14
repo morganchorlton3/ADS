@@ -119,3 +119,6 @@ Route::get('/orders-test', function(){
     }
     dump($runs);
 });
+Route::get('/delivery', function(){
+    dd(Carbon::parse('2020-04-14')->setTimeFromTimeString('08:17:52'));
+});
