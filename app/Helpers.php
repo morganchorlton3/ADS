@@ -624,14 +624,26 @@ function addToDelivery($orderID){
         $start = Carbon::parse($schedule->start);
         $end = Carbon::parse($schedule->end);
         if(Carbon::parse($order->slotBooking->slot->start)->isAfter($start) || Carbon::parse($order->slotBooking->slot->start)->equalTo($start)  && Carbon::parse($order->slotBooking->slot->end)->isBefore($end)){
-            $run = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->slotBooking->date)->first();
+            $runs = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->slotBooking->date)->get();
+            $routeTime = null;
+            foreach($runs as $run){
+                if($routeTime == null){
+                    $routeTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                }else{
+                    $newTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                    if($newTime < $routeTime){
+                        $routeTime = $newTime;
+                    }
+                }
+            }
             $scheduleID = $schedule->id;
         }
     }
-    $routeTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+    //update selected run
     $run->lastPostCode = $order->SlotBooking->post_code;
     $run->runTime = Carbon::parse($run->runTime)->addSeconds($routeTime);
     $run->save();
+    //create delivery
     $delivery = new Delivery();
     $delivery->run = $run->id;
     $delivery->dateTime = Carbon::parse('2020-04-14')->setTimeFromTimeString($run->runTime);
