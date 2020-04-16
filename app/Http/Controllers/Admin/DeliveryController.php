@@ -21,7 +21,7 @@ class DeliveryController extends Controller
     {
         //$run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.SlotBooking.Slot', 'deliveries.Order.User.Address')->first();
         $run = VehicleRun::where('deliveryDate', '2020-04-14')->with('deliveries')->get();
-        dd($run);
+        //dd($run);
         //dd($run);
         //dd($runs);
         /*return view('admin.export.run')->with([
