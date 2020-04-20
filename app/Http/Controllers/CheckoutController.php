@@ -12,6 +12,7 @@ use App\Order;
 use App\OrderProducts;
 use App\SlotBooking;
 use Mail;
+use App\Mail\OrderCompleteMail;
 
 class CheckoutController extends Controller
 {
