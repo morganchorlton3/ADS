@@ -88,6 +88,7 @@ class CheckoutController extends Controller
             addToDelivery($order->id);
             $slot->status = 2;
             $slot->save();
+            $order = Order::with('orderProducts.product','user.address', 'SlotBooking.slot')->find($order->id);
             Mail::to(Auth::user()->email)->send(new OrderCompleteMail($order));
             return redirect()->route('checkout.success')->with([
                 'success_toast'=> "Thankyou for your order!",
