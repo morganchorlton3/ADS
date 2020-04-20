@@ -21,6 +21,8 @@ class CreateOrdersTable extends Migration
             $table->string('note')->nullable();
             $table->double('totalWeight');
             $table->integer('itemCount');
+            $table->double('subTotal');
+            $table->double('delivery');
             $table->double('total');
             $table->integer('status');
             $table->integer('deliverySchedule')->nullable();

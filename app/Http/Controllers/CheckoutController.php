@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Order;
 use App\OrderProducts;
 use App\SlotBooking;
+use Mail;
 
 class CheckoutController extends Controller
 {
@@ -54,15 +55,19 @@ class CheckoutController extends Controller
         $order->slotBookingId = $slot->id;
         $order->totalWeight = 22.2;
         $order->itemCount = Cart::count();
-        $order->total = Cart::total();
+        $order->subTotal = Cart::total();
+        $order->delivery = $slot->price;
+        $order->total = Cart::total() + $slot->price;
         $order->status = 1;
         $cart = Cart::get();
         $order->save();
+        $cart = Cart::get();
         foreach($cart as $item){
             $product = new OrderProducts();
             $product->orderID = $order->id;
             $product->productID = $item['id'];
             $product->quantity = $item['quantity'];
+            $product->pricePaid = $item['price'];
             $product->save();
         }
         try{
@@ -82,6 +87,7 @@ class CheckoutController extends Controller
             addToDelivery($order->id);
             $slot->status = 2;
             $slot->save();
+            Mail::to(Auth::user()->email)->send(new OrderCompleteMail($order));
             return redirect()->route('checkout.success')->with([
                 'success_toast'=> "Thankyou for your order!",
             ]);
@@ -92,17 +98,6 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.success')->with([
                 'error_toast'=> "Sorry Your payment hasnt gone through please try again",
             ]);
-        }
-    }
-
-    public function addOrderedProducts($orderID){
-        $cart = Cart::get();
-        foreach($cart as $item){
-            $product = new OrderProducts();
-            $product->orderID = $orderID;
-            $product->productID = $item['id'];
-            $product->quantity = $item['quantity'];
-            $product->save();
         }
     }
 
@@ -149,5 +144,9 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getRecpit($orderID){
+        $items = OrderProducts::where('orderID', $orderID)->get();
     }
 }

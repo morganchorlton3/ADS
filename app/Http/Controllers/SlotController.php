@@ -169,7 +169,7 @@ class SlotController extends Controller
         ]);
     }
 
-    public function bookSlot($id, $date){
+    public function bookSlot($id, $date, $price){
         $date = Carbon::parse($date);
         $slot = Slot::find($id);
         $run = 0;
@@ -185,6 +185,7 @@ class SlotController extends Controller
         $booking->slot_id = $id;
         $booking->post_code = $userPostCode;
         $booking->date = $date;
+        $booking->price = $price;
         $booking->status = 1;
         $booking->expiration = Carbon::now()->addHours(2)->format('H:m:s');
 

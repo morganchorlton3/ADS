@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Delivery;
-use App\DeliverySchedule;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use App\Product;
+use App\Category;
 
-use App\SlotBooking;
-use Carbon\Carbon;
-use App\DeliveryVehicleDeliveries;
-use App\Slot;
-
-class DeliveryController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +17,11 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //$deliveries = SlotBooking::where('date', Carbon::now()->addDays(2)->format('y-m-d'))->where('slot_id', 5)->get();
-
-        $deliveries = Delivery::all();
-
-        return view('admin.deliveries.deliveries')->with([
-            'deliveries' => $deliveries
+        $products = Product::paginate(16);
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        return view('auth.manage')->with([
+            'products' => $products,
+            'parentCategories' => $parentCategories
         ]);
     }
 
@@ -37,28 +33,6 @@ class DeliveryController extends Controller
     public function create()
     {
         //
-    }
-
-    public static function arrangeDelivery(){
-        $schedule = DeliverySchedule::first();
-        $todaysSlots = SlotBooking::where('date', Carbon::now()->format('Y-m-d'))->with('slot')->get();
-        $slots = collect(new Slot());
-        foreach($todaysSlots as $todaysSlot){
-            $scheduleStart = Carbon::parse($schedule->start);
-            $scheduleEnd = Carbon::parse($schedule->end);
-            $slotBookingTime = Carbon::parse($todaysSlot->slot->start);
-            if($slotBookingTime->isBefore($scheduleEnd)){
-               $slots->add($todaysSlot);
-            }
-        }
-        //Soprting By ID
-        $sortedByID = $slots->sortBy('post_code')->sortBy('slot_id');
-
-        
-        $sorted = $sortedByID->where('slot_id', );
-
-        dd($sorted);
-
     }
 
     /**

@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PDF;
+use App\Order;
 use App\Product;
 use App\Category;
+use Auth;
 
-class AccountController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +21,11 @@ class AccountController extends Controller
     {
         $products = Product::paginate(16);
         $parentCategories = Category::where('parent_id',NULL)->get();
-        return view('auth.manage')->with([
+        $orders = Order::where('userID', Auth::id())->get();
+        return view('auth.orders')->with([
             'products' => $products,
-            'parentCategories' => $parentCategories
+            'parentCategories' => $parentCategories,
+            'orders'=> $orders
         ]);
     }
 
@@ -52,7 +58,8 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        dd($order);
     }
 
     /**
@@ -87,5 +94,14 @@ class AccountController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function download($id){
+        $order = Order::with('orderProducts.product','user.address')->find($id);
+        //dd($order->orderProducts[0]->product);
+        $pdf = PDF::loadView('admin.export.recipt', compact('order'));
+        return $pdf->download('recipt.pdf');
+        //return View('home');
+        //dd($id);
     }
 }

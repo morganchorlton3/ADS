@@ -108,7 +108,7 @@
         <span>View</span></a>
     </li>
 
-    <!-- Nav Item - Orders -->
+   {{-- <!-- Nav Item - Orders -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="true" aria-controls="collapseOrders">
         <i class="fas fa-fw fa-user-tie"></i>
@@ -132,7 +132,7 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="{{ route('admin.picking.index') }}">
         <i class="fas fa-eye"></i>
         <span>View</span></a>
     </li>
@@ -151,6 +151,7 @@
         </div>
       </div>
     </li>
+    --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -161,7 +162,7 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="{{ route('admin.deliveries.view')}}">
         <i class="fas fa-eye"></i>
         <span>View</span></a>
     </li>
@@ -192,7 +193,7 @@
           <a class="collapse-item" href="utilities-border.html">Manage Drivers</a>
           <h6 class="collapse-header">Vans::</h6>
           <a class="collapse-item" href="{{ route('admin.vehicle.index')}}">Create Van</a>
-          <a class="collapse-item" href="utilities-border.html">Manage Drivers</a>
+          <!--<a class="collapse-item" href="utilities-border.html">Manage Drivers</a>->
         </div>
       </div>
     </li>

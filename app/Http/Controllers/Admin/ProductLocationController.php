@@ -1,17 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Delivery;
-use App\DeliverySchedule;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\SlotBooking;
-use Carbon\Carbon;
-use App\DeliveryVehicleDeliveries;
-use App\Slot;
-
-class DeliveryController extends Controller
+class ProductLocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +14,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //$deliveries = SlotBooking::where('date', Carbon::now()->addDays(2)->format('y-m-d'))->where('slot_id', 5)->get();
-
-        $deliveries = Delivery::all();
-
-        return view('admin.deliveries.deliveries')->with([
-            'deliveries' => $deliveries
-        ]);
+        return view('admin.picking.index');
     }
 
     /**
@@ -37,28 +25,6 @@ class DeliveryController extends Controller
     public function create()
     {
         //
-    }
-
-    public static function arrangeDelivery(){
-        $schedule = DeliverySchedule::first();
-        $todaysSlots = SlotBooking::where('date', Carbon::now()->format('Y-m-d'))->with('slot')->get();
-        $slots = collect(new Slot());
-        foreach($todaysSlots as $todaysSlot){
-            $scheduleStart = Carbon::parse($schedule->start);
-            $scheduleEnd = Carbon::parse($schedule->end);
-            $slotBookingTime = Carbon::parse($todaysSlot->slot->start);
-            if($slotBookingTime->isBefore($scheduleEnd)){
-               $slots->add($todaysSlot);
-            }
-        }
-        //Soprting By ID
-        $sortedByID = $slots->sortBy('post_code')->sortBy('slot_id');
-
-        
-        $sorted = $sortedByID->where('slot_id', );
-
-        dd($sorted);
-
     }
 
     /**

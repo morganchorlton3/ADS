@@ -23,7 +23,7 @@
             <h1><i class="fa fa-shopping-cart"></i></h1>
             <h5 class="card-title">Orders</h5>
             <div class="card-bottom d-felx align-items-baseline mt-auto">
-                <a href="{{ route('cart.add', 1) }}" class="btn btn-primary btn-lg btn-block">Manage Orders</a>
+                <a href="{{ route('account.orders.index') }}" class="btn btn-primary btn-lg btn-block">Manage Orders</a>
             </div>
         </div>
     </div>

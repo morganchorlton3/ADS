@@ -15,9 +15,9 @@ use App\Order;
 use App\DeliverySchedule;
 use App\DeliveryVehicle;
 use App\Deliveries;
+use App\Mail\OrderCompleteMail;
 use App\Run;
-use Barryvdh\DomPDF\PDF;
-use Carbon\CarbonPeriod;
+
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
@@ -32,20 +32,26 @@ Route::get('shop/{slug}', 'Admin\\CategoryController@categoryView')->name('categ
 Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
-    Route::get('/account', 'AccountController@index')->name('account.manage');
+
+    Route::namespace('Auth')->prefix('account')->name('account.')->group(function(){
+        Route::get('orders', 'OrderController@index')->name('orders.index');
+        Route::get('order/{id}/download', 'OrderController@download')->name('orders.download');
+        Route::get('order/{id}', 'OrderController@show')->name('orders.show');
+        Route::get('home', 'AccountController@index')->name('manage');
+        Route::post('/address/update', 'AddressController@edit')->name('address.update');
+    });
+
+    
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //checkout
     Route::name('checkout.')->prefix('checkout')->group(function(){
         Route::get('book-slot', 'SlotController@index')->name('book.slot');
-        Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
+        Route::get('/book-slot/{day}/{id}/{price}', 'SlotController@bookSlot')->name('book.time.slot');
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
         Route::get('payment', 'CheckoutController@index')->name('payment');
         Route::post('payment', 'CheckoutController@store')->name('payment.store');
         Route::get('/checkout/success', 'ConfirmationController@index')->name('success');
 
-    });
-    Route::name('account.')->group(function(){
-        Route::post('/address/update', 'AddressController@edit')->name('address.update');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
@@ -72,6 +78,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('delivery/schedule', 'DeliveryScheduleController@index')->name('delivery.index');
     Route::post('delivery/schedule', 'DeliveryScheduleController@create')->name('delivery.create');
     Route::delete('delivery/schedule', 'DeliveryScheduleController@delete')->name('delivery.destroy');
+    Route::get('deliveries/view', 'DeliveryController@index')->name('deliveries.view');
     //slots
     Route::get('delivery/slots', 'SlotController@index')->name('slot.index');
     Route::post('delivery/slots', 'SlotController@create')->name('slot.create');
@@ -87,6 +94,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Route::get('/orders', 'OrderController@index')->name('orders.index');
     //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
     Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
+
+    //Picking
+    Route::get('picking', 'ProductLocationController@index')->name('picking.index');
 
 });
 
@@ -120,6 +130,13 @@ Route::get('/orders-test', function(){
     }
     dump($runs);
 });
-Route::get('/delivery', function(){
-    dd(Carbon::parse('2020-04-14')->setTimeFromTimeString('08:17:52'));
+
+Route::get('/cart-t', function(){
+    dd(Session('cart'));
+});
+
+Route::get('/email', function(){
+    $order = App\Order::with('orderProducts.product','user.address', 'SlotBooking.slot')->find(1);
+    //return new OrderCompleteMail($order);
+    Mail::to("morganchorlton3@gmail.com")->send(new OrderCompleteMail($order));
 });

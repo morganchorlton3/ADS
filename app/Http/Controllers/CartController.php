@@ -36,7 +36,7 @@ class CartController extends Controller
  
             session()->put('cart', $cart);
  
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return redirect()->back()->with('toast_success', 'Product added to cart successfully!');
         }
  
         // if cart not empty then check if this product exist then increment quantity
