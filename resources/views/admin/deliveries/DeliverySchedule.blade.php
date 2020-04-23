@@ -18,25 +18,6 @@
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="form-group col-lg-3">
-                            <label for="day">Day</label>
-                            <input type="text" value="" name="day" id="day" hidden>
-                            <select onchange="val()" id="day_selector" class="form-control @error('day') is-invalid @enderror">  
-                                <option>Select day..</option>                     
-                                <option value="1">Monday</option>
-                                <option value="2">Tuesday</option>
-                                <option value="3">Wednesday</option>
-                                <option value="4">Thursday</option>
-                                <option value="5">Friday</option>
-                                <option value="6">Saturday</option>
-                                <option value="7">Sunday</option>
-                            </select>
-                            @error('day')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-lg-3">
                             <label for="start">Shift Start Time</label>
                             <input type="text" class="form-control @error('start') is-invalid @enderror" id="start" value="" name="start" placeholder="00:00">
                             @error('start')
@@ -70,7 +51,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Day</th>
                             <th scope="col">Start</th>
                             <th scope="col">End</th>
                             <th scope="col">Remove</th>
@@ -79,7 +59,6 @@
                     <tbody>
                         @foreach($shifts as $shift)
                         <tr>
-                            <th>{{ getDay($shift->day) }}</th>
                             <th>{{ $shift->start }}</th>
                             <th>{{ $shift->end }}</th>
                             <th>

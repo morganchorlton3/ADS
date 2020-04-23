@@ -575,7 +575,8 @@ function OldaddToDelivery($orderID, $userID){
 
 }*/
 function oldodladdToDelivery($orderID){
-    $order = Order::find($orderID);
+    $order = Order::with('SlotBooking')->find($orderID);
+    dd($order);
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
     $routeTime = 100;
     foreach($vehicleRuns as $run){
@@ -616,6 +617,7 @@ function oldodladdToDelivery($orderID){
 
 function addToDelivery($orderID){
     $order = Order::with('SlotBooking.slot')->find($orderID);
+    //dd($order);
     //dd($order->SlotBooking);
     //$runs = VehicleRun::where('deliveryDate', $order->SlotBooking->date)->get();
     $deliverySchedules = DeliverySchedule::all();
@@ -623,8 +625,8 @@ function addToDelivery($orderID){
     foreach($deliverySchedules as $schedule){
         $start = Carbon::parse($schedule->start);
         $end = Carbon::parse($schedule->end);
-        if(Carbon::parse($order->slotBooking->slot->start)->isAfter($start) || Carbon::parse($order->slotBooking->slot->start)->equalTo($start)  && Carbon::parse($order->slotBooking->slot->end)->isBefore($end)){
-            $runs = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->slotBooking->date)->get();
+        if(Carbon::parse($order->SlotBooking->slot->start)->isAfter($start) || Carbon::parse($order->SlotBooking->slot->start)->equalTo($start)  && Carbon::parse($order->slotBooking->slot->end)->isBefore($end)){
+            $runs = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->SlotBooking->date)->get();
             $routeTime = null;
             foreach($runs as $run){
                 if($routeTime == null){

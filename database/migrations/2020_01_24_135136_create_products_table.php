@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->LONGTEXT('detailedDesc');
             $table->string('barcode');
             $table->integer('category_id');
+            $table->integer('type');
             $table->timestamps();
         });
     }

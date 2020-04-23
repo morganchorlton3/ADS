@@ -10,7 +10,7 @@ class Product extends Model
 {
 
     protected $fillable = [
-        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id'
+        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id', 'type'
     ];
 
     public function Productlocation(){

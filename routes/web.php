@@ -132,7 +132,7 @@ Route::get('/orders-test', function(){
 });
 
 Route::get('/cart-t', function(){
-    dd(Session('cart'));
+    dd(App\Product::find(1)->price);
 });
 
 Route::get('/email', function(){

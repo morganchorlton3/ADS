@@ -20,24 +20,10 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         $deliveries = Delivery::all();
         return view('admin.deliveries.view')->with([
             'deliveries' => $deliveries
         ]);
-=======
-        //$run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.SlotBooking.Slot', 'deliveries.Order.User.Address')->first();
-        $run = VehicleRun::where('deliveryDate', '2020-04-14')->with('deliveries')->get();
-        //dd($run);
-        //dd($run);
-        //dd($runs);
-        /*return view('admin.export.run')->with([
-            'run' => $run,
-        ]);*/
-        $pdf = PDF::loadView('admin.export.run', compact('run'))->setPaper('a4', 'portrait');
-        return $pdf->stream();
->>>>>>> 0378fa8ccdd1c61c53e72843f9e31edc67909aef
-        
     }
 
     /**

@@ -180,24 +180,12 @@
     </li>
 
 
-    <!-- Nav Item - Drivers -->
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDrivers" aria-expanded="true" aria-controls="collapseDrivers">
+      <a class="nav-link" href="{{ route('admin.vehicle.index')}}">
         <i class="fas fa-truck"></i>
-        <span>Drivers</span>
-      </a>
-      <div id="collapseDrivers" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Drivers:</h6>
-          <a class="collapse-item" href="utilities-color.html">Assign Drivers</a>
-          <a class="collapse-item" href="utilities-border.html">Manage Drivers</a>
-          <h6 class="collapse-header">Vans::</h6>
-          <a class="collapse-item" href="{{ route('admin.vehicle.index')}}">Create Van</a>
-          <!--<a class="collapse-item" href="utilities-border.html">Manage Drivers</a>->
-        </div>
-      </div>
+        <span>Vans</span></a>
     </li>
-
+    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
