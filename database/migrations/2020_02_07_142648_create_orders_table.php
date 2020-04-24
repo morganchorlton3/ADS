@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('userID');
             $table->date('placedDate');
+            $table->date('deliveryDate');
             $table->integer('slotBookingID');
             $table->string('note')->nullable();
             $table->double('totalWeight');

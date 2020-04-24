@@ -41,6 +41,7 @@ class OrdersTableSeeder extends Seeder
             Order::create([
                 'userID' =>  $i,
                 'placedDate' => Carbon::now(),
+                'deliveryDate' => Carbon::now(),
                 'slotBookingID' => $i,
                 'note' => "Test Note",
                 'totalWeight'=> $totalWeight,

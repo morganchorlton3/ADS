@@ -14,7 +14,7 @@ class Product extends Model
     ];
 
     public function Productlocation(){
-        return $this->hasOne('App\ProductLocation');
+        return $this->hasOne('App\ProductLocation', 'productID', 'id');
     }
     public function category()
     {
