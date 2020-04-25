@@ -26,6 +26,7 @@ class DeliveryController extends Controller
         $end = Carbon::parse($deliverySchedule->end);
         $runs = collect(new VehicleRuns());
         $orders = [];
+        $counter = 0;
         for($i = 1; $i <= 4; $i++){
             $slot = $slots->find($i);
             if(Carbon::parse($slot->end)->isBetween($start, $end)){
@@ -37,6 +38,7 @@ class DeliveryController extends Controller
                         $user = User::find($order->userID);
                         $geocode = getLongLat($user->address->post_code)['results'][0]['geometry']['location'];
                         $orders[] = [
+                            'id' => $counter,
                             'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                             'postCode' => $user->address->post_code,
                             'long' => $geocode['lng'],
@@ -48,6 +50,7 @@ class DeliveryController extends Controller
                             'frozenTrays' => '1',
                             'itemCount' => $order->itemCount,
                         ];
+                        $counter++;
                     }
                 }
             }

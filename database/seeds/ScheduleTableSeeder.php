@@ -12,12 +12,8 @@ class ScheduleTableSeeder extends Seeder
      */
     public function run()
     {
-        $counter = 1;
-        while($counter <= 7){
-            DeliverySchedule::create(['run' => 1, 'day' => $counter,'start' => '08:00:00','end' => '12:00:00']);
-            DeliverySchedule::create(['run' => 2,'day' => $counter,'start' => '13:00:00','end' => '17:00:00']);
-            DeliverySchedule::create(['run' => 3,'day' => $counter,'start' => '18:00:00','end' => '23:00:00']);
-            $counter++;
-        }
+        DeliverySchedule::create(['run' => 1, 'start' => '08:00:00','end' => '12:00:00']);
+        DeliverySchedule::create(['run' => 2,'start' => '13:00:00','end' => '17:00:00']);
+        DeliverySchedule::create(['run' => 3,'start' => '18:00:00','end' => '23:00:00']);
     }
 }

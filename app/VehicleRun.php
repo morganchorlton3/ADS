@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class VehicleRuns extends Model
+class VehicleRun extends Model
 {
     use SoftDeletes;
 
@@ -14,9 +14,6 @@ class VehicleRuns extends Model
         'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
     ];
 
-    /*public function Deliveries(){
-        return $this->hasMany('App\Deliveries', 'deliverySchedule', 'id');
-    }*/
     public function deliveries()
     {
         return $this->hasMany('App\Deliveries', 'deliverySchedule');

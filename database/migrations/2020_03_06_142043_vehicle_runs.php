@@ -17,10 +17,8 @@ class VehicleRuns extends Migration
             $table->bigIncrements('id');
             $table->integer('run');
             $table->date('deliveryDate');
-            $table->string('last_postcode');
-            $table->time('run_time');
-            $table->integer('slotID');
-            $table->softDeletes();
+            $table->string('lastPostCode');
+            $table->time('runTime');
             $table->timestamps();
         });
     }
