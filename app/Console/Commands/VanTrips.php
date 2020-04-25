@@ -4,10 +4,6 @@ namespace App\Console\Commands;
 
 use App\Deliveries;
 use App\DeliverySchedule;
-<<<<<<< HEAD
-use Illuminate\Console\Command;
-=======
->>>>>>> 364136cf80041101472505b69da979fe8945ff48
 use App\DeliveryVehicle;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
@@ -53,15 +49,6 @@ class VanTrips extends Command
         //Weekday Counter
         $deliverySchedules = DeliverySchedule::all();
         for($dayCounter = 0; $dayCounter < 7; $dayCounter++){ 
-<<<<<<< HEAD
-            foreach($deliverySchedules as $schedule){
-                $run = new VehicleRun();
-                $run->run = $schedule->run;
-                $run->deliveryDate = Carbon::now()->addDays($dayCounter);
-                $run->lastPostCode = Store::first()->postCode;
-                $run->runTime = $schedule->start;
-                $run->save();
-=======
             //Get Delivery Schedule
             $deliverySchedules = DeliverySchedule::all();
             for($i = DeliveryVehicle::count(); $i > 0; $i--){
@@ -75,7 +62,6 @@ class VanTrips extends Command
                     $vehicleRun->deliverySchedule = $deliverySchedule->id;
                     $vehicleRun->save();
                 }
->>>>>>> 364136cf80041101472505b69da979fe8945ff48
             }
 
         }
