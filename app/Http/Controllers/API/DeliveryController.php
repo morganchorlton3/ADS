@@ -34,6 +34,9 @@ class DeliveryController extends Controller
                 'lat' => $geocode['lat'],
                 'addressLine1' => $user->address->address_line_1,
                 'addressLine2' => $user->address->address_line_2,
+                'amTray' => 3,
+                'chTray' => 2,
+                'fzTray' => 1,
             ];
             $counter++;
         }
