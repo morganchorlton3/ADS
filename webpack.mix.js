@@ -21,3 +21,4 @@ mix.js(['node_modules/jquery/dist/jquery.js'],
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/dashboard.scss', 'public/css')
    .sass('resources/sass/new.scss', 'public/css');
+   

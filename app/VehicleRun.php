@@ -16,7 +16,7 @@ class VehicleRun extends Model
 
     public function deliveries()
     {
-        return $this->hasMany('App\Deliveries', 'deliverySchedule');
+        return $this->hasMany('App\Delivery', 'deliverySchedule');
     }
 
 }

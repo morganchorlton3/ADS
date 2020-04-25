@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Delivery;
 use App\DeliverySchedule;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,11 @@ class DeliveryController extends Controller
     {
         //$deliveries = SlotBooking::where('date', Carbon::now()->addDays(2)->format('y-m-d'))->where('slot_id', 5)->get();
 
-        $deliveries = DeliveryVehicleDeliveries::where('van_profile_id', 1)->get();
+        $deliveries = Delivery::all();
 
-        dd($deliveries);
+        return view('admin.deliveries.deliveries')->with([
+            'deliveries' => $deliveries
+        ]);
     }
 
     /**

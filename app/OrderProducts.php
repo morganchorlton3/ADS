@@ -9,6 +9,10 @@ class OrderProducts extends Model
     protected $table = 'order_products';
 
     protected $fillable = [
-        'orderID', 'productID', 'quantity'
+        'orderID', 'productID', 'quantity', 'pricePaid',
     ];
+
+    public function product(){
+        return $this->hasOne('App\Product','id', 'productID');
+    }
 }

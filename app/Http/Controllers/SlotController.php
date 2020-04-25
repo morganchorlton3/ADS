@@ -27,6 +27,77 @@ class SlotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index2()
+    {
+        $products = Product::all();
+        $address = Address::where('user_id', Auth::id())->first();
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        $slots = Slot::all();
+        $userSlot = SlotBooking::latest()->where('user_id', Auth::id())->first();
+        if($userSlot != null){
+            if($userSlot->status == 3){
+                Alert::alert('Slot Expired', 'Your slot has expired, please book another slot', 'error');
+            }
+        }
+        $slotAvailability = collect(new SlotAvailability());
+        //Loops through the days displayed (usually 5)
+        for ($x = 0; $x < 5; $x++) {
+            $date = Carbon::now()->addDays($x)->format('Y-m-d');
+            //dd($date);
+            foreach($slots as $slot){
+                //dd($slot);
+                $bookedSlots = $slot->slotBooking->where('date', $date);
+                $availability = new SlotAvailability();
+                if($bookedSlots->where('user_id', Auth::id())->where('status', 1)->count() == 1){
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 2;
+                }else if($bookedSlots->count() == 0){
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 1;
+                }else if($bookedSlots->count() < 4 && $bookedSlots->count() > 0){
+                    $routeTime = getRouteTime($bookedSlots->sortByDesc('post_code')->pluck('post_code')[0], User::find(Auth::id())->address->post_code) / 60;
+                    if($routeTime < 10 && $routeTime > 6 ){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 5;
+                        $availability->status = 1;
+                    }else if($routeTime < 6 && $routeTime > 5){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 4;
+                        $availability->status = 1;
+                    }else if($routeTime < 4 && $routeTime > 2){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 2.50;
+                        $availability->status = 1;
+                    }else if($routeTime < 2 && $routeTime > 1){
+                        $availability->slotID = $slot->id;
+                        $availability->price = 1;
+                        $availability->status = 1;
+                    }else{
+                        $availability->slotID = $slot->id;
+                        $availability->price = 1;
+                        $availability->status = 1;
+                    }
+                }else{
+                    $availability->slotID = $slot->id;
+                    $availability->price = 5;
+                    $availability->status = 1;
+                }
+                $availability->date = $date;
+                $slotAvailability->add($availability);                
+            }
+        }
+        return view('shop.checkout.slot')->with([
+            'products' => $products,
+            'slots' => $slots,
+            'slotAvailability' => $slotAvailability,
+            'slotBooking' => $userSlot,
+            'parentCategories' => $parentCategories,
+            'address' => $address
+        ]);
+    }
+
     public function index()
     {
         $products = Product::all();
@@ -98,7 +169,7 @@ class SlotController extends Controller
         ]);
     }
 
-    public function bookSlot($id, $date){
+    public function bookSlot($id, $date, $price){
         $date = Carbon::parse($date);
         $slot = Slot::find($id);
         $run = 0;
@@ -114,6 +185,7 @@ class SlotController extends Controller
         $booking->slot_id = $id;
         $booking->post_code = $userPostCode;
         $booking->date = $date;
+        $booking->price = $price;
         $booking->status = 1;
         $booking->expiration = Carbon::now()->addHours(2)->format('H:m:s');
 

@@ -14,8 +14,8 @@ class CreateProductLocationTable extends Migration
     public function up()
     {
         Schema::create('product_locations', function (Blueprint $table) {
-            $table->integer('product_ID');
-            $table->primary('product_ID');
+            $table->bigIncrements('id');
+            $table->integer('productID');
             $table->integer('aisle');
             $table->integer('mod');
             $table->integer('shelf');

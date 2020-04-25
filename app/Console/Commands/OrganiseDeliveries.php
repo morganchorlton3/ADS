@@ -10,7 +10,7 @@ use App\DeliveryVehicleProfile;
 use App\Slot;
 use App\SlotBooking;
 use Carbon\Carbon;
-use VehicleRuns;
+use App\VehicleRun;
 
 class OrganiseDeliveries extends Command
 {
@@ -46,11 +46,11 @@ class OrganiseDeliveries extends Command
     public function handle()
     {
         $slots = Slot::all();
-        $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->addDay(1)->format('Y-m-d'))->get();
-        $deliverySchedules = DeliverySchedule::where('day', 1)->get();
+        $vehicleRun = VehicleRun::where('deliveryDate', Carbon::now()->addDay(1)->format('Y-m-d'))->get();
+        $deliverySchedules = DeliverySchedule::all();
         $counter = 0;
         foreach($deliverySchedules as $deliverySchedule){
-            $slots->find($counter);
+            $slot = $slots->find($counter);
             if(Carbon::parse($slot->end)->isBefore(Carbon::parse($deliverySchedule->end))){
                 $counter++;
             }

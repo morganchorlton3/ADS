@@ -16,7 +16,7 @@ class ProductLocationSeeder extends Seeder
         $productCount = Product::count();
         for($i = $productCount; $i > 0; $i--) {
             ProductLocation::create([
-                'product_id' => $i,
+                'productID' => $i,
                 'aisle' => 1,
                 'mod' => 2,
                 'shelf' => 3,

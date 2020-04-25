@@ -7,7 +7,7 @@ use App\Category;
 use Illuminate\Support\Facades\Hash;
 use App\Staff;
 use App\Slot;
-use App\VehicleRuns;
+use App\VehicleRun;
 use App\SlotBooking;
 use App\Address;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +15,15 @@ use App\Order;
 use App\DeliverySchedule;
 use App\DeliveryVehicle;
 use App\Deliveries;
+use App\Mail\OrderCompleteMail;
+use App\ProductPicking;
 use App\Run;
-use Barryvdh\DomPDF\PDF;
-use Carbon\CarbonPeriod;
+use App\pickingOrder;
+
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
+Route::get('products/{id}','HomeController@show')->name('product.show');
 Route::get('cart/increase/{id}', 'CartController@increaseQuantity')->name('cart.increase');
 Route::get('cart/decrease/{id}', 'CartController@decreaseQuantity')->name('cart.decrease');
 Route::get('cart/remove/{id}', 'CartController@remove')->name('cart.remove');
@@ -31,20 +34,26 @@ Route::get('shop/{slug}', 'Admin\\CategoryController@categoryView')->name('categ
 Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
-    Route::get('/account', 'AccountController@index')->name('account.manage');
+
+    Route::namespace('Auth')->prefix('account')->name('account.')->group(function(){
+        Route::get('orders', 'OrderController@index')->name('orders.index');
+        Route::get('order/{id}/download', 'OrderController@download')->name('orders.download');
+        Route::get('order/{id}', 'OrderController@show')->name('orders.show');
+        Route::get('home', 'AccountController@index')->name('manage');
+        Route::post('/address/update', 'AddressController@edit')->name('address.update');
+    });
+
+    
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     //checkout
     Route::name('checkout.')->prefix('checkout')->group(function(){
         Route::get('book-slot', 'SlotController@index')->name('book.slot');
-        Route::get('/book-slot/{day}/{id}', 'SlotController@bookSlot')->name('book.time.slot');
+        Route::get('/book-slot/{day}/{id}/{price}', 'SlotController@bookSlot')->name('book.time.slot');
         Route::get('/order/process', 'OrderController@newOrder')->name('order');
         Route::get('payment', 'CheckoutController@index')->name('payment');
         Route::post('payment', 'CheckoutController@store')->name('payment.store');
         Route::get('/checkout/success', 'ConfirmationController@index')->name('success');
 
-    });
-    Route::name('account.')->group(function(){
-        Route::post('/address/update', 'AddressController@edit')->name('address.update');
     });
 });
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
@@ -71,6 +80,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('delivery/schedule', 'DeliveryScheduleController@index')->name('delivery.index');
     Route::post('delivery/schedule', 'DeliveryScheduleController@create')->name('delivery.create');
     Route::delete('delivery/schedule', 'DeliveryScheduleController@delete')->name('delivery.destroy');
+    Route::get('deliveries/view', 'DeliveryController@index')->name('deliveries.view');
     //slots
     Route::get('delivery/slots', 'SlotController@index')->name('slot.index');
     Route::post('delivery/slots', 'SlotController@create')->name('slot.create');
@@ -87,6 +97,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
     Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
 
+    //Picking
+    Route::get('picking', 'ProductLocationController@index')->name('picking.index');
+
 });
 
 Route::get('/route', function(){
@@ -100,22 +113,57 @@ Route::get('/route', function(){
 });
 
 Route::get('/orders-test', function(){
-    $slots = Slot::all();
-    $deliverySchedule = DeliverySchedule::find(1);
-    $start = Carbon::parse($deliverySchedule->start);
-    $end = Carbon::parse($deliverySchedule->end);
-    $runs = collect(new VehicleRuns());
-    for($i = 1; $i <= 4; $i++){
-        $slot = $slots->find($i);
-        if(Carbon::parse($slot->end)->isBetween($start, $end)){
-            $vehicleRuns = VehicleRuns::where('deliveryDate', Carbon::now()->format('Y-m-d'))->where('slotID', $i)->where('run', 1)->with('Deliveries.order')->get();
-            foreach($vehicleRuns as $run){
-                foreach($run->deliveries as $delivery){
-                    $runs->add($delivery);
-                }
-            }
-        }
-        
+    $run = VehicleRun::where('run', 1)->where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('deliveries.order.user')->first();
+    foreach($run->deliveries as $delivery){
+        $order = Order::find($delivery->order);
+        $user = User::with('address')->find($order->user->id);
+        $geocode = getLongLat($user->address->post_code)['results'][0]['geometry']['location'];
+        $orders[] = [
+            'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
+            'postCode' => $user->address->post_code,
+            'long' => $geocode['lng'],
+            'lat' => $geocode['lat'],
+            'addressLine1' => $user->address->address_line_1,
+            'addressLine2' => $user->address->address_line_2,
+        ];
     }
-    dump($runs);
+    dump($orders);
+});
+
+Route::get('/cart-t', function(){
+    dd(App\Product::find(1)->price);
+});
+
+Route::get('/email', function(){
+    $order = App\Order::with('orderProducts.product','user.address', 'SlotBooking.slot')->find(1);
+    
+    //return new OrderCompleteMail($order);
+    Mail::to("morganchorlton3@gmail.com")->send(new OrderCompleteMail($order));
+});
+
+
+Route::get('/picking', function(){
+    $orders = App\Order::where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('orderProducts.product.Productlocation')->get();
+    $pickingList = collect(new ProductPicking());
+    //dd($orders);
+    $allOrders = collect(new PickingOrder);
+    foreach($orders as $order){
+        $orderID = $order->id;
+        $pickingList = collect(new ProductPicking());
+        foreach($order->orderProducts as $orderProducts){
+            $product = $orderProducts->product;
+            $item = new ProductPicking();
+            $item->productID = $product->id;
+            $item->orderID = $orderID;
+            $item->productLocationID  = $orderProducts->product->ProductLocation->id;
+            $pickingList->add($item);
+            
+        }
+        $allOrders->add($pickingList);
+    }
+    dd($allOrders);
+    $sorted = $pickingList->sortBy('productLocationID');
+    foreach($sorted->take(50) as $item){
+        dump('Product Location ID = ' . $item->productLocationID);
+    }
 });

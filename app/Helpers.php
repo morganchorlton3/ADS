@@ -1,7 +1,6 @@
 <?php
 use Carbon\Carbon;
 use App\Category;
-use App\Deliveries;
 use App\Delivery;
 use App\DeliverySchedule;
 use App\User;
@@ -17,6 +16,7 @@ use App\PostCodeDistance;
 use GuzzleHttp\Psr7\Request;
 use App\VehicleRuns;
 use App\Run;
+use App\VehicleRun;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -231,7 +231,7 @@ function checkSlot($id, $date){
 }
 
 function getRun($date, $startTime){
-    $schedules = DeliverySchedule::where('day', getDayID($date))->get();
+    $schedules = DeliverySchedule::all();
     //$timeToAdd = carbon::parse($endTime)->diffInSeconds(carbon::parse($startTime)) / 2;
     //$halfWaySlot = carbon::parse($startTime)->addSeconds($timeToAdd); 
     foreach($schedules as $schedule){
@@ -574,8 +574,9 @@ function OldaddToDelivery($orderID, $userID){
     $order->save();  
 
 }*/
-function addToDelivery($orderID){
-    $order = Order::find($orderID);
+function oldodladdToDelivery($orderID){
+    $order = Order::with('SlotBooking')->find($orderID);
+    dd($order);
     $vehicleRuns = VehicleRuns::where('deliveryDate', $order->SlotBooking->date)->where('slotID', $order->SlotBooking->slot_id)->get();
     $routeTime = 100;
     foreach($vehicleRuns as $run){
@@ -585,7 +586,7 @@ function addToDelivery($orderID){
            $runToAdd = $run;
        }
     }
-    $deliveryScheduleID = 1;
+    $deliveryScheduleID = 0;
     $runToAdd->last_postcode = $order->user->address->post_code;
     $runToAdd->run_time = Carbon::parse($runToAdd->run_time)->addMinutes($routeTime);
     $runToAdd->save();
@@ -614,9 +615,49 @@ function addToDelivery($orderID){
     
 }
 
+function addToDelivery($orderID){
+    $order = Order::with('SlotBooking.slot')->find($orderID);
+    //dd($order);
+    //dd($order->SlotBooking);
+    //$runs = VehicleRun::where('deliveryDate', $order->SlotBooking->date)->get();
+    $deliverySchedules = DeliverySchedule::all();
+    //Gets The schedule for the time slot
+    foreach($deliverySchedules as $schedule){
+        $start = Carbon::parse($schedule->start);
+        $end = Carbon::parse($schedule->end);
+        if(Carbon::parse($order->SlotBooking->slot->start)->isAfter($start) || Carbon::parse($order->SlotBooking->slot->start)->equalTo($start)  && Carbon::parse($order->slotBooking->slot->end)->isBefore($end)){
+            $runs = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->SlotBooking->date)->get();
+            $routeTime = null;
+            foreach($runs as $run){
+                if($routeTime == null){
+                    $routeTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                }else{
+                    $newTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                    if($newTime < $routeTime){
+                        $routeTime = $newTime;
+                    }
+                }
+            }
+            $scheduleID = $schedule->id;
+        }
+    }
+    //update selected run
+    $run->lastPostCode = $order->SlotBooking->post_code;
+    $run->runTime = Carbon::parse($run->runTime)->addSeconds($routeTime);
+    $run->save();
+    //create delivery
+    $delivery = new Delivery();
+    $delivery->run = $run->id;
+    $delivery->dateTime = Carbon::parse('2020-04-14')->setTimeFromTimeString($run->runTime);
+    $delivery->deliverySchedule = $scheduleID;
+    $delivery->order = $order->id;
+    $delivery->save();
+
+}
+
 function CreateRuns(){
     $slots = Slot::all();
-    $deliverySchedule = DeliverySchedule::find(1);
+    $deliverySchedule = DeliverySchedule::find();
     $start = Carbon::parse($deliverySchedule->start);
     $end = Carbon::parse($deliverySchedule->end);
     $runs = collect(new VehicleRuns());

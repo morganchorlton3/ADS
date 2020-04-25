@@ -10,11 +10,11 @@ class Product extends Model
 {
 
     protected $fillable = [
-        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id'
+        'name', 'price', 'shortDesc', 'detailedDesc', 'barcode', 'category_id', 'type'
     ];
 
     public function Productlocation(){
-        return $this->hasOne('App\ProductLocation');
+        return $this->hasOne('App\ProductLocation', 'productID', 'id');
     }
     public function category()
     {

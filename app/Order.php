@@ -25,4 +25,8 @@ class Order extends Model
         return $this->belongsTo('App\SlotBooking', 'slotBookingID', 'id');	
     }
 
+    public function orderProducts(){
+        return $this->hasMany('App\OrderProducts', 'orderID', 'id');
+    }
+
 }

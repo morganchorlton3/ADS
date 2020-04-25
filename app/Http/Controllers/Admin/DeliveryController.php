@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Deliveries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Run;
+use App\VehicleRun;
 use Illuminate\Support\Carbon;
 use PDF;
+use App\Delivery;
 
 class DeliveryController extends Controller
 {
@@ -17,15 +20,10 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $run = Run::where('date', Carbon::now()->format('Y-m-d'))->with('deliveries.Order.SlotBooking.Slot', 'deliveries.Order.User.Address')->first();
-        //dd($run);
-        //dd($runs);
-        /*return view('admin.export.run')->with([
-            'run' => $run,
-        ]);*/
-        $pdf = PDF::loadView('admin.export.run', compact('run'))->setPaper('a4', 'portrait');
-        return $pdf->stream();
-        
+        $deliveries = Delivery::all();
+        return view('admin.deliveries.view')->with([
+            'deliveries' => $deliveries
+        ]);
     }
 
     /**

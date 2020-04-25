@@ -33,5 +33,9 @@ class DatabaseSeeder extends Seeder
         \Artisan::call('delivery:createVanTrips');
         //exec('php artisan delivery:createVanTrips');
        // $this->call(OrderTableSeeder::class);
+       $this->call(OrdersTableSeeder::class);
+       for($i = 1; $i < 19; $i++){
+            addToDelivery($i);
+       }
     }
 }

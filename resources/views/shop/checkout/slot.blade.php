@@ -97,7 +97,7 @@
                 <?php $date = Carbon\Carbon::now(); ?>
                     <div class="col-lg-2 mb-1 mt-1">
                         @if($availability->status == 1)
-                        <a href="{{ route('checkout.book.time.slot' , [$id = $availability->slotID, $availability->date]) }}"  type="button" class="btn btn-slot">{{ formatPrice($availability->price) }}</a>
+                        <a href="{{ route('checkout.book.time.slot' , [$id = $availability->slotID, $availability->date, $availability->price]) }}"  type="button" class="btn btn-slot">{{ formatPrice($availability->price) }}</a>
                         @elseif($availability->status == 2)
                         <a  class="btn btn-slot booked" >Booked</a>
                         @elseif($availability->status == 3)

@@ -33,4 +33,13 @@ class HomeController extends Controller
             'parentCategories' => $parentCategories
         ]);
     }
+
+    public function show($id){
+        $product = Product::with('category')->find($id);
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        return view('shop.product-view')->with([
+            'product' =>$product,
+            'parentCategories' => $parentCategories,
+        ]);
+    }
 }
