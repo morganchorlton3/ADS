@@ -20,9 +20,9 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliveries = Delivery::all();
+        $vehicleRuns = VehicleRun::where('deliveryDate', Carbon::now()->format('Y-m-d'))->get();
         return view('admin.deliveries.view')->with([
-            'deliveries' => $deliveries
+            'vehicleRuns' => $vehicleRuns
         ]);
     }
 

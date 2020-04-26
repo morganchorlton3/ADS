@@ -1,0 +1,1 @@
+9999999999a:3:{s:18:"geocoded_waypoints";a:2:{i:0;a:3:{s:15:"geocoder_status";s:2:"OK";s:8:"place_id";s:27:"ChIJxeugnCTKe0gRMruJMNfPVCg";s:5:"types";a:1:{i:0;s:11:"postal_code";}}i:1;a:1:{s:15:"geocoder_status";s:12:"ZERO_RESULTS";}}s:6:"routes";a:0:{}s:6:"status";s:9:"NOT_FOUND";}

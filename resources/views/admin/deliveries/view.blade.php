@@ -20,12 +20,19 @@
                         <tr>
                             <th scope="col">Run</th>
                             <th scope="col">Orders</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Remove</th>
+                            <th scope="col">Start Time</th>
+                            <th scope="col">End Time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach($vehicleRuns as $run)
+                        <tr>
+                            <th>{{ $run->run }}</th>
+                            <th>{{ 10 }}</th>
+                            <th>{{ $run->runTime }}</th>
+                            <th>{{ $run->runEnd }}</th>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -616,10 +616,8 @@ function oldodladdToDelivery($orderID){
 }
 
 function addToDelivery($orderID){
+    dump("adding order " . $orderID . " To Delivery");
     $order = Order::with('SlotBooking.slot')->find($orderID);
-    //dd($order);
-    //dd($order->SlotBooking);
-    //$runs = VehicleRun::where('deliveryDate', $order->SlotBooking->date)->get();
     $deliverySchedules = DeliverySchedule::all();
     //Gets The schedule for the time slot
     foreach($deliverySchedules as $schedule){
@@ -627,31 +625,49 @@ function addToDelivery($orderID){
         $end = Carbon::parse($schedule->end);
         if(Carbon::parse($order->SlotBooking->slot->start)->isAfter($start) || Carbon::parse($order->SlotBooking->slot->start)->equalTo($start)  && Carbon::parse($order->slotBooking->slot->end)->isBefore($end)){
             $runs = VehicleRun::where('deliverySchedule', $schedule->id)->where('deliveryDate', $order->SlotBooking->date)->get();
-            $routeTime = null;
+            $routeTimes = collect();
             foreach($runs as $run){
-                if($routeTime == null){
+                /*if($routeTime == null){
                     $routeTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
                 }else{
                     $newTime = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
                     if($newTime < $routeTime){
                         $routeTime = $newTime;
                     }
+                }*/
+                //Time To Next Delivery
+                $timeToNext = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                //Time from new postcode back to store (remove this from end time so van can be back on time)
+                $timeBackToStore = getRouteTime($run->lastPostCode, Store::first()->postCode);
+                //Current Run time with new delivery added (add 10 Minutes for delivery Time)
+                $currentTime = Carbon::parse($run->runTime)->addSeconds($timeToNext)->addMinute(10);
+                //Run end minus time back to store 
+                $runEnd = Carbon::parse($run->runEnd)->subSeconds($timeBackToStore);
+                if($runEnd->isAfter($currentTime->addSeconds($timeToNext))){
+                    $routeTime = collect();
+                    $routeTime->runID = $run->id;
+                    $routeTime->time = getRouteTime($run->lastPostCode, $order->SlotBooking->post_code);
+                    $routeTimes->add($routeTime);
                 }
             }
-            $scheduleID = $schedule->id;
+            $routeTimes->sortBy('time');
         }
     }
-    //update selected run
-    $run->lastPostCode = $order->SlotBooking->post_code;
-    $run->runTime = Carbon::parse($run->runTime)->addSeconds($routeTime);
-    $run->save();
-    //create delivery
-    $delivery = new Delivery();
-    $delivery->run = $run->id;
-    $delivery->dateTime = Carbon::parse('2020-04-14')->setTimeFromTimeString($run->runTime);
-    $delivery->deliverySchedule = $scheduleID;
-    $delivery->order = $order->id;
-    $delivery->save();
+    dump($routeTimes->count() );
+    if($routeTimes->count() > 0){
+        $run = VehicleRun::find($routeTimes->first()->runID);
+        //update selected run
+        $run->lastPostCode = $order->SlotBooking->post_code;
+        $run->runTime = Carbon::parse($run->runTime)->addSeconds($routeTimes->first()->time)->addMinutes(10);
+        $run->save();
+        //create delivery
+        $delivery = new Delivery();
+        $delivery->run = $run->id;
+        $delivery->dateTime = Carbon::parse('2020-04-14')->setTimeFromTimeString($run->runTime);
+        $delivery->deliverySchedule = $run->id;
+        $delivery->order = $order->id;
+        $delivery->save();
+    }
 
 }
 

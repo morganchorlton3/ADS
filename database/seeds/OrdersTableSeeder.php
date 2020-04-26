@@ -17,10 +17,11 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i < 20; $i++){
+        for($i = 1; $i < 40; $i++){
             $totalWeight = 0;
             $randItemCount = rand(5,30);
             $total = 0;
+            $userCounter = 1;
             for($j = $randItemCount; $j > 0; $j--){
                 $total = $total + Product::find($j)->price;
                 OrderProducts::Create([
@@ -30,6 +31,7 @@ class OrdersTableSeeder extends Seeder
                     'pricePaid' => Product::find($j)->price
                 ]);
             }
+            //BookSlot
             SlotBooking::create([
                 'user_id' => $i,
                 'slot_id' => rand(1,15),
@@ -38,6 +40,7 @@ class OrdersTableSeeder extends Seeder
                 'status' => 2,
                 'price' => 2.50
             ]);
+
             Order::create([
                 'userID' =>  $i,
                 'placedDate' => Carbon::now(),
@@ -51,6 +54,7 @@ class OrdersTableSeeder extends Seeder
                 'subtotal' => $total,
                 'status'=> 1
             ]);
+            addToDelivery($i);
         }
     }
 }

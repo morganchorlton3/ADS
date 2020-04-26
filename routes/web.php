@@ -96,6 +96,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     //Route::get('/orders', 'OrderController@index')->name('orders.index');
     //Route::get('/order/{$id}', 'OrderController@view')->name('orders.view');
     Route::resource('orders', 'OrderController', ['except' => ['show', 'create', 'store']]);
+    //Deliveries
+    
 
     //Picking
     Route::get('picking', 'ProductLocationController@index')->name('picking.index');
@@ -131,7 +133,7 @@ Route::get('/orders-test', function(){
 });
 
 Route::get('/cart-t', function(){
-    dd(App\Product::find(1)->price);
+    addToDelivery(1);
 });
 
 Route::get('/email', function(){

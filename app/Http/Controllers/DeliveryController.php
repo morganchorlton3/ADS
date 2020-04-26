@@ -10,6 +10,7 @@ use App\SlotBooking;
 use Carbon\Carbon;
 use App\DeliveryVehicleDeliveries;
 use App\Slot;
+use App\VehicleRun;
 
 class DeliveryController extends Controller
 {
@@ -22,10 +23,10 @@ class DeliveryController extends Controller
     {
         //$deliveries = SlotBooking::where('date', Carbon::now()->addDays(2)->format('y-m-d'))->where('slot_id', 5)->get();
 
-        $deliveries = Delivery::all();
+        $vehicleRuns = VehicleRun::where('deliveryDate', Carbon::now()->format('Y-m-d'))->get();
 
         return view('admin.deliveries.deliveries')->with([
-            'deliveries' => $deliveries
+            'vehicleRuns' => $vehicleRuns
         ]);
     }
 

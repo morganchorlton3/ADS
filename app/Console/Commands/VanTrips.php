@@ -47,7 +47,7 @@ class VanTrips extends Command
     {
         Log::info('Creating Van Trips For the week');
         //Weekday Counter
-        for($dayCounter = 0; $dayCounter < 7; $dayCounter++){ 
+        for($dayCounter = 0; $dayCounter < 1; $dayCounter++){ 
             //Get Delivery Schedule
             $deliverySchedules = DeliverySchedule::all();
             for($i = DeliveryVehicle::count(); $i > 0; $i--){
