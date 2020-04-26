@@ -28,4 +28,4 @@ Route::group(['middleware' => 'auth:api'], function(){
 Route::post('stock-dec', 'API\ProductController@descStock');
 Route::post('getPrice', 'API\ProductController@getPrice');
 
-Route::get('orders', 'API\DeliveryController@index');
+Route::post('orders/', 'API\DeliveryController@index');

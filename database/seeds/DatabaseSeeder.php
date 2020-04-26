@@ -31,8 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductLocationSeeder::class);
         $this->call(AvailablePostcodesTableSeeder::class);
         \Artisan::call('delivery:createVanTrips');
-        //exec('php artisan delivery:createVanTrips');
-       // $this->call(OrderTableSeeder::class);
-       $this->call(OrdersTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
     }
 }

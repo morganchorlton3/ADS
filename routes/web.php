@@ -134,7 +134,7 @@ Route::get('/orders-test', function(){
 });
 
 Route::get('/cart-t', function(){
-    addToDelivery(1);
+   
 });
 
 Route::get('/email', function(){

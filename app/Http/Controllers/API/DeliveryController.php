@@ -20,7 +20,12 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $run = VehicleRun::where('run', 1)->where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('deliveries.order.user')->first();
+        $run = VehicleRun::where('driverID', request('id') )->where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('deliveries.order.user')->first();
+        if($run == null){
+            return response()->json([
+                'message' => 'No Trip Assigned',
+            ]);
+        }
         $counter = 0;
         foreach($run->deliveries as $delivery){
             $order = Order::find($delivery->order);
