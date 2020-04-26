@@ -15,6 +15,9 @@ class ScheduleTableSeeder extends Seeder
         DeliverySchedule::create(['run' => 1, 'start' => '08:00:00','end' => '12:00:00']);
         DeliverySchedule::create(['run' => 2,'start' => '13:00:00','end' => '17:00:00']);
         DeliverySchedule::create(['run' => 3,'start' => '18:00:00','end' => '23:00:00']);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 364136cf80041101472505b69da979fe8945ff48
     }
 }

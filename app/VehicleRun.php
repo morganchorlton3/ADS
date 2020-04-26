@@ -14,9 +14,6 @@ class VehicleRun extends Model
         'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
     ];
 
-    /*public function Deliveries(){
-        return $this->hasMany('App\Deliveries', 'deliverySchedule', 'id');
-    }*/
     public function deliveries()
     {
         return $this->hasMany('App\Delivery', 'deliverySchedule');

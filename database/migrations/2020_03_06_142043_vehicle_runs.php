@@ -20,8 +20,11 @@ class VehicleRuns extends Migration
             $table->date('deliveryDate');
             $table->string('lastPostCode');
             $table->time('runTime');
+<<<<<<< HEAD
+=======
             $table->time('runEnd');
             $table->softDeletes();
+>>>>>>> 364136cf80041101472505b69da979fe8945ff48
             $table->timestamps();
         });
     }
