@@ -19,6 +19,7 @@ class VehicleRuns extends Migration
             $table->integer('deliverySchedule');
             $table->date('deliveryDate');
             $table->string('lastPostCode');
+            $table->integer('driverID')->nullable();
             $table->time('runTime');
             $table->time('runEnd');
             $table->softDeletes();

@@ -19,4 +19,10 @@ class VehicleRun extends Model
         return $this->hasMany('App\Delivery', 'deliverySchedule');
     }
 
+    public function driver()
+    {
+        return $this->hasOne('App\Staff', 'employeeId', 'driverID');
+    }
+
+
 }

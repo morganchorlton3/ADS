@@ -89,6 +89,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::get('delivery/vehicles', 'DeliveryVehicleController@index')->name('vehicle.index');
     Route::post('delivery/vehicles', 'DeliveryVehicleController@create')->name('vehicle.create');
     Route::get('deliveries', 'DeliveryController@index')->name('deliveries.index');
+    Route::post('delivery/assign/driver', 'DeliveryController@updateDriver')->name('delivery.assignDriver');
     //Stores
     Route::get('stores/locations', 'StoreController@index')->name('store.index');
     Route::post('stores/locations', 'StoreController@create')->name('store.create');

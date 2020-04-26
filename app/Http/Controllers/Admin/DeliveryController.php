@@ -10,6 +10,7 @@ use App\VehicleRun;
 use Illuminate\Support\Carbon;
 use PDF;
 use App\Delivery;
+use App\Staff;
 
 class DeliveryController extends Controller
 {
@@ -20,75 +21,18 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $vehicleRuns = VehicleRun::where('deliveryDate', Carbon::now()->format('Y-m-d'))->get();
+        $vehicleRuns = VehicleRun::where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('driver')->get();
+        $drivers = Staff::where('job_id', 1)->get();
         return view('admin.deliveries.view')->with([
-            'vehicleRuns' => $vehicleRuns
+            'vehicleRuns' => $vehicleRuns,
+            'drivers' => $drivers
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function updateDriver(Request $request){
+        //dd($request);
+        $vehicleRun = VehicleRun::find($request->id)->first();
+        $vehicleRun->driverID = $request->driver;
+        $vehicleRun->save();
+        return back()->with('toast_success', 'Driver Assigned');
     }
 }
