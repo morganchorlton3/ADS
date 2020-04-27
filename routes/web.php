@@ -170,3 +170,4 @@ Route::get('/picking', function(){
         dump('Product Location ID = ' . $item->productLocationID);
     }
 });
+

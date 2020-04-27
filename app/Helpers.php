@@ -667,6 +667,9 @@ function addToDelivery($orderID){
         $delivery->deliverySchedule = $run->id;
         $delivery->order = $order->id;
         $delivery->save();
+
+        $order->deliverySchedule = $run->id;
+        $order->save();
     }
 
 }

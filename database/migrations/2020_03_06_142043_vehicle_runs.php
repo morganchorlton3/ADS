@@ -22,6 +22,7 @@ class VehicleRuns extends Migration
             $table->integer('driverID')->nullable();
             $table->time('runTime');
             $table->time('runEnd');
+            $table->integer('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });
