@@ -32,7 +32,8 @@ class DeliveryController extends Controller
             $user = User::with('address')->find($order->user->id);
             $geocode = getLongLat($user->address->post_code)['results'][0]['geometry']['location'];
             $orders[] = [
-                'id' => $counter,
+                'orderCounter' => $counter,
+                'id' => $order->id,
                 'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                 'phoneNumber' => $user->phone_number,
                 'postCode' => $user->address->post_code,
