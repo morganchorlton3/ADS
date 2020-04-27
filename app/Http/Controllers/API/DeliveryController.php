@@ -51,16 +51,9 @@ class DeliveryController extends Controller
 
     public function save(Request $request)
     {
-        $successful = $request->json()->all()['successful'];
-        $unSuccessful = $request->json()->all()['unSuccessful'];
-        foreach($successful as $order){
-           $updateOrder =  Order::find($order['id']);
-           $updateOrder->status = 2;
-           $updateOrder->save();
-        }
-        foreach($unSuccessful as $order){
+        foreach($request->json()->all() as $order){
             $updateOrder =  Order::find($order['id']);
-            $updateOrder->status = 3;
+            $updateOrder->status = 2;
             $updateOrder->save();
          }
         return response('Trip Saved', 200)
