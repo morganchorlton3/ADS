@@ -29,3 +29,5 @@ Route::post('stock-dec', 'API\ProductController@descStock');
 Route::post('getPrice', 'API\ProductController@getPrice');
 
 Route::any('orders/', 'API\DeliveryController@index');
+
+Route::any('run/save', 'API\DeliveryController@save');
