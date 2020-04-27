@@ -34,6 +34,7 @@ class DeliveryController extends Controller
             $orders[] = [
                 'id' => $counter,
                 'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
+                'phoneNumber' => $user->phone_number,
                 'postCode' => $user->address->post_code,
                 'long' => $geocode['lng'],
                 'lat' => $geocode['lat'],
