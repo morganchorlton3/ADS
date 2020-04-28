@@ -102,7 +102,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     
 
     //Picking
-    Route::get('picking', 'ProductLocationController@index')->name('picking.index');
+    Route::get('picking', 'Picking\\ProductController@index')->name('picking.index');
 
 });
 

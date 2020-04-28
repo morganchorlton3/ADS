@@ -121,7 +121,7 @@
           <a class="collapse-item" href="utilities-border.html">Manage Staff</a>
         </div>
       </div>
-    </li>
+    </li>--}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -151,7 +151,6 @@
         </div>
       </div>
     </li>
-    --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
