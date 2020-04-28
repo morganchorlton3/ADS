@@ -16,6 +16,7 @@ use App\DeliverySchedule;
 use App\DeliveryVehicle;
 use App\Deliveries;
 use App\Mail\OrderCompleteMail;
+use App\Mail\OrderDelivered;
 use App\ProductPicking;
 use App\Run;
 use App\pickingOrder;
@@ -138,10 +139,8 @@ Route::get('/cart-t', function(){
 });
 
 Route::get('/email', function(){
-    $order = App\Order::with('orderProducts.product','user.address', 'SlotBooking.slot')->find(1);
-    
-    //return new OrderCompleteMail($order);
-    Mail::to("morganchorlton3@gmail.com")->send(new OrderCompleteMail($order));
+    $user = Auth::user();
+    return (new OrderDelivered($user))->render();
 });
 
 

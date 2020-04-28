@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Slot;
 use App\VehicleRun;
 use App\DeliverySchedule;
+use App\Mail\OrderDelivered;
 use Carbon\Carbon;
 use App\User;
 use App\Order;
@@ -34,6 +35,7 @@ class DeliveryController extends Controller
             $orders[] = [
                 'orderCounter' => $counter,
                 'id' => $order->id,
+                'userID' => $user->id,
                 'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                 'phoneNumber' => $user->phone_number,
                 'postCode' => $user->address->post_code,
@@ -52,14 +54,17 @@ class DeliveryController extends Controller
 
     public function save(Request $request)
     {
+        $user = null;
         foreach($request->json()->all() as $order){
             $updateOrder =  Order::find($order['id']);
             $updateOrder->status = 2;
             $updateOrder->save();
+            $user = $order->id; 
         }
         $run = VehicleRun::where('deliverySchedule', $request->id)->first();
         $run->status = 2;
         $run->save();
+        Mail::to($user->email)->send(new OrderDelivered($user));
         return response('Trip Saved', 200)
         ->header('Content-Type', 'text/plain');
     }
