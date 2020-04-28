@@ -62,11 +62,11 @@ class DeliveryController extends Controller
             $updateOrder->status = 2;
             $updateOrder->save();
             $user = User::find($order['userID']); 
+            Mail::to($user->email)->send(new OrderDelivered($user));
         }
         $run = VehicleRun::where('deliverySchedule', $request->id)->first();
         $run->status = 2;
         $run->save();
-        Mail::to($user->email)->send(new OrderDelivered($user));
         return response('Trip Saved', 200)
         ->header('Content-Type', 'text/plain');
     }
