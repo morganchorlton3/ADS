@@ -60,7 +60,7 @@ class DeliveryController extends Controller
             $updateOrder =  Order::find($order['id']);
             $updateOrder->status = 2;
             $updateOrder->save();
-            $user = $order->id; 
+            $user = User::find($order['id']); 
         }
         $run = VehicleRun::where('deliverySchedule', $request->id)->first();
         $run->status = 2;
