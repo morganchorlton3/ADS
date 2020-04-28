@@ -58,7 +58,7 @@ class DeliveryController extends Controller
     {
         $user = null;
         foreach($request->json()->all() as $order){
-            $updateOrder =  Order::find($order['orderid']);
+            $updateOrder =  Order::find($order['orderID']);
             $updateOrder->status = 2;
             $updateOrder->save();
             $user = User::find($order['id']); 
