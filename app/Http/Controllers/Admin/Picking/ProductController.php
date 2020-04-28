@@ -31,7 +31,8 @@ class ProductController extends Controller
                 }
             }
         }
-        dd($pickingList->take(10));
+        $pickingList->save();
+        dd("ferfe");
         return view('admin.picking.index');
     }
 

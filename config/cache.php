@@ -76,6 +76,12 @@ return [
             'connection' => 'cache',
         ],
 
+
+        'model' => [
+            'driver' => 'redis',
+            'connection' => 'model-cache',
+        ],
+
         'dynamodb' => [
             'driver' => 'dynamodb',
             'key' => env('AWS_ACCESS_KEY_ID'),

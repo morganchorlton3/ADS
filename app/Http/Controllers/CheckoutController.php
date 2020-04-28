@@ -53,7 +53,7 @@ class CheckoutController extends Controller
         $order = new Order();
         $order->userId = Auth::id();
         $order->placedDate = Carbon::now();
-        $order->placedDate = $slot->date;
+        $order->DeliveryDate = $slot->date;
         $order->slotBookingId = $slot->id;
         $order->totalWeight = 22.2;
         $order->itemCount = Cart::count();
