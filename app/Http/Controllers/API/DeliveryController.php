@@ -11,6 +11,7 @@ use App\Mail\OrderDelivered;
 use Carbon\Carbon;
 use App\User;
 use App\Order;
+use Mail;
 
 class DeliveryController extends Controller
 {
@@ -57,7 +58,7 @@ class DeliveryController extends Controller
     {
         $user = null;
         foreach($request->json()->all() as $order){
-            $updateOrder =  Order::find($order['id']);
+            $updateOrder =  Order::find($order['orderid']);
             $updateOrder->status = 2;
             $updateOrder->save();
             $user = User::find($order['id']); 
