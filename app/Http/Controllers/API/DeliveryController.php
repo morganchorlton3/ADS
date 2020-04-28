@@ -37,7 +37,7 @@ class DeliveryController extends Controller
                 'orderCounter' => $counter,
                 'orderid' => $order->id,
                 'runID' => $run->id,
-                'userID' => $user->id,
+                'userID' => $order->user->id,
                 'name' => $user->title . ' ' . $user->first_name . ' ' . $user->last_name,
                 'phoneNumber' => $user->phone_number,
                 'postCode' => $user->address->post_code,
