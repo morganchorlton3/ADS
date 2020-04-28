@@ -29,8 +29,12 @@ class DeliveryController extends Controller
         ]);
     }
     public function updateDriver(Request $request){
-        //dd($request);
-        $vehicleRun = VehicleRun::find($request->id)->first();
+        //Check if driver is already assigned
+        $vehicleRun = VehicleRun::where('driverID', $request->driver)->where('deliveryDate',Carbon::now()->format('Y-m-d'))->get();
+        if($vehicleRun->count() > 0 ){
+            return back()->with('toast_error', 'That driver is already assigned to another run');
+        }
+        $vehicleRun = VehicleRun::find($request->id);
         $vehicleRun->driverID = $request->driver;
         $vehicleRun->save();
         return back()->with('toast_success', 'Driver Assigned');

@@ -14,7 +14,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Shifts</h6>
             </div>
             <div class="card-body">
-                <h3 class="text-center">Shifts</h3>
+                <h3 class="text-center">Todays Runs</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -37,6 +37,13 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+<div class="row col-lg-12">
+    <div class="col-lg-3">
+        <div class="card">
+            <h1>Run 1</h1>
         </div>
     </div>
 </div>

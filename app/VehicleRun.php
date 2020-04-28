@@ -11,7 +11,7 @@ class VehicleRun extends Model
 
 
     protected $fillable = [
-        'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID'
+        'run', 'deliveryDate', 'deliveryCount', 'lastPostCode', 'currentRunTime', 'slotID', 'driverID'
     ];
 
     public function deliveries()
@@ -21,7 +21,7 @@ class VehicleRun extends Model
 
     public function driver()
     {
-        return $this->hasOne('App\Staff', 'employeeId', 'driverID');
+        return $this->hasOne('App\Staff', 'id', 'driverID');
     }
 
 

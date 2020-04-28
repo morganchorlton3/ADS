@@ -11,7 +11,7 @@
     <div class="col-lg-4">
         <div class="card h-100">
             <div class="card-header">
-                Customer Details
+                Todays Orders
             </div>
             <div class="card-body">
                 <div class="row">

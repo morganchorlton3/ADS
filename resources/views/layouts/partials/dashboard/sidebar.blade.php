@@ -164,14 +164,14 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.deliveries.view')}}">
         <i class="fas fa-eye"></i>
-        <span>View</span></a>
+        <span>Runs</span></a>
     </li>
 
-    <li class="nav-item">
+    {{--<li class="nav-item">
       <a class="nav-link" href="{{ route('admin.delivery.index')}}">
         <i class="fas fa-user-tie"></i>
         <span>Drivers</span></a>
-    </li>
+    </li>--}}
 
     <li class="nav-item">
       <a class="nav-link" href="{{ route('admin.delivery.index')}}">
