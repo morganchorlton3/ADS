@@ -31,3 +31,5 @@ Route::post('getPrice', 'API\ProductController@getPrice');
 Route::any('orders/', 'API\DeliveryController@index');
 
 Route::any('run/save', 'API\DeliveryController@save');
+
+Route::any('picking/get', 'API\PickingController@getPicking');

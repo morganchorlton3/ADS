@@ -2,12 +2,14 @@
 
 namespace App;
 
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use App\Product;
 
 class ProductPicking extends Model
-{
-    use Cachable;
-    
-    protected $cachePrefix = "picking";
+{    
+    protected $table = "product_picking";
+
+    public function products(){
+        return $this->belongsTo(Product::class, 'productID');
+    }
 }

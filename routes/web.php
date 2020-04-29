@@ -20,7 +20,7 @@ use App\Mail\OrderDelivered;
 use App\ProductPicking;
 use App\Run;
 use App\pickingOrder;
-
+use App\PickingRun;
 
 //cart
 Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('cart.add');
@@ -135,7 +135,7 @@ Route::get('/orders-test', function(){
 });
 
 Route::get('/cart-t', function(){
-   
+   Cache::forget('picking.today');
 });
 
 Route::get('/email', function(){
@@ -145,28 +145,7 @@ Route::get('/email', function(){
 
 
 Route::get('/picking', function(){
-    $orders = App\Order::where('deliveryDate', Carbon::now()->format('Y-m-d'))->with('orderProducts.product.Productlocation')->get();
-    $pickingList = collect(new ProductPicking());
-    //dd($orders);
-    $allOrders = collect(new PickingOrder);
-    foreach($orders as $order){
-        $orderID = $order->id;
-        $pickingList = collect(new ProductPicking());
-        foreach($order->orderProducts as $orderProducts){
-            $product = $orderProducts->product;
-            $item = new ProductPicking();
-            $item->productID = $product->id;
-            $item->orderID = $orderID;
-            $item->productLocationID  = $orderProducts->product->ProductLocation->id;
-            $pickingList->add($item);
-            
-        }
-        $allOrders->add($pickingList);
-    }
-    dd($allOrders);
-    $sorted = $pickingList->sortBy('productLocationID');
-    foreach($sorted->take(50) as $item){
-        dump('Product Location ID = ' . $item->productLocationID);
-    }
+    $run = PickingRun::where('picker', null)->with('productPicking.products')->first();
+    return response()->json($run->productPicking);
 });
 

@@ -15,8 +15,8 @@
             </div>
             <div class="card-body">
                 <h3 class="text-center">Picking</h3>
-               
-            </div>
+                <p>Items left to pick: {{$pickingCount }}</p>
+            </div>  
         </div>
     </div>
 </div>
