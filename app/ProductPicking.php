@@ -13,3 +13,4 @@ class ProductPicking extends Model
         return $this->belongsTo(Product::class, 'productID');
     }
 }
+ 

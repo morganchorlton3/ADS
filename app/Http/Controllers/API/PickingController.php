@@ -11,7 +11,7 @@ use Cache;
 class PickingController extends Controller
 {
     public function getPicking(){
-        $run = PickingRun::where('picker', null)->with('productPicking.products.Productlocation')->first();
+        $run = PickingRun::where('picker', null)->with('productPicking.products.productLocation')->first();
         $run->picker = request('id');
         $run->save();
         return response()->json($run->productPicking);
