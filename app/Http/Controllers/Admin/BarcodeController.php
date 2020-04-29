@@ -11,7 +11,6 @@ class BarcodeController extends Controller
 {
     public function downloadPDF(){
         $products = Product::all();
-        //$product = Product::find(1);
         $pdf = PDF::loadView('admin.export.barcodes', compact('products'));
         return $pdf->download('Product-Barcodes.pdf');
     }
