@@ -30,7 +30,7 @@ class ProductController extends Controller
                 foreach($todaysOrder->orderProducts as $orderedProduct){
                     $counter++;
                     $productPicking = new ProductPicking();
-                    $productPicking->productID = $orderedProduct->id;
+                    $productPicking->productID = $orderedProduct->product->id;
                     $productPicking->orderID = $orderID;
                     $productPicking->quantity = $orderedProduct->quantity;
                     $productPicking->save();
