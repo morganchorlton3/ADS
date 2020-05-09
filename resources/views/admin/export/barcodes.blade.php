@@ -17,7 +17,7 @@
             <th>Price</th>
         </tr>
         @foreach($products as $product)
-        <tr>
+        <tr style="height: 150px;">
             <td>
                 <img src="data:image/png;base64,' . {{ DNS1D::getBarcodePNG($product->barcode, "EAN13") }} . '" alt="barcode"/>
             </td>
