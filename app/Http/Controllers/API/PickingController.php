@@ -14,6 +14,7 @@ class PickingController extends Controller
         $run = PickingRun::where('picker', null)->with('productPicking.products.productLocation')->first();
         $run->picker = request('id');
         $run->save();
-        return response()->json($run->productPicking);
+        $pickingRun =$run->productPicking->sortByDesc('products.product_location.aisle');
+        return response()->json($pickingRun);
     }
 }

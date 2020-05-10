@@ -145,7 +145,10 @@ Route::get('/email', function(){
 
 
 Route::get('/picking', function(){
-    $letters = array_merge(range('a','z'));
-    dd($letters);
+    $run = PickingRun::where('picker', null)->with('productPicking.products.productLocation')->first();
+    $run->picker = request('id');
+    $run->save();
+    $pickingRun =$run->productPicking->sortBy('aisle');
+    dd(response()->json($pickingRun));
 });
 
