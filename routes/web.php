@@ -145,7 +145,7 @@ Route::get('/email', function(){
 
 
 Route::get('/picking', function(){
-    $run = PickingRun::where('picker', null)->with('productPicking.products.productLocation')->first();
-    dd($run->productPicking->first());
+    $letters = array_merge(range('a','z'));
+    dd($letters);
 });
 

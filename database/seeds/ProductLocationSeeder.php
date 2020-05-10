@@ -13,14 +13,15 @@ class ProductLocationSeeder extends Seeder
      */
     public function run()
     {
+        $letters = array_merge(range('a','j'));
         $productCount = Product::count();
         for($i = $productCount; $i > 0; $i--) {
             ProductLocation::create([
                 'productID' => $i,
-                'aisle' => 1,
-                'mod' => 2,
-                'shelf' => 3,
-                'slot' => 'a',
+                'aisle' => rand(1,20),
+                'mod' => rand(1,8),
+                'shelf' => rand(1,6),
+                'slot' => $letters[rand(0,9)],
                 'stock' => 200,
             ]);
         }

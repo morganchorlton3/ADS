@@ -12,9 +12,6 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        function getBarcode(){
-            return rand ( 1111111111111 , 9999999999999 );
-        }
 
         \DB::table('products')->delete();
         
