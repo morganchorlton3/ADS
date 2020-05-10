@@ -148,7 +148,6 @@ Route::get('/picking', function(){
     $run = PickingRun::where('picker', null)->with('productPicking.products.productLocation')->first();
     $run->picker = request('id');
     $run->save();
-    $pickingRun =$run->productPicking->sortBy('aisle');
-    dd(response()->json($pickingRun));
+    dd($run->productPicking->toJson());
 });
 
