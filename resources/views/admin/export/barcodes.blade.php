@@ -12,19 +12,19 @@
   <body>
     <table class="table table-bordered" style="width:100%">
         <tr>
-            <th>Barcode</th>
-            <th>Name</th>
-            <th>Price</th>
+            <th style="text-align: center">Barcode</th>
+            <th style="text-align: center">Name</th>
+            <th style="text-align: center">Price</th>
         </tr>
         @foreach($products as $product)
-        <tr style="height: 150px;">
-            <td>
+        <tr>
+            <td height="50">
                 <img src="data:image/png;base64,' . {{ DNS1D::getBarcodePNG($product->barcode, "EAN13") }} . '" alt="barcode"/>
             </td>
-            <td>
+            <td height="50"> 
                 {{$product->name}}
             </td>
-            <td>
+            <td height="50">
                 {{ FormatPrice($product->price)}}
             </td>
         </tr>

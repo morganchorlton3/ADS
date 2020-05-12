@@ -49,7 +49,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => 2.0,
                 'shortDesc' => 'Blueberries.',
                 'detailedDesc' => 'Blueberries.',
-                'barcode' => '0568415635533',
+                'barcode' => '5000354914409',
                 'category_id' => 11,
                 'type' => 2,
                 'created_at' => '2020-02-13 15:53:37',
